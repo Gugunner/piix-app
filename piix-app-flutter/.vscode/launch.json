@@ -1,0 +1,55 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Flutter Piix Test",
+        "request": "launch",
+        "type": "dart",
+        "args": [
+          "--dart-entrypoint-args",
+          "--FIRDebugEnabled",
+          "--flavor",
+          "dev",
+          "-t",
+          "lib/main_test.dart"
+        ]
+      },
+      {
+        "name": "Flutter Piix Dev",
+        "request": "launch",
+        "type": "dart",
+        "args": [
+          "--dart-entrypoint-args",
+          "--FIRDebugEnabled",
+          "--flavor",
+          "dev",
+          "-t",
+          "lib/main_dev.dart"
+        ]
+      },
+      {
+        "name": "Flutter Piix Dev 2",
+        "request": "launch",
+        "type": "dart",
+        "args": [
+          "--dart-entrypoint-args",
+          "--FIRDebugEnabled",
+          "--flavor",
+          "dev",
+          "-t",
+          "lib/main_dev_2.dart",
+        ]
+      },
+      {
+        "name": "Flutter Piix Prod",
+        "request": "launch",
+        "type": "dart",
+        "args": [
+          "--flavor",
+          "prod",
+          "-t",
+          "lib/main.dart"
+        ]
+      }
+    ]
+  }

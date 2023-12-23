@@ -1,0 +1,1230 @@
+{
+  "@@locale": "en",
+  "@@countryCode": "US",
+  "@@last_modified": "2023-07-12T12:57:35.821337",
+  "@_GENERAL_TERMS": {},
+  "termsAndConditions": "Terms and Conditions",
+  "@termsAndConditions": {
+    "description": "The specific keyword that points to the the app terms and conditions.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "verificationCode": "Verification code",
+    "@verificationCode":{
+      "description": "The general term for the code needed to authenticate and authorize a user in the app.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "requiredField": "Required field",
+    "@requiredField":{
+      "description": "Marks inside a form a required field.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "continued": "Continue",
+    "@continued":{
+      "description": "The action used in buttons that are part of a step flow.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "retry": "Retry",
+    "@retry":{
+      "description": "The action used when a specific event needs to execute again because it failed.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "edit": "Edit",
+    "@edit":{
+      "description": "The action used when the information entered or provided needs to be updated or changed.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "confirm": "Confirm",
+    "@confirm":{
+      "description": "The action used when the information entered or provided is correct.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "understood": "Understood",
+  "@understood":{
+    "description": "The action used the explanation is understood by the user.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "viewSettings": "View permissions",
+  "@viewSettings": {
+    "description": "An action that follows when an app permission is denied.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "loadingUserInformation": "Loading user information...",
+  "@loadingUserInformation": {
+    "description": "A loading message while the user information finishes loading",
+    "type": "String",
+    "placeholders": {}
+  },
+  "loadingMembershipInformation": "Loading user membership...",
+  "@loadingMembershipInformation": {
+    "description": "A loading message while the user membership finishes loading",
+    "type": "String",
+    "placeholders": {}
+  },
+  "personalInformation": "Personal information",
+  "@personalInformation": {
+    "description": "The keyword used to describe all the user personal information",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_USER_KEY_PROPERTIES": {},
+  "name": "Name",
+  "@name": {
+    "description": "The user \"name\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "middleName": "Middle name",
+  "@middleNameame": {
+    "description": "The user \"middleName\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "firstLastName": "First last name",
+  "@firstLastName": {
+    "description": "The user \"firstLastName\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "secondLastName": "Second last name",
+  "@secondLastName": {
+    "description": "The user \"secondLastName\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "email": "Email",
+  "@email": {
+    "description": "The user \"email\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "countryCode": "Country code",
+  "@countryCode": {
+    "description": "The user \"internationalPhoneCode\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "phoneNumber": "Phone number",
+  "@phoneNumber": {
+    "description": "The user \"phoneNumber\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "dateOfBirth": "Date of birth",
+  "@dateOfBirth": {
+    "description": "The user \"birthdate\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "gender": "Gender",
+  "@gender": {
+    "description": "The user \"genderName\" key",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_GENERAL_ERRORS": {},
+  "preventBackWhileRequesting": "Cannot go back while the app is requesting.",
+  "@preventBackWhileRequesting": {
+    "description": "A specific error that occurs when the user wants to go back to a screen that may be affected by the current request.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "invalidName": "Must start with capital letter and have one space between them.",
+  "@invalidName": {
+    "description": "A specific error that occurs the entered name, middle name, first last name or second last name has an invalid format.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "loadContentError": "We are sorry the content could not be loaded.",
+  "@loadContentError": {
+    "description": "An error that can be shown when any content cannot not be loaded.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "submitFormError": "We are sorry the form could not be submitted. Please try again.",
+  "@submitFormError": {
+    "description": "An error that can be shown when a form cannot by submitted.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "uploadCapturedImagesError": "We are sorry, the captured images could not be uploaded. Please try again.",
+  "@uploadCapturedImagesError": {
+    "description": "A general error when the images fail to upload.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "confirmInformationError": "We are sorry, the information could not be confirmed. Please try again.",
+  "@confirmInformationError": {
+    "description": "A general error when the information cannot be confirmed.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_EXIT_PROMPT_MODAL": {},
+  "doYouWantToExit": "Do you want to exit?",
+  "@doYouWantToExit": {
+    "description": "A convenient question that lets the user know she is about to exit the app.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "byPressingAcceptYouExit": "By pressing \"Accept\" you will exit the application.",
+  "@byPressingAcceptYouExit": {
+    "description": "An explanation that explains that if the user must press the accept button to exit the app.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_EXIT_PROGRESS_PROMPT_DIALOG": {},
+  "doYouWantToGoBack": "Do you want to go back?",
+  "@doYouWantToExit": {
+    "description": "A convenient question that lets the user know she is about to go back to the previous screen.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "byPressingAcceptYouLooseProgress": "By pressing \"Accept\" you will loose the progress made on this screen.",
+  "@byPressingAcceptYouLooseProgress": {
+    "description": "An explanation that explains that if the user press accept any progress will be lost.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_WELCOME_SCREEN": {},
+  "careForEveryoneYouLove": "Take care of everyone you love.",
+  "@careForEveryoneYouLove": {
+    "description": "A simple slogan that reflects what Piix is about.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_SIGN_IN_PHONE_SCREEN": {},
+  "signIn": "Sign in",
+  "@signIn": {
+    "description": "The general term to log in.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "signInInstructions": "Enter the phone number used when you created your account. A verification code will be send via SMS.",
+  "@signIn": {
+    "description": "The instructions explaining how to sign in with the phone number.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_CREATE_ACCOUNT_SCREEN": {},
+  "createAccount": "Create account",
+  "@createAccount": {
+    "description": "The general term to sign up.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "signUpInstructions": "Enter a phone number. A verification code will be send via SMS.",
+  "@signUpInstructions": {
+    "description": "The instructions explaining how to sign up with the phone number.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_USER_PHONE_AUTHENTICATION": {},
+  "acceptByPhoneNumber": "By entering your phone number you accept the ",
+  "@acceptByPhoneNumber": {
+    "description": "Explains the user that she accepts something.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "sendCode": "Send code",
+  "@sendCode": {
+    "description": "The action to send a specific value.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "sendCodeError": "The verification code coul not be sent. Please try again.",
+  "@sendCodeError": {
+    "description": "The action to send a specific value.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "phoneNumber": "Phone number",
+  "@phoneNumber": {
+    "description": "The general term for a telephone number.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "country": "Country",
+  "@country": {
+    "description": "The general term for the international phone code.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "invalidPhone": "The phone number is not valid.",
+  "@invalidPhone": {
+    "description": "An error that is shown when the phone number is longer or shorter or has an invalid format.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "registeredPhone": "The phone number is already registered.",
+  "@registeredPhone": {
+    "description": "An error that is shown when the phone number entered is already used by another account.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "unregisteredPhone": "The phone number was not found.",
+  "@unregisteredPhone": {
+    "description": "An error that is shown when the phone number entered to sign in has not been registered.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "register": "Create Account",
+  "@register": {
+    "description": "An action that when selected start the create account process for the user.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_SEND_CODE_VERIFICATION_FORM": {},
+  "acceptByPhoneNumber": "By providing your phone number you accept our ",
+    "@acceptByPhoneNumber": {
+      "description": "The general term to log in.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "@_VERIFY_VERIFICATION_CODE_SCREEN": {},
+  "codeWasSuccessfullySentAgain": "The verification code was succesfuly sent again.",
+    "@codeWasSuccessfullySentAgain":{
+      "description": "A message that explains to the user that her request of a new verification code was sent.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "whatsAppCodeWasSuccessfullySent": "The verification code was succesfuly sent to WhatsApp.",
+    "@whatsAppCodeWasSuccessfullySent":{
+      "description": "A message that explains to the user that her request of a new verification code was sent to her WhatsApp.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "unknownVerificationCodeError": "We are sorry the verification code could not be verified. Please try again.",
+    "@unknownVerificationCodeError":{
+      "description": "A general error that explains the user that the verification code could not be verified due to an unknow app error.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "verifyYourPhone": "Verify your phone number",
+    "@verifyYourPhone":{
+      "description": "Instructs the user that she needs to input the verification code.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "verifyYourNewPhone": "Verify your new phone number",
+    "@verifyYourPhone":{
+      "description": "Instructs the user that she needs to input the verification code when updating the phone.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "enterTheSentCode": "Enter the code sent to",
+    "@enterTheSentCode":{
+      "description": "Explains to the user to what phone number the verification code was sent to.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "wrongVerificationCode": "The verification code is not correct.",
+    "@wrongVerificationCode":{
+      "description": "The error that explains the user the she entered the wrong verification code.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "necessaryToFillField": "It is necessary to fill this field",
+    "@necessaryToFillField":{
+      "description": "An instruction that explains that a field must be filled.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "didYouNotReceiveTheCode": "Did you not receive the code?",
+    "@didYouNotReceiveTheCode":{
+      "description": "A question to make the user see other options to get the code.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "inXTimeYouCan": "In {xTime} minutes, you can",
+  "@inXTimeYouCan": {
+    "description": "Explains to the user how many minutes must pass before he can do an action",
+    "placeholders": {
+      "xTime": {
+        "type": "String",
+        "format": "01:68"
+      }
+    }
+  },
+  "requestAnotherCode": "Request another code",
+    "@requestAnotherCode":{
+      "description": "An action that allows the user to request a new invitation code",
+      "type": "String",
+      "placeholders": {}
+    },
+  "sendByWhatsApp": "Send by WhatsApp",
+    "@sendByWhatsApp":{
+      "description": "An action that allows the user to request a new invitation code via WhatsApp",
+      "type": "String",
+      "placeholders": {}
+    },
+  "verifyNumber": "Verify number",
+    "@verifyNumber":{
+      "description": "The action the user can do to verify the phone number with the entered verification code.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "@_PERSONAL_INFORMATION_FORM_SCREEN": {},
+  "basicInformation": "Basic information",
+    "@basicInformation":{
+      "description": "The title of the personal information form screen.",
+      "type": "String",
+      "placeholders": {}
+    },
+  "enterTheInformationRequired": "Enter the information required to continue your account creation.",
+    "@enterTheInformationRequired":{
+      "description": "The explanation of what is needed from the user to create an account..",
+      "type": "String",
+      "placeholders": {}
+    },
+  "@_CAMERA_ERRORS": {},
+  "cannotCreateFile": "The device could not create a readable file for the picture taken.",
+  "@cannotCreateFile": {
+    "description": "An error that occurs when the picture taken cannot be converted to a specific File format",
+    "type": "String",
+    "placeholders": {}
+  },
+  "captureTimeOut": "The camera is taking longer than usual to take the picture, the action has been canceled.",
+  "@captureTimeOut": {
+    "description": "An error that occurs when the picture taken takes considerably so long the connection breaks",
+    "type": "String",
+    "placeholders": {}
+  },
+  "captureFailure": "The picture could not be taken.",
+  "@captureFailure": {
+    "description": "An error that occurs when the camera cannot take the picture.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "unknownCameraError": "We are sorry, there was an unknown error with the camera.",
+  "@unknownCameraError": {
+    "description": "An error that happens when the camera cannot handle an operation and the reason cannot be known.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "cameraAccessDenied": "To use the camera, please provide access to the camera and microphone.",
+  "@cameraAccessDenied": {
+    "description": "An error that happens when the user does not grant permission to the camera.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "zoomError": "The camera cannot zoom or the zoom level selected is not allowed.",
+  "@zoomError": {
+    "description": "An error that happens when the camera zoom level cannot be selected.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_DOCUMENTATION_FORM_SCREEN": {},
+  "uploadPhotographs": "Upload photographs",
+  "@uploadPhotographs": {
+    "description": "The title of the documentation form.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "makeSureToUploadRequestedImages": "Make sure to upload all requested photographs.",
+  "@makeSureToUploadRequestedImages": {
+    "description": "A warning to use so the user knows not to miss any photograph upload.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "takeAPictureOfYourOfficialIdentification": "Take a picture of your official identification with photograph.",
+  "@takeAPictureOfYourOfficialIdentification": {
+    "description": "Explains the user that she needs to take a picture of an identification valid by her goverment that has a picture of herself.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "takeAPictureOfYourselfWithOfficialIdentification": "Take a selfie of you holding an official identification with photograph.",
+  "@takeAPictureOfYourselfWithOfficialIdentification": {
+    "description": "Explains the user that she needs to take a picture of an identification valid by her goverment that has a picture of herself.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "takeAPhoto": "Take photo",
+  "@takeAPhoto": {
+    "description": "The action call to take a new photograph.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "replacePhoto": "Replace photo",
+  "@replacePhoto": {
+    "description": "The action call to replace a photograph taken.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_DOCUMENTATION_CAMERA_SCREEN": {},
+  "placeYourIdentification": "Take a picture of your identification.",
+  "@placeYourIdentification": {
+    "description": "An explanation to show the user how to take an identification picture.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "placeYourFaceAndId": "Take a picture of your face and hold your identification.",
+  "@placeYourFaceAndId": {
+    "description": "An explanation to show the user how to take an identification picture.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_DELETE_IMAGE_MODAL": {},
+  "areYouSureToDelete": "Do you want to delete the image?",
+  "@areYouSureToDelete": {
+    "description": "A convenient question that lets the user know she is about to delete an image.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "byPressingAcceptYouDeletePicture": "By pressing \"Accept\" the image will be deleted and cannot be recovered.",
+  "@byPressingAcceptYouDeletePicture": {
+    "description": "An explanation that explains that if the user press accept the image will be lost.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_MEMBERSHIP_CONFIRMATION_SCREEN": {},
+  "confirmTheEnteredInformation": "Confirm the entered information to finish creating an account.",
+  "@confirmTheEnteredInformation": {
+    "description": "An explanation so the user knows that she needs to confirm the information entered.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "officialIdentificationImage": "Official identification image with your photograph.",
+  "@officialIdentificationImage": {
+    "description": "An explanation that the subsequent element has the official identification of the user with her photo.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "selfieBesideYourOfficialIdentification": "Selfie beside your official identification with photograph.",
+  "@selfieBesideYourOfficialIdentification": {
+    "description": "An explanation that the subsequent element is a self portrait of the user with holding her official identification.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "acceptByConfirmingInformation": "By confirming the information you accept the ",
+  "@acceptByConfirmingInformation": {
+    "description": "Explains the user that she accepts something.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "ofTheMembershipCreatedForYou": " of the membership created for you in Piix.",
+  "@ofTheMembershipCreatedForYou": {
+    "description": "Explains that it belongs to the membership created for the user.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_SUCCESSFUL_MEMBERSHIP_VERIFICATION_SUBMISSION_SCREEN": {},
+  "weReceivedYourInformation": "Thanks, we have received your information.",
+  "@weReceivedYourInformation": {
+    "description": "Explains to the user that the information submitted has been received",
+    "type": "String",
+    "placeholders": {}
+  },
+  "yourInformationIsBeingRevised": "Your personal information is now being revised by the Piix Team.",
+  "@yourInformationIsBeingRevised": {
+    "description": "Explains the user that her information is in a revision process.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "doYouHaveAnInvitationCode": "Do you have an invitation code?",
+  "@doYouHaveAnInvitationCode": {
+    "description": "Asks the user if she has an invitation code.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "enterCode": "Enter code",
+  "@enterCode": {
+    "description": "An action to enter a code.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_WAITING_MEMBERSHIP_REVIEWING_SCREEN": {},
+  "weAreReviewingYourInformation": "We are reviewing your information",
+  "@weAreReviewingYourInformation": {
+    "description": "The general name of the membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "piixTeamIsReviewingYourInformation": "Currently the PIIX team is reviewing your information. We''ll send you an email druing the following days to confirm the creation of your membership.",
+  "@piixTeamIsReviewingYourInformation": {
+    "description": "The general name of the membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  
+  "@_MEMBERSHIP_HOME_SCREEN": {},
+  "membership": "Membership",
+  "@membership": {
+    "description": "The general name of the membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "piixMembership": "Piix membership",
+  "@piixMembership": {
+    "description": "The app name of the membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "memberSince": "Member since",
+  "@memberSince": {
+    "description": "The general explanation to the register date of an app membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "blankMembership": "We could not find any membership information.",
+  "@blankMembership": {
+    "description": "The explanation when the user has no membership to load.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "requestId": "Request ID",
+  "@requestId": {
+    "description": "The description of the id the user needs to make any service request",
+    "type": "String",
+    "placeholders": {}
+  },
+  "myGroup": "My Group",
+  "@myGroup": {
+    "description": "The general name of the my group",
+    "type": "String",
+    "placeholders": {}
+  },
+  "totalUsers": "{count, plural, =0{no users} =1{1 user} other{{count} users}}",
+  "@totalUsers": {
+    "description": "A count option to show how many users a group has",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "store": "Store",
+  "@store": {
+    "description": "The general name of the store",
+    "type": "String",
+    "placeholders": {}
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "The general name of the profile",
+    "type": "String",
+    "placeholders": {}
+  },
+  "loading": "Loading",
+  "@profile": {
+    "description": "The text used when loading",
+    "type": "String",
+    "placeholders": {}
+  },
+  "mainHolder": "Main holder",
+  "@mainHolder": {
+    "description": "The prefix to identify if a user is the main membership holder or an additional user of the membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "active": "Active",
+  "@active": {
+    "description": "Shows that an element of the app is active",
+    "type": "String",
+    "placeholders": {}
+  },
+  "inactive": "Inactive",
+  "@inactive": {
+    "description": "Shows that an element of the app is inactive",
+    "type": "String",
+    "placeholders": {}
+  },
+  "myMembership": "My membership",
+  "@myMembership": {
+    "description": "Denotes the ownership of the user for the membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "manageMyGroup": "Manage my group",
+  "@manageMyGroup": {
+    "description": "The action message to start managing the user's group",
+    "type": "String",
+    "placeholders": {}
+  },
+  "improveMembership": "Improve my membership",
+  "@improveMembership": {
+    "description": "Invite the user to upgrade it's membership by buying more products",
+    "type": "String",
+    "placeholders": {}
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "The general text for the app notifications",
+    "type": "String",
+    "placeholders": {}
+  },
+  "myPurchases": "My purchases",
+  "@myPurchases": {
+    "description": "Invites the user to see the purchases she has",
+    "type": "String",
+    "placeholders": {}
+  },
+  "myRequests": "My requests",
+  "@myRequests": {
+    "description": "Invites the user to see the product requests she has made",
+    "type": "String",
+    "placeholders": {}
+  },
+  "contact": "Contact us",
+  "@contact": {
+    "description": "The general text to show the user can ask for support",
+    "type": "String",
+    "placeholders": {}
+  },
+  "signOut": "Sign out",
+  "@signOut": {
+    "description": "The text to show a user the action to sign out of the account",
+    "type": "String",
+    "placeholders": {}
+  },
+  "copyRight": "Piix© {year}",
+  "@copyRight": {
+    "description": "The text to show a user the action to sign out of the account",
+    "type": "String",
+    "placeholders": {
+      "year": {
+        "type": "num",
+        "example": "2013"
+      }
+    }
+  },
+  "accept": "Accept",
+  "@accept": {
+    "description": "The action of acknowledging an effect",
+    "type": "String",
+    "placeholders": {}
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "The action of rejecting an effect",
+    "type": "String",
+    "placeholders": {}
+  },
+  "email": "Email",
+  "@email": {
+    "description": "The name of an electronic mail",
+    "type": "String",
+    "placeholders": {}
+  },
+  "alreadyUsedEmail": "The email is already in use.",
+  "@alreadyUsedEmail": {
+    "description": "The error message when a user tries to register an already used email",
+    "type": "String",
+    "placeholders": {}
+  },
+  "unregisteredEmail": "The email is not registered.",
+  "@unregisteredEmail": {
+    "description": "The error message when a user tries to use an unregistered email",
+    "type": "String",
+    "placeholders": {}
+  },
+  "invalidEmail": "The email is invalid.",
+  "@invalidEmail": {
+    "description": "The error message when a user enters an invalid email format",
+    "type": "String",
+    "placeholders": {}
+  },
+  "emptyField": "The field must not be empty.",
+  "@emptyField": {
+    "description": "The error message when a user leaves a mandatory filled field empty",
+    "type": "String",
+    "placeholders": {}
+  },
+  "password": "Password",
+  "@password": {
+    "description": "The name to input a user's secret code",
+    "type": "String",
+    "placeholders": {}
+  },
+  "confirmPassword": "Confirm password",
+  "@confirmPassword": {
+    "description": "The name to input again a user's secret code",
+    "type": "String",
+    "placeholders": {}
+  },
+  "showPassword": "Show password",
+  "@showPassword": {
+    "description": "An action used to alert the user of password visibility",
+    "type": "String",
+    "placeholders": {}
+  },
+  "invalidPassword": "Please check password before submitting again.",
+  "@invalidPassword": {
+    "description": "The error to show when the user inputs a wrong password",
+    "type": "String",
+    "placeholders": {}
+  },
+  "passwordInstructions": "The password must contain at least one lowercase, one uppercase, one number and one special character and be of minimum {minLength} and maximum {maxLength} characters.",
+  "@passwordInstructions": {
+    "description": "The general instructions of a typical password",
+    "type": "String",
+    "placeholders": {
+      "minLength": {
+        "type": "num",
+        "example": "8"
+      },
+      "maxLength": {
+        "type": "num",
+        "example": "8"
+      }
+    }
+  },
+  "wrongMinLength": "The field must be at least {minLength} characters.",
+  "@wrongMinLength": {
+    "description": "An error shown when an input field does not meet minimum length requirement",
+    "type": "String",
+    "placeholders": {
+      "minLength": {
+        "type": "num",
+        "example": "8"
+      }
+    }
+  },
+  "wrongMaxLength": "The field must be at most {maxLength} characters.",
+  "@wrongMaxLength": {
+    "description": "An error shown when an input field does not meet maximum length requirement",
+    "type": "String",
+    "placeholders": {
+      "maxLength": {
+        "type": "num",
+        "example": "8"
+      }
+    }
+  },
+  "numberInputInstructions": "The value must be between {minValue} and {maxValue}.",
+  "@numberInputInstructions": {
+    "description": "The general instructions of a number input",
+    "type": "String",
+    "placeholders": {
+      "minValue": {
+        "type": "num",
+        "example": "8"
+      },
+      "maxValue": {
+        "type": "num",
+        "example": "8"
+      }
+    }
+  },
+  "wrongMinValue": "The value must be equal or greater than {minValue}.",
+  "@wrongMinValue": {
+    "description": "An error shown when an input field does not meet minimum value requirement",
+    "type": "String",
+    "placeholders": {
+      "minValue": {
+        "type": "num",
+        "example": "8"
+      }
+    }
+  },
+  "wrongMaxValue": "The value must be equal or less than {maxValue}.",
+  "@wrongMaxValue": {
+    "description": "An error shown when an input field does not meet maximum value requirement",
+    "type": "String",
+    "placeholders": {
+      "maxValue": {
+        "type": "num",
+        "example": "8"
+      }
+    }
+  },
+  "percentageOver100": "Percentage values cannot be over 100",
+  "@percentageOver100": {
+    "description": "An error shown if an input with percentage exceed 100",
+    "type": "String",
+    "placeholders": {}
+  },
+  "percentageUnder0": "Percentage values cannot be below 0",
+  "@percentageUnder0": {
+    "description": "An error shown if an input with percentage is under 0",
+    "type": "String",
+    "placeholders": {}
+  },
+  "helloUser": "Hello {shortName}",
+  "@helloUser": {
+    "description": "A simple greeting with the user short name",
+    "type": "String",
+    "placeholders": {
+      "shortName": {
+        "type": "String",
+        "example": "Marcus Aurelius"
+      }
+    }
+  },
+  "yourPiixMembership": "Your Piix membership has:",
+  "@yourPiixMembership": {
+    "description": "A brief introduction previous to showing the @myAssistanceCount",
+    "type": "String",
+    "placeholders": {}
+  },
+  "myAssistanceCount": "My assistances ({count})",
+  "@myAssistanceCount": {
+    "description": "A simple description of the number of assistances the user has",
+    "type": "String",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "8"
+      }
+    }
+  },
+  "linkMembership": "Link membership",
+  "@linkMembership": {
+    "description": "A simple action to link the users membership to a family group or to a community",
+    "type": "String",
+    "placeholders": {}
+  },
+  "unlinkMembership": "Unlink membership",
+  "@unlinkMembership": {
+    "description": "A simple action to unlink the users membership from a family group or a community",
+    "type": "String",
+    "placeholders": {}
+  },
+  "learnMore": "Learn more",
+  "@learnMore": {
+    "description": "A brief message that explains the user that in the following section she can learn more about something",
+    "type": "String",
+    "placeholders": {}
+  },
+  "linkYourMembership": "Link your membership",
+  "@linkYourMembership": {
+    "description": "A simple action explanation so the user can link the membership to a family group or to a community",
+    "type": "String",
+    "placeholders": {}
+  },
+  "linkToYourGroupOrCommunity": "With your family group or community, to acquire the assistances and the coverage.",
+  "@linkYourMembership": {
+    "description": "A description of what happens when the user links its membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "hiAgain": "Hello again!",
+  "@hiAgain": {
+    "description": "A reiterative greeting",
+    "type": "String",
+    "placeholders": {}
+  },
+  "exploreMyAssistances": "Explore “My assistances” where you will find the assistances included in your membership.",
+  "@exploreMyAssistances": {
+    "description": "A reiterative greeting",
+    "type": "String",
+    "placeholders": {}
+  },
+  "meetTheStore": "Meet the store",
+  "@meetTheStore": {
+    "description": "A simple action explanation so the user learns about the store",
+    "type": "String",
+    "placeholders": {}
+  },
+  "complementYourCoverage": "Complement your coverage. Find exclusive assistances inside the Piix store.",
+  "@complementYourCoverage": {
+    "description": "A description of what can be found in the store",
+    "type": "String",
+    "placeholders": {}
+  },
+  "whereToBuy": "Where to buy assistances?",
+  "@whereToBuy": {
+    "description": "A question that opens up the answer of where to get new assistances",
+    "type": "String",
+    "placeholders": {}
+  },
+  "howToRequestAssistance": "How to request an assistance?",
+  "@howToRequestAssistance": {
+    "description": "A question that opens up the answer of how to request an assistance",
+    "type": "String",
+    "placeholders": {}
+  },
+  "enterStore": "Enter the Piix Store",
+  "@enterStore": {
+    "description": "An invitation to access the app store",
+    "type": "String",
+    "placeholders": {}
+  },
+  "fromTheStoreExplore": "From the store, explore how to improve your coverage with the assistances Piix has to offer.",
+  "@fromTheStoreExplore": {
+    "description": "An explanation on how to work with the store and improve coverage",
+    "type": "String",
+    "placeholders": {}
+  },
+  "addEvents": "Add events",
+  "@addEvents": {
+    "description": "An action to add more events to an assistance",
+    "type": "String",
+    "placeholders": {}
+  },
+  "improveYourCoverage": "Improve your coverage by customizing the number of events per assistance.",
+  "@improveYourCoverage": {
+    "description": "An explanation on what improves an assistance.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "quoteAndPay": "Quote and pay",
+  "@quoteAndPay": {
+    "description": "A two step instruction on what needs to be done in the store.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "generatePaymentLine": "Generate the payment line and pay online or in any of the authorized pay points.",
+  "@generatePaymentLine": {
+    "description": "An explanation on how can the user pay for an assistance",
+    "type": "String",
+    "placeholders": {}
+  },
+  "goToStore": "Go to store",
+  "@goToStore": {
+    "description": "An invitation to enter the app store.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "accept": "Accept",
+  "@accept": {
+    "description": "An invitation to accept the information or effect after a user does something",
+    "type": "String",
+    "placeholders": {}
+  },
+  "fromTheAssistanceList": "From the list of assistances",
+  "@fromTheAssistanceList": {
+    "description": "A simple instruction to know that the user must chek the list of assistances.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "requestDirectly": "Request directly the assistance. Consider that some assistances have age or usage limits.",
+  "@requestDirectly": {
+    "description": "An explanation on the conditions to request an assistance.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "insideTheAssistanceDetail": "Inside the assistance detail",
+  "@insideTheAssistanceDetail": {
+    "description": "An instruction for the user to check the detail of an assistance.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "fromAnyAssistance": "From any assistance in your membership. Find your assistances in “My assistances”.",
+  "@fromAnyAssistance": {
+    "description": "An explanation where to find the assistances of the users membership",
+    "type": "String",
+    "placeholders": {}
+  },
+  "important": "Important",
+  "@important": {
+    "description": "A word that denotes seriosness on an issue",
+    "type": "String",
+    "placeholders": {}
+  },
+  "toBeAbleToRequest": "To be able to reques an assistance, it must be active and have no pending actions.",
+  "@toBeAbleToRequest": {
+    "description": "An explanation of other requirements that must be met to request an assistance",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_LINKUP_MEMBERSHIP_SCREEN": {},
+  "enterInvitationCode": "Enter the invitation code",
+  "@enterInvitationCode": {
+    "description": "An instruction for the user to know that the invitation code must be entered.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "enteredInvitationCode": "Entered invitation code",
+  "@enteredInvitationCode": {
+    "description": "A message that explains the invitation code entered.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "linkupYourMembershipInstructions": "Linkup your Piix membership to a family group or community to start using the assistances shared with you.",
+  "@linkupYourMembershipInstructions": {
+    "description": "A description that explains the the effect of when the user links a membership.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "howToLinkupMyMembership": "How to link my membership?",
+  "@howToLinkupMyMembership": {
+    "description": "A simple question that proceesd to explain how a user can link her membership.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "toAFamilyGroup": "To a family group",
+  "@toAFamilyGroup": {
+    "description": "A reference that explains the following content is for a family group.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "enterTheCodeAFamilyMember": "Entering the invitation code that a family member shared with you to join the group.",
+  "@enterTheCodeAFamilyMember": {
+    "description": "An explanation on how the user can linkup a membership to a family group.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "toACommunity": "To a community",
+  "@toACommunity": {
+    "description": "A reference that explains the following content is for a community.",
+    "type": "String",
+    "placeholders": {}
+  },
+   "ifYouBelongToACommunity": "If you belong to a community that gave you an invitation code, enter the code and get access to their assistances.",
+  "@ifYouBelongToACommunity": {
+    "description": "An explanation on how the user can linkup a membership to a community.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "makeSureToLinkupYourMembership": "Make sure to linkup your membership to the correct family group or community. Please check the information before confirming the linkage.",
+  "@makeSureToLinkupYourMembership": {
+    "description": "A reference that explains the following content is for a community.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "editCode": "Edit code",
+  "@editCode": {
+    "description": "An action that invites the user to edit the code entered.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "linkUpTo": "Linkup to a {linkupType}",
+  "@linkUpTo": {
+    "description": "An explanation of the type of membership linkup the user is making.",
+    "type": "String",
+    "placeholders": {
+      "linkupType": {
+        "type": "String",
+        "example": "Community"
+      }
+    }
+  },
+  "ifNotYourMembershipLinkage": "If this is not your {linkupType}, check the invitation code and try again.",
+  "@ifNotYourMembershipLinkage": {
+    "description": "A warning that explains when a user may have entered a wrong valid invitation code.",
+    "type": "String",
+    "placeholders": {
+      "linkupType": {
+        "type": "String",
+        "example": "Community"
+      }
+    }
+  },
+  "sendInvitationalCode": "Send invitation code",
+  "@sendInvitationalCode": {
+    "description": "An action that confirms sending the invitation code.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "confirmLinkage": "Confirm linkage",
+  "@confirmLinkage": {
+    "description": "An action that confirms the linkage of the users membership.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "community": "Community",
+  "@community": {
+    "description": "The general term for a group of users paid by an institution or organization.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "familyGroup": "Family group",
+  "@familyGroup": {
+    "description": "The general term for a group of users paid by another user.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_LINKUP_CODE_ERRORS": {},
+  "invalidCodeFormat": "Invalid code format. Please only enter numbers and letters.",
+  "@invalidCodeFormat": {
+    "description": "An error that appears if the invitation code entered by the user has an invalid format.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "invalidLinkupCode": "We could not find anything related with this invitation code, check that the code is correct and try again.",
+  "@invalidLinkupCode": {
+    "description": "An error that appears if the invitation code does not belong to anything.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "userIsAlreadyInCommunity": "You are already in a community and cannot linkup to a new one at this moment.",
+  "@userIsAlreadyInCommunity": {
+    "description": "An error that appears if the user is trying to link up to a community but her membership is already linked up to the same or another community.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "userCannotUseSlot": "You can not use this invitation code since you do not meet the requirements of age or gender.",
+  "@userCannotUseSlot": {
+    "description": "An error that appears if the invitation code can not be used by the user due to her age or gender.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "userIsAlreadyInGroup": "You are already in a family group and cannot linkup to a new one at this moment.",
+  "@userIsAlreadyInGroup": {
+    "description": "An error that appears if the user is trying to link up to a community but her membership is already linked up to the same or another family group.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "slotIsNotOpen": "The invitation code you are trying to use is no longer valid.",
+  "@slotIsNotOpen": {
+    "description": "An error that happens when the user uses an invitation code where the slot in the family group has been closed.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "checkLinkupCodeError": "We are sorry, the invitation code could not complete the validation process. Please try again.",
+  "@checkLinkupCodeError": {
+    "description": "A general error when a code is not able to be validated.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "linkupCodeError": "We are sorry, the invitation code could not be assigned. Please try again.",
+  "@linkupCodeError": {
+    "description": "A general error when a code is not able to be validated.",
+    "type": "String",
+    "placeholders": {}
+  },
+  "@_SUCCESS_LINKUP_MEMBERSHIP_SCREEN": {},
+  "successfulFamilyGroupLinkupMessage": "Successful linkage to the family group of \"{linkupTo}\"",
+  "@successfulFamiltGroupLinkupMessage": {
+    "description": "An explanation that the users membership has successfuly linkedup with a family group.",
+    "type": "String",
+    "placeholders": {
+      "linkupTo": {
+        "type": "String",
+        "example": "Marcus Artorius"
+      }
+    }
+  },
+  "successfulCommunityLinkupMessage": "Successful linkage to the community \"{linkupTo}\"",
+  "@successfulCommunityLinkupMessage": {
+    "description": "An explanation that the users membership has successfuly linkedup with a community.",
+    "type": "String",
+    "placeholders": {
+      "linkupTo": {
+        "type": "String",
+        "example": "You love life"
+      }
+    }
+  },
+  "theFamilyGroupInvitationCodeHasBeenValidated": "The family group invitation code has been validated and the membership linkage is successful. Now you have access to the assistances of {linkupTo}''s family group.",
+  "@theFamilyGroupInvitationCodeHasBeenValidated": {
+    "description": "An explanation when the users membership linkage to a family group is successful.",
+    "type": "String",
+    "placeholders": {
+      "linkupTo": {
+        "type": "String",
+        "example": "Marcus Artorius"
+      }
+    }
+  },
+  "theCommunityInvitationCodeHasBeenValidated": "The community invitation code has been validated and the membership linkage is successful. Now you have access to the assistances of the community {linkupTo}.",
+  "@theCommunityInvitationCodeHasBeenValidated": {
+    "description": "An explanation when the users membership linkage to a community is successful.",
+    "type": "String",
+    "placeholders": {
+      "linkupTo": {
+        "type": "String",
+        "example": "You love life"
+      }
+    }
+  }
+}
