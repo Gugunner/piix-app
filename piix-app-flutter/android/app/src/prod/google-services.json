@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "851522967744",
+    "firebase_url": "https://piix-a89e2.firebaseio.com",
+    "project_id": "piix-a89e2",
+    "storage_bucket": "piix-a89e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851522967744:android:a84412f4b82a59ce94f525",
+        "android_client_info": {
+          "package_name": "com.piix.piix_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851522967744-lmimvedphat4jrpgg0r913hcnoiunsdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANLschHMu-jv4CQxWVk_vISW310H_ZSqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851522967744-lmimvedphat4jrpgg0r913hcnoiunsdj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "851522967744-ou107i7bfup2a2dhgo0177mh013n69kk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.piix.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
