@@ -1,76 +1,46 @@
-import 'package:camera/camera.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
-import 'package:piix_mobile/app_config.dart';
-import 'package:piix_mobile/data/utils/preferences.dart';
-import 'package:piix_mobile/env/dev.env.dart';
-import 'package:piix_mobile/general_app_feature/di/service_locator.dart';
-import 'package:piix_mobile/general_app_feature/ui/piix_app.dart';
-import 'package:piix_mobile/general_app_feature/utils/constants/piix_colors.dart';
-import 'package:piix_mobile/general_app_feature/utils/piix_logger/piix_logger.dart';
 
-late List<CameraDescription> cameras;
-
-/// Prepares all the resources required before running app.
-///
-/// Initializes [Firebase];
-/// Configures [Preferences] data;
-/// Configures [Dio];
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: PiixColors.primary,
-      statusBarBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.light,
-      systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarDividerColor: Colors.transparent,
-    ),
-  );
-  SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.manual,
-    overlays: SystemUiOverlay.values,
-  );
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
-  cameras = await availableCameras();
-  await Firebase.initializeApp();
-  await Preferences.configurePrefs();
-  FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(
-      error,
-      stack,
-      fatal: true,
-    );
-    return true;
-  };
-  await setupGetIt();
-  setUpEndpoints();
-  PiixLoggerFilter.loggerBuild = PiixLoggerBuild.debug;
-  //Change the index value to change debug mode logger level filter
-  PiixLoggerFilter.minLevelIndex = Level.verbose.index;
+  const fake = String.fromEnvironment('USE_FAKE');
   runApp(
-    const ProviderScope(
-      child: PiixApp(),
+    MaterialApp(
+      //TODO: Add hardcoded extension to String class
+      title: 'Piix',
+      theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: const Scaffold(
+        body: Center(
+          child: Text('Hello World Main Dev - Use Fake: $fake'),
+        ),
+      ),
     ),
   );
 }
 
-void setUpEndpoints() {
-  AppConfig.instance
-    ..setBackendEndPoint(DevEnv.backendEndpoint)
-    ..setCatalogSQLURL(DevEnv.catalogEndpoint)
-    ..setSignUpEndpoint(DevEnv.signUpEndpoint)
-    ..setPaymentEndpoint(DevEnv.paymentEndpoint)
-    ..setPiixAppS3(DevEnv.piixAppS3);
+void registerErrorHandlers() {
+  // * Show some error UI if any uncaught exception happens
+  FlutterError.onError = (FlutterErrorDetails details) {
+    debugPrint('FlutterError.onError: $details');
+  };
+  // * Handle errors from underlying platform/OS
+  PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
+    debugPrint('PlatformDispatcher.instance.onError: $error');
+    return true;
+  };
+  // * Show some error UI when any widget in the app fails to build
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        //TODO: Add hardcoded extension to String class
+        title: const Text('An error occurred'),
+      ),
+      body: Center(
+        child: Text(details.toString()),
+      ),
+    );
+  };
 }
