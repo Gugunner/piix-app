@@ -1,9 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  const fake = String.fromEnvironment('USE_FAKE');
+  await Firebase.initializeApp();
   runApp(
     MaterialApp(
       //TODO: Add hardcoded extension to String class
@@ -13,7 +14,7 @@ void main() {
       ),
       home: const Scaffold(
         body: Center(
-          child: Text('Hello World Main - Use Fake: $fake'),
+          child: Text('Piix'),
         ),
       ),
     ),

@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>851522967744-ou107i7bfup2a2dhgo0177mh013n69kk.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.851522967744-ou107i7bfup2a2dhgo0177mh013n69kk</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD7EfoDF3FLw2feunQVpHP9iq9U1cu95ig</string>
+	<string>AIzaSyANwB28i7_vzE1Q6UIe74A9R582UK1dY1I</string>
 	<key>GCM_SENDER_ID</key>
-	<string>851522967744</string>
+	<string>22947427370</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.piix.app</string>
 	<key>PROJECT_ID</key>
-	<string>piix-a89e2</string>
+	<string>piix-prod-env-02282024prd</string>
 	<key>STORAGE_BUCKET</key>
-	<string>piix-a89e2.appspot.com</string>
+	<string>piix-prod-env-02282024prd.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:851522967744:ios:07e371107a33f87b94f525</string>
-	<key>DATABASE_URL</key>
-	<string>https://piix-a89e2.firebaseio.com</string>
+	<string>1:22947427370:ios:286a6a36fbfa9d4c637f53</string>
 </dict>
 </plist>
