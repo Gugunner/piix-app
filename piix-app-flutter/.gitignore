@@ -8,7 +8,7 @@
 .buildlog/
 .history
 .svn/
-.vscode/
+.vscode/settings.json
 
 # IntelliJ related
 *.iml
