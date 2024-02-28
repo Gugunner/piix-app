@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_dev.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -48,7 +48,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyBuRPzTnbQIRwTaRh8wSFWYyJfaFghPYtU',
-    appId: '1:1047659402431:web:2878b17a7a570a07f5620a',
+    appId: '1:1047659402431:web:ddddbf5117b943b9f5620a',
     messagingSenderId: '1047659402431',
     projectId: 'piix-dev-env-02282024dv',
     authDomain: 'piix-dev-env-02282024dv.firebaseapp.com',
@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyByFzruO1s_VBtJiSlS1IA6AfAmTNHdjnA',
-    appId: '1:1047659402431:android:d146d119bfede77ff5620a',
+    appId: '1:1047659402431:android:ef9acc45c6fa8d3df5620a',
     messagingSenderId: '1047659402431',
     projectId: 'piix-dev-env-02282024dv',
     storageBucket: 'piix-dev-env-02282024dv.appspot.com',
@@ -65,10 +65,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAA31yZ2Kmk1NalYYgMGqSO0nHJL-14fGI',
-    appId: '1:1047659402431:ios:ecf889775ccc41b0f5620a',
+    appId: '1:1047659402431:ios:a8985a276251113cf5620a',
     messagingSenderId: '1047659402431',
     projectId: 'piix-dev-env-02282024dv',
     storageBucket: 'piix-dev-env-02282024dv.appspot.com',
-    iosBundleId: 'com.piix.app',
+    iosBundleId: 'com.piix.app.dev',
   );
 }

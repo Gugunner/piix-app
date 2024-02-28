@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1047659402431:android:d146d119bfede77ff5620a",
+        "mobilesdk_app_id": "1:1047659402431:android:ef9acc45c6fa8d3df5620a",
         "android_client_info": {
-          "package_name": "com.piix.piix_mobile"
+          "package_name": "com.piix.piix_mobile.dev"
         }
       },
       "oauth_client": [],
