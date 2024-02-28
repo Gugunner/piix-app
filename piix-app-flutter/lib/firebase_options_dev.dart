@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_dev.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -47,34 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD-WuK_4pOF4U6GXjnJGsMIo7qFRPfspSA',
-    appId: '1:273828342301:web:3b5944fe1b280a3ab0f4f4',
-    messagingSenderId: '273828342301',
-    projectId: 'piix-dev',
-    authDomain: 'piix-dev.firebaseapp.com',
-    databaseURL: 'https://piix-dev-default-rtdb.firebaseio.com',
-    storageBucket: 'piix-dev.appspot.com',
-    measurementId: 'G-0DK0KKX8LN',
+    apiKey: 'AIzaSyBuRPzTnbQIRwTaRh8wSFWYyJfaFghPYtU',
+    appId: '1:1047659402431:web:ddddbf5117b943b9f5620a',
+    messagingSenderId: '1047659402431',
+    projectId: 'piix-dev-env-02282024dv',
+    authDomain: 'piix-dev-env-02282024dv.firebaseapp.com',
+    storageBucket: 'piix-dev-env-02282024dv.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBodonWJLh9bNH4urbx-pnj3Sta5j8mhQ0',
-    appId: '1:273828342301:android:fa19d66df5537ffdb0f4f4',
-    messagingSenderId: '273828342301',
-    projectId: 'piix-dev',
-    databaseURL: 'https://piix-dev-default-rtdb.firebaseio.com',
-    storageBucket: 'piix-dev.appspot.com',
+    apiKey: 'AIzaSyByFzruO1s_VBtJiSlS1IA6AfAmTNHdjnA',
+    appId: '1:1047659402431:android:ef9acc45c6fa8d3df5620a',
+    messagingSenderId: '1047659402431',
+    projectId: 'piix-dev-env-02282024dv',
+    storageBucket: 'piix-dev-env-02282024dv.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDAqPretBKrz0OTsJHYjDoM8-BrjJnalXc',
-    appId: '1:273828342301:ios:be9747e01ddfd069b0f4f4',
-    messagingSenderId: '273828342301',
-    projectId: 'piix-dev',
-    databaseURL: 'https://piix-dev-default-rtdb.firebaseio.com',
-    storageBucket: 'piix-dev.appspot.com',
-    androidClientId: '273828342301-127k1r8gf6sgegg2a25l0gkf5orrc48j.apps.googleusercontent.com',
-    iosClientId: '273828342301-6897lqvns1bc8pdfg68jl71goa8289oo.apps.googleusercontent.com',
-    iosBundleId: 'com.piix.app',
+    apiKey: 'AIzaSyAA31yZ2Kmk1NalYYgMGqSO0nHJL-14fGI',
+    appId: '1:1047659402431:ios:a8985a276251113cf5620a',
+    messagingSenderId: '1047659402431',
+    projectId: 'piix-dev-env-02282024dv',
+    storageBucket: 'piix-dev-env-02282024dv.appspot.com',
+    iosBundleId: 'com.piix.app.dev',
   );
 }
