@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  const fake = String.fromEnvironment('USE_FAKE');
+  const fake = String.fromEnvironment('FAKE');
   runApp(
     MaterialApp(
       //TODO: Add hardcoded extension to String class
