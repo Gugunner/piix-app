@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We use the photo library so you can choose which photo to upload when requested to do so.</string>
+	<string>We need access to photo library to access your catch lines</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We need access to photo library in order to save any document or pdf that is downloaded.</string>
+      <string>We need access to photo library in order to save your catch lines</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Required when accesing the camera if video is selected.</string>
+	<string>Used for voice communication with service providers</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -42,6 +42,8 @@
 	<string>Older devices need location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Turning on location services allows us to show you the accurate membership information.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Can I use the photo library?</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
