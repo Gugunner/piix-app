@@ -6,7 +6,6 @@
             "name": "piix fake",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
             "args": [
                 "--dart-entrypoint-args",
                 "--FIRDebugEnabled",
@@ -22,7 +21,6 @@
             "name": "piix dev env",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
             "args": [
                 "--dart-entrypoint-args",
                 "--FIRDebugEnabled",
@@ -35,11 +33,11 @@
         },
         //Use this configuration for Firebase piix-stage-env 
         //Use this configuration for building internal tests either in AppStore Testflight or PlayStore Closed tests
+        //Use real device
         {
             "name": "piix stage env",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile",
             "args": [
                 "--dart-entrypoint-args",
                 "--FIRDebugEnabled",
@@ -52,11 +50,11 @@
         },
         //Use this configuration for Firebase piix-prod-env
         //Use this configuration for building the production release of the app
+        //Use real device
         {
             "name": "piix prod env",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release",
             "args": [
                 "--dart-entrypoint-args",
                 "--FIRDebugEnabled",
