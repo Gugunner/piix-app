@@ -34,6 +34,7 @@
 
 .fvm/flutter_sdk
 
+
 # Web related
 
 # Symbolication related
@@ -49,6 +50,7 @@ key.properties
 
 #Flutter version manager
 .fvm/
+.fvmrc
 
 #Environment variables
 .env
