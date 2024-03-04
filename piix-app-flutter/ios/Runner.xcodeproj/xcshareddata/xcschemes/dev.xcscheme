@@ -62,7 +62,7 @@
       </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Profile-dev"
+      buildConfiguration = "Release-dev"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"

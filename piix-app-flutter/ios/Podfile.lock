@@ -17,6 +17,9 @@ PODS:
   - Firebase/Crashlytics (10.20.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 10.20.0)
+  - Firebase/Storage (10.20.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 10.20.0)
   - firebase_analytics (10.8.7):
     - Firebase/Analytics (= 10.20.0)
     - firebase_core
@@ -30,6 +33,10 @@ PODS:
     - Flutter
   - firebase_crashlytics (3.4.16):
     - Firebase/Crashlytics (= 10.20.0)
+    - firebase_core
+    - Flutter
+  - firebase_storage (11.6.7):
+    - Firebase/Storage (= 10.20.0)
     - firebase_core
     - Flutter
   - FirebaseAnalytics (10.20.0):
@@ -58,6 +65,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
+  - FirebaseAuthInterop (10.22.0)
   - FirebaseCore (10.20.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
@@ -87,6 +95,12 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
+  - FirebaseStorage (10.20.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
   - flutter_pdfview (1.0.2):
     - Flutter
@@ -195,6 +209,7 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
+  - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
   - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
@@ -218,12 +233,14 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseAppCheckInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseSessions
+    - FirebaseStorage
     - FMDB
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -248,6 +265,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_crashlytics:
     :path: ".symlinks/plugins/firebase_crashlytics/ios"
+  firebase_storage:
+    :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
   flutter_pdfview:
@@ -289,15 +308,18 @@ SPEC CHECKSUMS:
   firebase_auth: b237f065b2afc6bd7962124e1cbacdbef31036e6
   firebase_core: c8628c7ce80f79439149549052bff22f6784fbf5
   firebase_crashlytics: 012078b4eec6fc9716f97ba3da0f0e44a04e95b1
+  firebase_storage: ad66b33e4e0be3e82da8a0a513c0dcc75cb08ea6
   FirebaseAnalytics: a2731bf3670747ce8f65368b118d18aa8e368246
   FirebaseAppCheckInterop: 58db3e9494751399cf3e7b7e3e705cff71099153
   FirebaseAuth: 9c5c400d2c3055d8ae3a0284944c86fa95d48dac
+  FirebaseAuthInterop: fa6a29d88cf7d5649cf6f4284918a8b7627e98a9
   FirebaseCore: 28045c1560a2600d284b9c45a904fe322dc890b6
   FirebaseCoreExtension: 6394c00b887d0bebadbc7049c464aa0cbddc5d41
   FirebaseCoreInternal: bca337352024b18424a61e478460547d46c4c753
   FirebaseCrashlytics: 81530595edb6d99f1918f723a6c33766a24a4c86
   FirebaseInstallations: 763814908793c0da14c18b3dcffdec71e29ed55e
   FirebaseSessions: cd97fb07674f3906619c871eefbd260a1546c9d3
+  FirebaseStorage: 8505bae8ac6662474b5b50e07759fb2765c15746
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
   FMDB: aa44149f6fb634b1ac54f64f47064bb0d0c5a032
