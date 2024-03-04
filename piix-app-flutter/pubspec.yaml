@@ -36,6 +36,7 @@ dependencies:
   firebase_auth: ^4.17.6
   firebase_core: ^2.24.2
   firebase_crashlytics: ^3.4.16
+  firebase_storage: ^11.0.16
   flutter:
     sdk: flutter
   flutter_cached_pdfview: ^0.4.1
@@ -72,6 +73,7 @@ dependencies:
   url_launcher: ^6.1.7
   whatsapp_unilink: ^2.1.0
   wakelock: ^0.4.0
+  
 
 dev_dependencies:
   envied_generator: ^0.3.0
