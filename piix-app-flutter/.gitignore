@@ -64,3 +64,5 @@ env_const.dart
 
 #ignore images 
 assets/images/
+
+pubspec.lock
