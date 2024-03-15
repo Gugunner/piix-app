@@ -89,7 +89,6 @@ const FirebaseAdminAuth: Module = {
 	},
 }
 
-
 const FirebaseAdminFirestore: Module = {
 	'unknown': {
 		name: 'UNKNOWN',
