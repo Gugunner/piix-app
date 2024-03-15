@@ -33,7 +33,7 @@ export async function sendVerificationCode(request: Request, response: Response)
         })
         .then(() => {
             logger.log(`Email and code were sent and stored`);
-            response.sendStatus(200);
+            response.status(200).send({code: 0});
         })
         .catch(() => {
             throw new AppException({
