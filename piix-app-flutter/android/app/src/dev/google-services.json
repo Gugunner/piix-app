@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1047659402431",
+    "project_id": "piix-dev-env-02282024dv",
+    "storage_bucket": "piix-dev-env-02282024dv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047659402431:android:ef9acc45c6fa8d3df5620a",
+        "android_client_info": {
+          "package_name": "com.piix.piix_mobile.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByFzruO1s_VBtJiSlS1IA6AfAmTNHdjnA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

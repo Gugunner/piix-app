@@ -1,0 +1,69 @@
+{
+    "version": "1.0.1",
+    "configurations": [
+        //Use this configuration to launch Fake repositories declared in project
+        {
+            "name": "piix fake",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-entrypoint-args",
+                "--FIRDebugEnabled",
+                "--flavor",
+                "dev",
+                "-t",
+                "lib/main_dev.dart",
+                "--dart-define=FAKE=true"
+            ]
+        },
+        //Use this configuration for both Firebase local Emulator Suite and Firebase piix-dev-env
+        {
+            "name": "piix dev env",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-entrypoint-args",
+                "--FIRDebugEnabled",
+                "--flavor",
+                "dev",
+                "-t",
+                "lib/main_dev.dart",
+                "--dart-define=FAKE=false"
+            ]
+        },
+        //Use this configuration for Firebase piix-stage-env 
+        //Use this configuration for building internal tests either in AppStore Testflight or PlayStore Closed tests
+        //Use real device
+        {
+            "name": "piix stage env",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-entrypoint-args",
+                "--FIRDebugEnabled",
+                "--flavor",
+                "stage",
+                "-t",
+                "lib/main_stage.dart",
+                "--dart-define=FAKE=false"
+            ]
+        },
+        //Use this configuration for Firebase piix-prod-env
+        //Use this configuration for building the production release of the app
+        //Use real device
+        {
+            "name": "piix prod env",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-entrypoint-args",
+                "--FIRDebugEnabled",
+                "--flavor",
+                "prod",
+                "-t",
+                "lib/main.dart",
+                "--dart-define=FAKE=false"
+            ]
+        },
+    ]
+}
