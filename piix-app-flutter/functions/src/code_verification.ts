@@ -1,10 +1,21 @@
-import { logger } from "firebase-functions/v1";
-import { AppException } from "./app_exception";
+import * as express from "express";
+import { logger } from "firebase-functions/v2";
+import { AppException } from "./exception/app_exception";
 import { Request } from "firebase-functions/v2/https";
-import { Response } from "firebase-functions/v1";;
 import * as admin from "firebase-admin";
 
-export async function sendVerificationCode(request: Request, response: Response): Promise<void> {
+
+/**
+Send a verification code to the email provided in the request body
+The code is stored in the collection 'codes' with the email as the document id
+and the code is sent to the email in the language provided in the request body.
+ * 
+ * @param {Request} request 
+ * @param {express.Response} response 
+ * @throws AppException If the body is undefined, or the email or language code are not included or the code could not be stored or the email could not be sent
+ */
+export async function sendVerificationCode(request: Request, response: express.Response): Promise<void> {
+    //Check if the body is undefined
     if (request.body == undefined) {
         throw new AppException({
             code: 'invalid-argument',
@@ -13,9 +24,9 @@ export async function sendVerificationCode(request: Request, response: Response)
             prefix: 'piix-functions',
         });
     }
-    const languageCode = request.body.languageCode;
-    const email = request.body.email;
-    if (languageCode === undefined || email == undefined) {
+    //Check if the email and language code are included
+    const { languageCode, email } = request.body;
+    if (!languageCode || !email) {
         throw new AppException({
             code: 'invalid-argument',
             errorCode: 'invalid-body-fields',
@@ -23,30 +34,27 @@ export async function sendVerificationCode(request: Request, response: Response)
             prefix: 'piix-functions',
         });
     }
-    const code = createNewCode();
-    const docRef = admin.firestore().collection('codes').doc(email);
-    return sendCodeToEmail(email, languageCode)
-    .then(() =>
-        docRef.set({
-            "email": email,
-            "code": code,
-        })
-        .then(() => {
-            logger.log(`Email and code were sent and stored`);
-            response.status(200).send({code: 0});
-        })
-        .catch(() => {
-            throw new AppException({
-                code: 'aborted',
-                errorCode: 'document-not-added',
-                message: 'Could not store the verification code.',
-                prefix: 'auth',
-            });
-        })
-    );
+    try {
+        const code = createNewCode();
+        await sendCodeToEmail(email, languageCode);
+        const docRef = admin.firestore().collection('codes').doc(email)
+        await docRef.set({ email, code });
+        logger.log(`Email and code were sent and stored`);
+        response.status(200).send({ code: 0 });
+    } catch (error) {
+        throw new AppException({
+            code: 'aborted',
+            errorCode: 'document-not-added',
+            message: 'Could not store the verification code.',
+            prefix: 'store',
+        });// Or handle more gracefully
+    }
 }
 
-//Creates a new 6 digit code
+/**Creates a new 6 digit string code
+ * 
+ * @returns {string} A 6 digit string code
+*/
 function createNewCode(): string {
     //Creates a base value that controls the length of the number (7)
     const max = Math.pow(10, 7); // 10^7
