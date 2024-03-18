@@ -27,7 +27,7 @@ describe('Send Verification Code Request', () => {
             }))
         }));
         //Add the firestore to the admin mocked object
-        mockObjectProperty(admin, firestore);
+        mockObjectProperty(admin, firestore, 'firestore');
         const req = { body: { email: email, languageCode: languageCode } };
         const res = {
             status: (code: any) => {
@@ -104,7 +104,7 @@ describe('Send Verification Code Request', () => {
             }))
         }));
         //Add the firestore to the admin mocked object
-        mockObjectProperty(admin, firestore);
+        mockObjectProperty(admin, firestore, 'firestore');
         //Await the call for Promises
         try {
             await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
