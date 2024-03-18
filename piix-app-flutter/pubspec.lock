@@ -1277,6 +1277,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.4"
+  sembast:
+    dependency: "direct main"
+    description:
+      name: sembast
+      sha256: "9a9f0c7aca07043fef857b8b365f41592e48832b61462292699b57978e241c11"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.0"
+  sembast_web:
+    dependency: "direct main"
+    description:
+      name: sembast_web
+      sha256: "1ba0402b9491b76312358ec3cb3a33b9fc22eb673d4f9a3e99b2425135add72c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   riverpod_generator:
     dependency: "direct dev"
     description:
