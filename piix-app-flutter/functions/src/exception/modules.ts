@@ -1,32 +1,21 @@
-import { HttpsError, FunctionsErrorCode } from "firebase-functions/v2/https";
+import { ErrorCode } from './error_codes';
 
-type ModulePrefix = 'auth' | 'store' | 'piix-auth' | 'piix-functions';
+/**
+ * Defines the modules of the application
+ */
+export type ModulePrefix = 'auth' | 'store' | 'piix-auth' | 'piix-functions';
 
-type FirebaseAdminAuthErrorCodes = 'unknown' | 'email-already-exists' | 'id-token-expired'
-| 'id-token-revoked' | 'invalid-email' | 'invalid-id-token' | 'invalid-uid' | 'too-many-requests'
-| 'uid-already-exists' | 'user-not-found';
-
-type FirebaseAdminFirestoreErrorCodes = 'unknown' | 'document-not-added' | 'document-not-created'
-| 'document-not-deleted' | 'document-not-set' | 'document-not-updated' | 'document-not-found';
-
-type PiixAuthErrorCodes = 'unknown' | 'email-already-exists' | 'email-not-found' | 'incorrect-verification-code'
-| 'custom-token-failed' | 'email-not-sent';
-
-type PiixFunctionsErrorCodes = 'invalid-body' | 'invalid-body-fields';
-
-type ErrorCode = FirebaseAdminAuthErrorCodes | FirebaseAdminFirestoreErrorCodes 
-| PiixAuthErrorCodes | PiixFunctionsErrorCodes;
-
-interface SubModule {
+/**
+ * Defines the structure of a submodule
+ */
+export interface SubModule {
   name: string;
   codeNumber: string;
   prefix: ModulePrefix;
   errorCode: ErrorCode;
 }
 
-type Module = {[key: string]: SubModule};
-
-const FirebaseAdminAuth: Module = {
+export const FirebaseAdminAuth: Module = {
 	'unknown': {
 		name: 'UNKNOWN',
 		codeNumber: '0000',
@@ -89,7 +78,7 @@ const FirebaseAdminAuth: Module = {
 	},
 }
 
-const FirebaseAdminFirestore: Module = {
+export const FirebaseAdminFirestore: Module = {
 	'unknown': {
 		name: 'UNKNOWN',
 		codeNumber: '0100',
@@ -134,7 +123,7 @@ const FirebaseAdminFirestore: Module = {
 	},
 }
 
-const PiixAuth: Module = {
+export const PiixAuth: Module = {
 	'unknown': {
 		name: 'UNKNOWN',
 		codeNumber: '2000',
@@ -174,7 +163,7 @@ const PiixAuth: Module = {
 }
 
 
-const PiixFunctions: Module = {
+export const PiixFunctions: Module = {
 	'unknown': {
 		name: 'UNKNOWN',
 		codeNumber: '3000',
@@ -195,34 +184,5 @@ const PiixFunctions: Module = {
 	},
 }
 
-export class AppException extends HttpsError {
-  
-  constructor({
-    code,
-    errorCode,
-    message,
-    prefix,
-  }: {
-    code: FunctionsErrorCode;
-    errorCode: ErrorCode,
-    message: string;
-    prefix: ModulePrefix,
-  }) {
+export type Module = {[key: string]: SubModule};
 
-    var submodule = undefined;
-    if (errorCode !== null && (typeof errorCode) === 'string') {
-        const module = AppException._getModule(prefix);
-        submodule = module[errorCode];
-    }
-    super(code, message, submodule);
-  }
-
-  private static _getModule(modulePrefix: ModulePrefix): Module {
-    switch (modulePrefix) {
-      case 'auth': return FirebaseAdminAuth;
-	  case 'store': return FirebaseAdminFirestore;
-	  case 'piix-auth': return PiixAuth;
-      default: return PiixFunctions;
-    }
-  }
-}
