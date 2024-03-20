@@ -76,6 +76,12 @@ export const FirebaseAdminAuth: Module = {
 		prefix: 'auth',
 		errorCode: 'user-not-found',
 	},
+	'user-not-created': {
+		name: 'USER_NOT_CREATED',
+		codeNumber: '0010',
+		prefix: 'auth',
+		errorCode: 'user-not-created',
+	},
 }
 
 export const FirebaseAdminFirestore: Module = {
