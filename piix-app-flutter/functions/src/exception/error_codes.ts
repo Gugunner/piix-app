@@ -3,7 +3,7 @@
  */
 type FirebaseAdminAuthErrorCodes = 'unknown' | 'email-already-exists' | 'id-token-expired'
 | 'id-token-revoked' | 'invalid-email' | 'invalid-id-token' | 'invalid-uid' | 'too-many-requests'
-| 'uid-already-exists' | 'user-not-found';
+| 'uid-already-exists' | 'user-not-found' | 'user-not-created';
 
 /**
  * All codes defined for the 'store' errorCodes that can be thrown
