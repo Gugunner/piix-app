@@ -66,3 +66,6 @@ env_const.dart
 assets/images/
 
 pubspec.lock
+
+#Firebase emulator
+.emulator/

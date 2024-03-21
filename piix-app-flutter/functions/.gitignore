@@ -11,3 +11,6 @@ node_modules/
 #Test coverage files
 .nyc_output/
 coverage/
+
+#Emulator files
+.emulator/
