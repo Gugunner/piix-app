@@ -160,12 +160,6 @@ export const PiixAuth: Module = {
 		prefix: 'piix-auth',
 		errorCode: 'custom-token-failed',
 	},
-	'email-not-sent': {
-		name: 'UNKNOWN',
-		codeNumber: '2005',
-		prefix: 'piix-auth',
-		errorCode: 'email-not-sent',
-	},
 }
 
 
@@ -185,8 +179,14 @@ export const PiixFunctions: Module = {
 	'invalid-body-fields': {
 		name: 'INVALID_BODY_FIELDS',
 		codeNumber: '3002',
-		prefix: 'piix-auth',
+		prefix: 'piix-functions',
 		errorCode: 'invalid-body-fields',
+	},
+	'email-not-sent': {
+		name: 'UNKNOWN',
+		codeNumber: '3003',
+		prefix: 'piix-functions',
+		errorCode: 'email-not-sent',
 	},
 }
 

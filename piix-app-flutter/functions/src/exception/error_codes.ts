@@ -15,12 +15,12 @@ type FirebaseAdminFirestoreErrorCodes = 'unknown' | 'document-not-added' | 'docu
  * All codes defined for the piix-auth errorCodes that can be thrown
  */
 type PiixAuthErrorCodes = 'unknown' | 'email-already-exists' | 'email-not-found' | 'incorrect-verification-code'
-| 'custom-token-failed' | 'email-not-sent';
+| 'custom-token-failed';
 
 /** 
  * All codes defined for the piix-functions errorCodes that can be thrown 
 */
-type PiixFunctionsErrorCodes = 'invalid-body' | 'invalid-body-fields';
+type PiixFunctionsErrorCodes = 'invalid-body' | 'invalid-body-fields' | 'email-not-sent';
 
 export type ErrorCode = FirebaseAdminAuthErrorCodes | FirebaseAdminFirestoreErrorCodes 
 | PiixAuthErrorCodes | PiixFunctionsErrorCodes;
