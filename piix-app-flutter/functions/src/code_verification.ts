@@ -4,7 +4,10 @@ import { AppException } from "./exception/app_exception";
 import { Request } from "firebase-functions/v2/https";
 import * as admin from "firebase-admin";
 
+import { defineInt } from "firebase-functions/params";
+import { IMPLEMENT_FIREBASE } from "./util/parametrized_states";
 
+export const sendEmail = defineInt('SEND_EMAIL', { default: 2, description: 'Enables or disables real mail sending' });
 /**
 Send a verification code to the email provided in the request body
 The code is stored in the collection 'codes' with the email as the document id
@@ -34,13 +37,28 @@ export async function sendVerificationCode(request: Request, response: express.R
             prefix: 'piix-functions',
         });
     }
+    const code = createNewCode();
+    const sendEmailValue = sendEmail.value();
+    if (sendEmailValue === IMPLEMENT_FIREBASE.mock || sendEmailValue === IMPLEMENT_FIREBASE.send) {
+        await sendCodeToEmail(email, languageCode, code);
+    }
+    await storeCode(email, code);
+    response.status(200).send({ code: 0 });
+}
+
+/**
+ * 
+ * @param email The email value which will be the document id and the email property inside the document.
+ * @param code The code that is expected to be verified.
+ * @throws AppException If the document could not be added to the collection 'codes'
+ * 
+ * If a document already exists with the same email, it will be overwritten and the code will change.
+ */
+async function storeCode(email: string, code: string): Promise<void> {
     try {
-        const code = createNewCode();
-        await sendCodeToEmail(email, languageCode);
         const docRef = admin.firestore().collection('codes').doc(email)
         await docRef.set({ email, code });
         logger.log(`Email and code were sent and stored`);
-        response.status(200).send({ code: 0 });
     } catch (error) {
         throw new AppException({
             code: 'aborted',
@@ -55,7 +73,8 @@ export async function sendVerificationCode(request: Request, response: express.R
  * 
  * @returns {string} A 6 digit string code
 */
-function createNewCode(): string {
+//The function is exported as a variable module so it can be mocked and tested
+export const createNewCode = (): string => {
     //Creates a base value that controls the length of the number (7)
     const max = Math.pow(10, 7); // 10^7
     //Creates the mininimum value equal to the real length of the number (6)
@@ -71,17 +90,39 @@ function createNewCode(): string {
     return `${number}`.substring(1); // 198280
 }
 
-async function sendCodeToEmail( email: string, languageCode: string): Promise<void> {
-    logger.log(`Sending email ${email} with language ${languageCode}`);
-    // return new Promise<void>( 
-    //     () => 
-    // ).catch(() => {
-    //     throw new AppException({
-    //         code: 'aborted',
-    //         errorCode: 'email-not-sent',
-    //         message: 'The verification code email could not be sent.',
-    //         prefix: 'piix-auth',
-    //     });
-    // });
+/**
+ * Sends the code to the email provided in the language provided when a new email document is added to the collection 'emails'
+ * inside Firestore. The email is sent using the template 'verification_code_{languageCode}' that is found in the collection 'email_templates' 
+ * 
+ * @param email The email to send the code to
+ * @param languageCode The language code to send the email in
+ * @param code The generated code to be verified
+ * @throws AppException If the email could not be stored in the collection 'emails'
+ */
+async function sendCodeToEmail( email: string, languageCode: string, code: string): Promise<void> {
+    try {
+        //Get the template name
+        const templateName = `verification_code_${languageCode}`;
+        //Add the email to the collection to trigger the firebase email service extension
+        const collectionRef = admin.firestore().collection('emails');
+        await collectionRef.add({
+            to: [email],
+            template: {
+                name: templateName,
+                data: {
+                    code: code,
+                }
+            }
+        });
+    } catch (error) {
+        //Throw an exception if the email could not be stored in the collection
+        //which means it cannot be read by the firebase email service extension
+        throw new AppException({
+            code: 'aborted',
+            errorCode: 'email-not-sent',
+            message: 'Could not send the verification code to the email.',
+            prefix: 'piix-functions',
+        });// Or handle more gracefully
+    }
 }
 
