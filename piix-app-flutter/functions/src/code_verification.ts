@@ -7,7 +7,7 @@ import * as admin from "firebase-admin";
 import { defineInt } from "firebase-functions/params";
 import { IMPLEMENT_FIREBASE } from "./util/parametrized_states";
 
-export const sendEmail = defineInt('SEND_EMAIL', { default: 2, description: 'Enables or disables real mail sending' });
+export const sendEmail = defineInt('SEND_EMAIL', { default: IMPLEMENT_FIREBASE.block, description: 'Enables or disables real mail sending' });
 /**
 Send a verification code to the email provided in the request body
 The code is stored in the collection 'codes' with the email as the document id
