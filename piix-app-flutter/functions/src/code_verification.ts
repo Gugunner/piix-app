@@ -122,7 +122,7 @@ async function sendCodeToEmail( email: string, languageCode: string, code: strin
             errorCode: 'email-not-sent',
             message: 'Could not send the verification code to the email.',
             prefix: 'piix-functions',
-        });// Or handle more gracefully
+        });
     }
 }
 
