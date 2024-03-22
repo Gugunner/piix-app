@@ -40,7 +40,7 @@ dependencies:
   #Allows to comapre objects
   equatable: ^2.0.5
   #Allows to obscure and encrypt variables
-  envied: ^0.3.0
+  envied: ^0.3.0+3
   #A firebase analytics api
   firebase_analytics: ^10.8.7
   #A firebase auth api
@@ -98,12 +98,14 @@ dependencies:
   pdf: ^3.8.4
   #Controls iOS and Android Permission
   permission_handler: ^11.0.0
+  #Allows to create riverpod providers
+  riverpod: ^2.5.1
+  #Allows to annotate certain properties as riverpod instances
+  riverpod_annotation: ^2.0.2
   #Allows to store data in local persistency
   shared_preferences: ^2.0.16
   #Allows to create a text canvas which allows drawing
   signature: ^5.3.0
-  #Required to automate Riverpod provider generation
-  riverpod_annotation: ^2.0.2
   #Allows to persist data in local with an object storage in ios and android
   sembast: ^3.6.0
   #Allows to persist data in local with an object storage in web
@@ -114,6 +116,7 @@ dependencies:
   whatsapp_unilink: ^2.1.0
   #Controls screen awake time
   wakelock: ^0.4.0
+
   
   
 
@@ -122,7 +125,7 @@ dependencies:
 
 dev_dependencies:
   #Used to run envied in build runner
-  envied_generator: ^0.3.0
+  envied_generator: ^0.3.0+3
   flutter_test:
     sdk: flutter
   #Creates special classes to handle data entities with build runner
@@ -130,7 +133,7 @@ dev_dependencies:
   #Creates a mock class to be used in testing
   mocktail: ^1.0.3
   #Runs code generator
-  build_runner: ^2.4.6
+  build_runner: ^2.4.8
   custom_lint:
   #Used to tun riverpod with build runner
   riverpod_generator: ^2.3.3
