@@ -12,8 +12,8 @@
                 "--flavor",
                 "dev",
                 "-t",
-                "lib/main_dev.dart",
-                "--dart-define=FAKE=true"
+                "lib/main.dart",
+                "--dart-define=ENV=fake"
             ]
         },
         //Use this configuration for both Firebase local Emulator Suite and Firebase piix-dev-env
@@ -27,8 +27,8 @@
                 "--flavor",
                 "dev",
                 "-t",
-                "lib/main_dev.dart",
-                "--dart-define=FAKE=false"
+                "lib/main.dart",
+                "--dart-define=ENV=dev"
             ]
         },
         //Use this configuration for Firebase piix-stage-env 
@@ -44,8 +44,8 @@
                 "--flavor",
                 "stage",
                 "-t",
-                "lib/main_stage.dart",
-                "--dart-define=FAKE=false"
+                "lib/main.dart",
+                "--dart-define=ENV=stage"
             ]
         },
         //Use this configuration for Firebase piix-prod-env
@@ -62,7 +62,7 @@
                 "prod",
                 "-t",
                 "lib/main.dart",
-                "--dart-define=FAKE=false"
+                "--dart-define=ENV=prod"
             ]
         },
     ]
