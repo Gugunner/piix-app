@@ -1,7 +1,7 @@
 import {onRequest} from "firebase-functions/v2/https";
 import * as admin from "firebase-admin";
-import { sendVerificationCode } from "./code_verification";
-import { createAccountAndCustomTokenWithEmail } from "./account_creation";
+import { sendVerificationCode } from "./verification_code_email";
+import { createAccountAndCustomTokenWithEmail, getCustomTokenForCustomSignIn } from "./account_creation_and_login";
 
 admin.initializeApp();
 
@@ -20,4 +20,10 @@ export const createAccountAndCustomTokenWithEmailRequest = onRequest(
     //TODO: Include CORS rules to protect request
     // { cors: []}
     createAccountAndCustomTokenWithEmail,
+);
+
+export const getCustomTokenForCustomSignInRequest = onRequest(
+    //TODO: Include CORS rules to protect request
+    // { cors: []}
+    getCustomTokenForCustomSignIn,
 );
