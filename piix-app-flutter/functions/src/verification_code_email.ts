@@ -3,9 +3,11 @@ import { logger } from "firebase-functions/v2";
 import { AppException } from "./exception/app_exception";
 import { Request } from "firebase-functions/v2/https";
 import * as admin from "firebase-admin";
-
 import { defineInt } from "firebase-functions/params";
 import { IMPLEMENT_FIREBASE } from "./util/parametrized_states";
+import { checkBodyFields, checkEmptyBody } from "./util/request_body_checks";
+
+/** The code found here works in the same flow, writing two Firebase functions in the same module are only used because it is highly probable that the user will use the same Firebase functions instance to execute  both functions to receive and verify the email*/
 
 export const sendEmail = defineInt('SEND_EMAIL', { default: IMPLEMENT_FIREBASE.block, description: 'Enables or disables real mail sending' });
 /**
@@ -19,24 +21,10 @@ and the code is sent to the email in the language provided in the request body.
  */
 export async function sendVerificationCode(request: Request, response: express.Response): Promise<void> {
     //Check if the body is undefined
-    if (request.body == undefined) {
-        throw new AppException({
-            code: 'invalid-argument',
-            errorCode: 'invalid-body',
-            message: 'The request has no body.',
-            prefix: 'piix-functions',
-        });
-    }
+    checkEmptyBody(request.body);
     //Check if the email and language code are included
+    checkBodyFields(request.body, ['email', 'languageCode']);
     const { languageCode, email } = request.body;
-    if (!languageCode || !email) {
-        throw new AppException({
-            code: 'invalid-argument',
-            errorCode: 'invalid-body-fields',
-            message: 'The email and language code must be included.',
-            prefix: 'piix-functions',
-        });
-    }
     const code = createNewCode();
     const sendEmailValue = sendEmail.value();
     if (sendEmailValue === IMPLEMENT_FIREBASE.mock || sendEmailValue === IMPLEMENT_FIREBASE.send) {
@@ -115,6 +103,7 @@ async function sendCodeToEmail( email: string, languageCode: string, code: strin
             }
         });
     } catch (error) {
+        logger.error('The code cannot be stored inside emails');
         //Throw an exception if the email could not be stored in the collection
         //which means it cannot be read by the firebase email service extension
         throw new AppException({
