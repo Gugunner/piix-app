@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flutter fvm build:watch",
+            "type": "shell",
+            "command": "fvm dart run build_runner watch --delete-conflicting-outputs"
+        },
+        {
+            "label": "Functions tsc build:watch",
+            "type": "shell",
+            "command": "cd functions && npm run build:watch"
+        },
+        {
+            "label": "Functions jest test:watch",
+            "type": "shell",
+            "command": "cd functions && npm run test:watch",
+        },
+        {
+            "label": "Functions jest coverage:report",
+            "type": "shell",
+            "command": "cd functions && npm run coverage",
+        },
+        {
+            "label": "Firebase import and export emulator",
+            "type": "shell",
+            "command": "cd functions && firebase emulators:start --import=./.emulator --export-on-exit=./.emulator"
+        },
+        {
+            "label": "Firebase import emulator",
+            "type": "shell",
+            "command": "cd functions && firebase emulators:start --import=./.emulator"
+        }
+    ]
+}
