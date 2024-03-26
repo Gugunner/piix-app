@@ -27,6 +27,11 @@
             "label": "Firebase import and export emulator",
             "type": "shell",
             "command": "cd functions && firebase emulators:start --import=./.emulator --export-on-exit=./.emulator"
+        },
+        {
+            "label": "Firebase import emulator",
+            "type": "shell",
+            "command": "cd functions && firebase emulators:start --import=./.emulator"
         }
     ]
 }
