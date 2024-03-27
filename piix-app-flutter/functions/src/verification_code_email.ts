@@ -48,11 +48,13 @@ async function storeCode(email: string, code: string): Promise<void> {
         await docRef.set({ email, code });
         logger.log(`Email and code were sent and stored`);
     } catch (error) {
+        logger.error(`The code cannot be stored inside codes ${error}`);
         throw new AppException({
             code: 'aborted',
             errorCode: 'document-not-added',
             message: 'Could not store the verification code.',
             prefix: 'store',
+            statusCode: 500,
         });// Or handle more gracefully
     }
 }
@@ -103,7 +105,7 @@ async function sendCodeToEmail( email: string, languageCode: string, code: strin
             }
         });
     } catch (error) {
-        logger.error('The code cannot be stored inside emails');
+        logger.error(`The code cannot be stored inside emails -> ${error}`);
         //Throw an exception if the email could not be stored in the collection
         //which means it cannot be read by the firebase email service extension
         throw new AppException({
@@ -111,6 +113,7 @@ async function sendCodeToEmail( email: string, languageCode: string, code: strin
             errorCode: 'email-not-sent',
             message: 'Could not send the verification code to the email.',
             prefix: 'piix-functions',
+            statusCode: 500,
         });
     }
 }

@@ -8,6 +8,7 @@ import * as myFunctions from '../../../src/index';
 import { AppException } from '../../../src/exception/app_exception';
 import { SubModule } from '../../../src/exception/modules';
 import { MockFirestore, MockFirebaseAuth } from './mock_interfaces';
+import { WithFieldValue } from 'firebase-admin/firestore';
 
 /**
  * This robot is used to test all the scenarios when creating an account with email and custom token
@@ -25,6 +26,7 @@ export class CreateAccountWithEmailRobot {
     private _uid: string; 
     //The custom token that will be created by the Firebase Create Custom Token function
     private _customToken: string;
+    private _languageCode: string;
     
     //The constructor initializes the properties
     constructor({
@@ -32,16 +34,30 @@ export class CreateAccountWithEmailRobot {
         email,
         uid,
         customToken,
+        languageCode,
     }: {
         code: string,
         email: string,
         uid: string,
         customToken: string,
+        languageCode: string,
     }) {
         this._code = code;
         this._email = email;
         this._uid = uid;
         this._customToken = customToken;
+        this._languageCode = languageCode;
+    }
+
+    private get _templateName() { return `welcome_email_${this._languageCode}` };
+
+    private get _expectedEmailBody() {
+        return {
+            to: [this._email],
+            template: {
+                name: this._templateName,
+            }
+        };
     }
 
     //The default code data that will be returned by the code document
@@ -93,7 +109,7 @@ export class CreateAccountWithEmailRobot {
     private _userDocRef(rejectSet: boolean): any {
         //The set function
         const set = jest.fn((document: any): any => {
-            expect(document).toStrictEqual({ email: this._email, uid: this._uid, emailVerified: true });
+            expect(document).toStrictEqual({ email: this._email, uid: this._uid, emailVerified: true, language: this._languageCode });
         });
         //If the set function should be rejected
         if (rejectSet) {
@@ -109,6 +125,18 @@ export class CreateAccountWithEmailRobot {
                 };
             })
         };
+    }
+
+    private _emailCollectionRef(rejectAddEmail: boolean) {
+        const add = jest.fn((emailBody: WithFieldValue<admin.firestore.DocumentData>): any => {
+            expect(emailBody).toStrictEqual(this._expectedEmailBody);
+        });
+        if (rejectAddEmail) {
+            add.mockRejectedValue(new Error('mock error'));
+        }
+        return {
+            add: add,
+        }
     }
 
     //The mocked Firebase Auth object
@@ -148,12 +176,13 @@ export class CreateAccountWithEmailRobot {
     }
 
     //The mocked Firebase Firestore object
-    private _mockFirebaseFirestore({rejectSetUser = false, codeExists = true, codeData = this._codeData,  rejectDeleteCode = false}: MockFirestore): void {
+    private _mockFirebaseFirestore({rejectSetUser = false, codeExists = true, codeData = this._codeData,  rejectDeleteCode = false, rejectAddEmail = false}: MockFirestore): void {
         //The firestore object
         const firestore = jest.fn(() => ({
             collection: jest.fn((collection: string) => {
                 if (collection === 'users') return this._userDocRef(rejectSetUser);
                 if (collection === 'codes') return this._codeDocRef(codeExists, codeData, rejectDeleteCode);
+                if (collection === 'emails') return this._emailCollectionRef(rejectAddEmail);
                 return {};
             })
         }));
@@ -166,7 +195,7 @@ export class CreateAccountWithEmailRobot {
     public async expectToSucceed() {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
-        const req = { body: { email: this._email, code: this._code } };
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
         const res = {
             status: (code: any): any => {
                 expect(code).toStrictEqual(200);
@@ -180,21 +209,26 @@ export class CreateAccountWithEmailRobot {
         await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);;
         expect(admin.auth).toHaveBeenCalledTimes(2);
-        expect(admin.firestore).toHaveBeenCalledTimes(2);
+        expect(admin.firestore).toHaveBeenCalledTimes(3);
     }
     
     public async expectToFailWhenBodyIsUndefined() {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
         const req = {};
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body');
-        }
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
@@ -204,14 +238,19 @@ export class CreateAccountWithEmailRobot {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
         const req = { body: { } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
-        }
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body-fields');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
@@ -220,15 +259,20 @@ export class CreateAccountWithEmailRobot {
     public async expectToFailWhenBodyHasNoEmail() {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
-        const req = { body: { code: this._code } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
-        }
+        const req = { body: { code: this._code, languageCode: this._languageCode } };
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body-fields');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
@@ -237,34 +281,66 @@ export class CreateAccountWithEmailRobot {
     public async expectToFailWhenBodyHasNoCode() {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
-        const req = { body: { email: this._email } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
-        }
+        const req = { body: { email: this._email, languageCode: this._languageCode } };
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body-fields');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
     }
 
-    public async expectToFaileWhenCodeDocumentDoesNotExist() {
+    public async expectToFailWhenBodyHasNoLanguageCode() {
+        this._mockFirebaseAuth({});
+        this._mockFirebaseFirestore({});
+        const req = { body: { email: this._email, code: this._code } };
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body-fields');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
+        expect(this._spyRequest).toHaveBeenCalledTimes(1);
+        expect(admin.auth).toHaveBeenCalledTimes(0);
+        expect(admin.firestore).toHaveBeenCalledTimes(0);
+    }
+
+    public async expectToFailWhenCodeDocumentDoesNotExist() {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({
             codeExists: false,
         });
-        const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('document-not-found');
-        }
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(412);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('document-not-found');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(1);
@@ -276,16 +352,21 @@ export class CreateAccountWithEmailRobot {
         this._mockFirebaseFirestore({
             codeData: data,
         });
-        const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            expect((e as AppException).code).toBe('failed-precondition');
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('unknown');
-        }
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(500);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        expect((body as AppException).code).toBe('failed-precondition');
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('unknown');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(1);
@@ -294,15 +375,20 @@ export class CreateAccountWithEmailRobot {
     public async expectToFailWhenCodesDoNotMatch() {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
-        const req = { body: { email: this._email, code: '654321' } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('incorrect-verification-code');
-        }
+        const req = { body: { email: this._email, code: '654321', languageCode: this._languageCode } };
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(409);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('incorrect-verification-code');
+                    })
+                }
+            })            
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(1);
@@ -313,7 +399,7 @@ export class CreateAccountWithEmailRobot {
         this._mockFirebaseFirestore({
             rejectDeleteCode: true,
         });
-        const req = { body: { email: this._email, code: this._code } };
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
         const res = {
             status: (code: any): any => {
                 expect(code).toStrictEqual(200);
@@ -324,16 +410,10 @@ export class CreateAccountWithEmailRobot {
                 }
             }
         };
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('incorrect-verification-code');
-        }
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(2);
-        expect(admin.firestore).toHaveBeenCalledTimes(2);
+        expect(admin.firestore).toHaveBeenCalledTimes(3);
     }
 
     public async expectToFailWhenNoFirebaseUserIsCreated() {
@@ -341,15 +421,20 @@ export class CreateAccountWithEmailRobot {
             rejectCreateUser: true,
         });
         this._mockFirebaseFirestore({});
-        const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('user-not-created');
-        }
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
+        const res = {
+            status: (code: any): any => {
+                expect(code).toStrictEqual(412);
+                return {
+                    send: (body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('user-not-created');
+                    }
+                }
+            }
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(1);
         expect(admin.firestore).toHaveBeenCalledTimes(1);
@@ -360,18 +445,45 @@ export class CreateAccountWithEmailRobot {
         this._mockFirebaseFirestore({
             rejectSetUser: true,
         });
-        const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('document-not-added');
-        }
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
+        const res = {
+            status: (code: any): any => {
+                expect(code).toStrictEqual(412);
+                return {
+                    send: (body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('document-not-added');
+                    }
+                }
+            }
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(2);
         expect(admin.firestore).toHaveBeenCalledTimes(2);
+    }
+
+    public async expectToSucceedButFailToStoreWelcomeEmailDocument() {
+        this._mockFirebaseAuth({});
+        this._mockFirebaseFirestore({
+            rejectAddEmail: true,
+        });
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
+        const res = {
+            status: (code: any): any => {
+                expect(code).toStrictEqual(200);
+                return {
+                    send: (body: any) => {
+                        expect(body).toStrictEqual({ customToken: this._customToken, code: 0, })
+                    }
+                }
+            }
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
+        expect(this._spyRequest).toHaveBeenCalledTimes(1);
+        expect(admin.auth).toHaveBeenCalledTimes(2);
+        expect(admin.firestore).toHaveBeenCalledTimes(3);
     }
 
     public async expectToFailWhenCustomTokenCannotBeCreated() {
@@ -379,19 +491,22 @@ export class CreateAccountWithEmailRobot {
             rejectCreateCustomToken: true,
         });
         this._mockFirebaseFirestore({});
-        const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('custom-token-failed');
-        }
+        const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
+        const res = {
+            status: (code: any): any => {
+                expect(code).toStrictEqual(500);
+                return {
+                    send: (body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('custom-token-failed');
+                    }
+                }
+            }
+        };
+        await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(2);
-        expect(admin.firestore).toHaveBeenCalledTimes(2);
+        expect(admin.firestore).toHaveBeenCalledTimes(3);
     }
-
-
 }

@@ -13,6 +13,7 @@ export function checkEmptyBody(body: any): void {
             errorCode: 'invalid-body',
             message: 'The request has no body.',
             prefix: 'piix-functions',
+            statusCode: 400,
         });
     };
 }
@@ -39,6 +40,7 @@ export function checkBodyFields(body: any, fields: Array<string>, message?: stri
                 errorCode: 'invalid-body-fields',
                 message: definedMessage,
                 prefix: 'piix-functions',
+                statusCode: 400,
             });
         }
     });
