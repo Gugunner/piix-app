@@ -127,6 +127,12 @@ export const FirebaseAdminFirestore: Module = {
 		prefix: 'store',
 		errorCode: 'document-not-found',
 	},
+	'query-is-empty': {
+		name: 'QUERY_IS_EMPTY',
+		codeNumber: '0107',
+		prefix: 'store',
+		errorCode: 'query-is-empty',
+	},
 }
 
 export const PiixAuth: Module = {
