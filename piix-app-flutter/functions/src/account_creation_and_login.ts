@@ -7,6 +7,10 @@ import * as admin from 'firebase-admin';
 import { checkBodyFields, checkEmptyBody } from "./util/request_body_checks";
 import { UserRecord } from 'firebase-admin/auth';
 import { DocumentData } from 'firebase-admin/firestore';
+import { IMPLEMENT_FIREBASE } from './util/parametrized_states';
+import { defineInt } from 'firebase-functions/params';
+
+export const sendEmail = defineInt('SEND_EMAIL', { default: IMPLEMENT_FIREBASE.block, description: 'Enables or disables real mail sending' });
 
 /**
  * Create a new user in Firebase and create a custom token with the user's uid and the custom claim userAccount: true
@@ -20,19 +24,23 @@ import { DocumentData } from 'firebase-admin/firestore';
 export async function createAccountAndCustomTokenWithEmail(request: Request, response: express.Response): Promise<void> {    
     //Check if the body is undefined
     checkEmptyBody(request.body);
-    //Check if the email is included
-    checkBodyFields(request.body, ['email', 'code']);
-    const { email, code } = request.body;
+    //Check if the email, code and languageCode is included
+    checkBodyFields(request.body, ['email', 'code', 'languageCode']);
+    const { email, code, languageCode } = request.body;
     //Verify the code with the email provided
     await verifyCodeWithEmail(email, code);
     //Create the user in Firebase and store it
     const user = await createUserInFirebaseWithEmail(email);
     const uid = user.uid;
     //Store the user in the collection 'users'
-    await storeUser(email, uid);
+    await storeUser(email, uid, languageCode);
     const claims = {
         userAccount: true,
     };
+    const sendEmailValue = sendEmail.value();
+    if (sendEmailValue === IMPLEMENT_FIREBASE.mock || sendEmailValue === IMPLEMENT_FIREBASE.send) {
+        await sendWelcomeEmail(email, languageCode);
+    }
     //Create a custom token with the user's uid and the custom claim userAccount: true
     const customToken = await createCustomToken(uid, claims);
     //Return the custom token in the response body
@@ -56,11 +64,13 @@ export async function createAccountAndCustomTokenWithEmail(request: Request, res
             return user;
         } catch (error) {
             //If the user could not be created, throw an AppException
+            logger.error(`User cannot be created in firebase -> ${error}`);
             throw new AppException({
                 code: 'aborted',
                 errorCode: 'user-not-created',
                 message: 'Firebase user was not created.',
                 prefix: 'auth',
+                statusCode: 412,
             });
         }
     }
@@ -72,7 +82,7 @@ export async function createAccountAndCustomTokenWithEmail(request: Request, res
      * @param uid The uid of the user in Firebase
      * @throws {AppException} If the user could not be stored
      */
-    async function storeUser(email: string, uid: string): Promise<void> {
+    async function storeUser(email: string, uid: string, languageCode: string): Promise<void> {
         try {
             //Store the user in the collection 'users' with the uid as the document id
             const docRef = admin.firestore().collection('users').doc(uid);
@@ -80,17 +90,39 @@ export async function createAccountAndCustomTokenWithEmail(request: Request, res
                 email: email,
                 uid: uid,
                 emailVerified: true,
+                language: languageCode,
             });
         } catch (error) {
             //If the user could not be stored, delete the user and throw an AppException
-            logger.error(`The user cannot be stored in users/${uid}, deleting Firebase user`);
+            logger.error(`The user cannot be stored in users/${uid}, deleting Firebase user -> ${error}`);
             await admin.auth().deleteUser(uid);
             throw new AppException({
                 code: 'aborted',
                 errorCode: 'document-not-added',
                 message: 'Could not store the user.',
                 prefix: 'store',
+                statusCode: 412,
             });// O
+        }
+    }
+
+    /**
+     * 
+     * @param email 
+     * @param languageCode 
+     */
+    async function sendWelcomeEmail(email:string, languageCode: string): Promise<void> {
+        try {
+            const templateName = `welcome_email_${languageCode}`;
+            const collectionRef = admin.firestore().collection('emails');
+            await collectionRef.add({
+                to: [email],
+                template: {
+                    name: templateName,
+                }
+            });
+        } catch (error) {
+            logger.error(`The welcome email cannot be stored inside emails -> ${error}`);
         }
     }
 
@@ -137,6 +169,7 @@ export async function getCustomTokenForCustomSignIn(request: Request, response: 
                 errorCode: 'query-is-empty',
                 message: 'The query to get users returned no results',
                 prefix: 'store',
+                statusCode: 412,
             });
         }
         //Retrieve the first result of the query
@@ -149,6 +182,7 @@ export async function getCustomTokenForCustomSignIn(request: Request, response: 
                 errorCode: 'document-not-found',
                 message: 'The user could not be retrieved.',
                 prefix: 'store',
+                statusCode: 500,
             });
         }
         //Retrieve the data of the document
@@ -161,6 +195,7 @@ export async function getCustomTokenForCustomSignIn(request: Request, response: 
                 errorCode: 'unknown',
                 message: 'There was no data found in the document',
                 prefix: 'store',
+                statusCode: 500,
             });
         }
         //Return the user data
@@ -184,12 +219,14 @@ export async function createCustomToken(uid: string, claims?: object | undefined
         const customToken = await  admin.auth().createCustomToken(uid, claims);
         return customToken;
     } catch (error) {
+        logger.error(`Custom token cannot be created for ${uid} -> ${error}`);
         //If the custom token could not be created, throw an AppException
         throw new AppException({
             code: 'failed-precondition',
             errorCode: 'custom-token-failed',
             message: 'The custom token could not be created.',
             prefix: 'piix-auth',
+            statusCode: 500,
         });
     }
 }
@@ -216,6 +253,7 @@ export async function verifyCodeWithEmail(email: string, code: string): Promise<
             errorCode: 'document-not-found',
             message: 'The code could not be retrieved.',
             prefix: 'store',
+            statusCode: 412,
         });
     }
     //Retrieve the data of the document
@@ -228,6 +266,7 @@ export async function verifyCodeWithEmail(email: string, code: string): Promise<
             errorCode: 'unknown',
             message: 'There was no data found in the document.',
             prefix: 'store',
+            statusCode: 500,
         });
     }
     //Retrieve the code from the data
@@ -239,6 +278,7 @@ export async function verifyCodeWithEmail(email: string, code: string): Promise<
             errorCode: 'incorrect-verification-code',
             message: 'The verification code do not match the code found in the system',
             prefix: 'piix-auth',
+            statusCode: 409,
         });
     }
     //Delete the code from the collection 'codes' to avoid reusing the code
@@ -257,7 +297,7 @@ export async function verifyCodeWithEmail(email: string, code: string): Promise<
             await docRef.delete();
         } catch (error) {
             //If the code could not be deleted, clear the code by setting the code to an empty string
-           logger.error(`The document found in ${docRef.id} could not be deleted, attempting to clear code... $${error}`);
+           logger.error(`The document found in ${docRef.id} could not be deleted, attempting to clear code -> $${error}`);
            await docRef.set({
             code: '',
            }, { merge: true });
