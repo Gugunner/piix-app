@@ -5,7 +5,7 @@ describe('Create Account and Custom Token With Email Request', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN a valid email, code and languageCode is received
     AND the code is successfully verified
     THEN a firebase user will be created with custom claim userAccount: true
     AND the user will be stored
@@ -25,26 +25,30 @@ describe('Create Account and Custom Token With Email Request', () => {
     THEN throw an AppException with "invalid-body-fields" errorCode`, async () => {
         await robot.auth.createWithEmail.expectToFailWhenBodyHasNoEmail();
     });
-    it(`WHEN the request body is empty
+    it(`WHEN the request body does not have a code
     THEN throw an AppException with "invalid-body-fields" errorCode`, async () => {
         await robot.auth.createWithEmail.expectToFailWhenBodyHasNoCode();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN the request body does not have a languageCode
+    THEN throw an AppException with "invalid-body-fields" errorCode`, async () => {
+        await robot.auth.createWithEmail.expectToFailWhenBodyHasNoLanguageCode();
+    });
+    it(`WHEN a valid email, code and languageCode is received
     AND the document of the codes collection does not exist
     THEN throw an AppException with 'document-not-found'`, async () => {
-        await robot.auth.createWithEmail.expectToFaileWhenCodeDocumentDoesNotExist();
+        await robot.auth.createWithEmail.expectToFailWhenCodeDocumentDoesNotExist();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN a valid email, code and languageCode is received
     AND the document of the codes collection has no data
     THEN throw an AppException with 'unknown' errorCode and 'failed-precondition' code`, async () => {
         await robot.auth.createWithEmail.expectToFailWhenCodeDocumentHasNoData();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN a valid email, code and languageCode is received
     AND the codes do not match
     THEN throw an AppException with 'incorrect-verification-code' errorCode`, async () => {
         await robot.auth.createWithEmail.expectToFailWhenCodesDoNotMatch();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN a valid email, code and languageCode is received
     AND the code is successfully verified
     THEN the code cannot be deleted
     AND the code field property is emptied
@@ -54,20 +58,29 @@ describe('Create Account and Custom Token With Email Request', () => {
     AND the returned response body will contain the custom token`, async () => {
         await robot.auth.createWithEmail.expectToSucceedButFailToRemoveCodeDocument();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN a valid email, code and languageCode is received
     AND the code is successfully verified
     THEN the firebase user cannot be created
     AND throw an AppException with 'user-not-created' errorCode`, async () => {
         await robot.auth.createWithEmail.expectToFailWhenNoFirebaseUserIsCreated();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN a valid email, code and languageCode is received
     AND the code is successfully verified
     AND a firebase user will be created with custom claim userAccount: true
     THEN the user cannot be stored in firestore
     AND throw an AppException with 'user-not-created' errorCode`, async () => {
         await robot.auth.createWithEmail.expectToFailWhenUserCannotBeStored();
     });
-    it(`WHEN a valid email and code is received
+    it(`WHEN a valid email, code and languageCode is received
+    AND the code is successfully verified
+    AND the user is created in firebase
+    AND the user is stored
+    THEN the welcome email document cannot be stored 
+    AND the custom token is created
+    AND the returned response body will contain the custom token`, async () => {
+        await robot.auth.createWithEmail.expectToSucceedButFailToStoreWelcomeEmailDocument();
+    });
+    it(`WHEN a valid email, code and languageCode is received
     AND the code is successfully verified
     AND the user is created in firebase
     AND the user is stored
@@ -109,7 +122,7 @@ describe('Get Custom Token for Custom Sign In Request', () => {
     it(`WHEN a valid email and code is received
     AND the document with the provided email does not exist in the codes collection
     THEN throw an AppException with 'document-not-found' errorCode`, async () => {
-        await robot.auth.customSignIn.expectToFaileWhenCodeDocumentDoesNotExist();
+        await robot.auth.customSignIn.expectToFailWhenCodeDocumentDoesNotExist();
     });
     it(`WHEN a valid email and code is received
     AND the document of the codes collection has no data
