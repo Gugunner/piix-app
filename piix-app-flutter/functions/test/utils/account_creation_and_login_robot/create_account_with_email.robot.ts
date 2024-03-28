@@ -26,6 +26,7 @@ export class CreateAccountWithEmailRobot {
     private _uid: string; 
     //The custom token that will be created by the Firebase Create Custom Token function
     private _customToken: string;
+    //The language code of the email
     private _languageCode: string;
     
     //The constructor initializes the properties
