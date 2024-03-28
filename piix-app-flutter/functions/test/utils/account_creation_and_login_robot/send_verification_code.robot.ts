@@ -28,13 +28,15 @@ export class SendVerificationCodeRobot {
     constructor({
         email,
         code,
+        languageCode,
     }: {
         email: string;
         code: string;
+        languageCode: string;
     }) {
         this._email = email;
         this._code = code;
-        this._languageCode = 'en';
+        this._languageCode = languageCode;
         jest.spyOn(verification, 'createNewCode').mockReturnValue(code);
     }
 
@@ -80,7 +82,6 @@ export class SendVerificationCodeRobot {
     private _emailCollectionRef(rejectAddEmail: boolean) {
         //The add function that will be called when storing the email
         const add = jest.fn((emailBody: WithFieldValue<admin.firestore.DocumentData>): any => {
-            console.log(emailBody);
             expect(emailBody).toStrictEqual(this._expectedEmailBody);
             expect(emailBody['template']['data']['code']).toBe(this._code);
         });
@@ -135,14 +136,21 @@ export class SendVerificationCodeRobot {
     public async expectToFailWhenBodyIsUndefined() {
         this._mockFirebaseFirestore({});
         const req = {};
-        const res = {};
-        try {
-            await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body');
+        const res = {
+            status: (code: any) => {
+               expect(code).toStrictEqual(400);
+               //Return from inside to mock this
+               return {
+                send: (body: any) => {
+                    expect(body).toBeInstanceOf(AppException);
+                    const subModule = (body as AppException).details as SubModule;
+                    expect(subModule.errorCode).toBe('invalid-body');
+                }
+               }
+            },
         }
+        //Await the call for Promises
+        await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
     }
@@ -150,14 +158,21 @@ export class SendVerificationCodeRobot {
     public async expectToFailWhenBodyIsEmpty() {
         this._mockFirebaseFirestore({});
         const req = { body: {} };
-        const res = {};
-        try {
-            await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
+        const res = {
+            status: (code: any) => {
+               expect(code).toStrictEqual(400);
+               //Return from inside to mock this
+               return {
+                send: (body: any) => {
+                    expect(body).toBeInstanceOf(AppException);
+                    const subModule = (body as AppException).details as SubModule;
+                    expect(subModule.errorCode).toBe('invalid-body-fields');
+                }
+               }
+            },
         }
+        //Await the call for Promises
+        await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
     }
@@ -165,14 +180,21 @@ export class SendVerificationCodeRobot {
     public async expectToFailWhenBodyHasNoEmail() {
         this._mockFirebaseFirestore({});
         const req = { body: { languageCode: this._languageCode } };
-        const res = {};
-        try {
-            await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
+        const res = {
+            status: (code: any) => {
+               expect(code).toStrictEqual(400);
+               //Return from inside to mock this
+               return {
+                send: (body: any) => {
+                    expect(body).toBeInstanceOf(AppException);
+                    const subModule = (body as AppException).details as SubModule;
+                    expect(subModule.errorCode).toBe('invalid-body-fields');
+                }
+               }
+            },
         }
+        //Await the call for Promises
+        await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
     }
@@ -180,14 +202,21 @@ export class SendVerificationCodeRobot {
     public async expectToFailWhenBodyHasNoLanguageCode() {
         this._mockFirebaseFirestore({});
         const req = { body: { email: this._email } };
-        const res = {};
-        try {
-            await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
+        const res = {
+            status: (code: any) => {
+               expect(code).toStrictEqual(400);
+               //Return from inside to mock this
+               return {
+                send: (body: any) => {
+                    expect(body).toBeInstanceOf(AppException);
+                    const subModule = (body as AppException).details as SubModule;
+                    expect(subModule.errorCode).toBe('invalid-body-fields');
+                }
+               }
+            },
         }
+        //Await the call for Promises
+        await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
     }
@@ -197,15 +226,21 @@ export class SendVerificationCodeRobot {
             rejectAddEmail: true,
         });
         const req = { body: { email: this._email, languageCode: this._languageCode } };
-        const res = {};
-        //Await the call for Promises
-        try {
-            await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('email-not-sent');
+        const res = {
+            status: (code: any) => {
+               expect(code).toStrictEqual(500);
+               //Return from inside to mock this
+               return {
+                send: (body: any) => {
+                    expect(body).toBeInstanceOf(AppException);
+                    const subModule = (body as AppException).details as SubModule;
+                    expect(subModule.errorCode).toBe('email-not-sent');
+                }
+               }
+            },
         }
+        //Await the call for Promises
+        await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
     }
 
@@ -214,18 +249,21 @@ export class SendVerificationCodeRobot {
             rejectSetCode: true,
         });
         const req = { body: { email: this._email, languageCode: this._languageCode } };
-        const res = {};
-        //Await the call for Promises
-        try {
-            await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('document-not-added');
+        const res = {
+            status: (code: any) => {
+               expect(code).toStrictEqual(500);
+               //Return from inside to mock this
+               return {
+                send: (body: any) => {
+                    expect(body).toBeInstanceOf(AppException);
+                    const subModule = (body as AppException).details as SubModule;
+                    expect(subModule.errorCode).toBe('document-not-added');
+                }
+               }
+            },
         }
+        //Await the call for Promises
+        await myFunctions.sendVerificationCodeRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
     }
-
-
-
 }
