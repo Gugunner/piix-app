@@ -10,6 +10,7 @@ import { SubModule } from '../../../src/exception/modules';
 import { MockFirestore, MockFirebaseAuth } from './mock_interfaces';
 import { WithFieldValue } from 'firebase-admin/firestore';
 
+
 /**
  * This robot is used to test all the scenarios when creating an account with email and custom token
  */
@@ -353,6 +354,7 @@ export class CreateAccountWithEmailRobot {
         this._mockFirebaseFirestore({
             codeData: data,
         });
+
         const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
         const res = {
             status: jest.fn((code: number): any => {

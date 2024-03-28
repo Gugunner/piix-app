@@ -22,11 +22,14 @@ export class AccountCreationAndLoginRobot {
             const  email = 'email@gmail.com';
             const  uid = '0987654321';
             const  customToken = '1234567890';
+            const languageCode = 'en';
+
         this.createWithEmail = new CreateAccountAndCustomTokenWithEmailRobot({
             email: email,
             code: code,
             uid: uid,
             customToken: customToken,
+            languageCode: languageCode,
         });
         this.customSignIn = new GetCustomTokenForCustomSignInRobot({
             email: email,
@@ -37,6 +40,7 @@ export class AccountCreationAndLoginRobot {
         this.sendVerificationCode = new SendVerificationCodeRobot({
             email: email,
             code: code,
+            languageCode: languageCode,
         });
     }
     
