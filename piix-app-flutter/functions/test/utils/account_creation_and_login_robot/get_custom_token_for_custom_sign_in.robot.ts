@@ -183,15 +183,20 @@ export class GetCustomTokenForCustomSignInRobot {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
         const req = {};
-        const res = {};
-        try {
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body');
+                    })
+                }
+            })            
+        };
         //Await the call for Promises
         await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body');
-        }
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
@@ -201,15 +206,20 @@ export class GetCustomTokenForCustomSignInRobot {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
         const req = { body: { } };
-        const res = {};
-        try {
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body-fields');
+                    })
+                }
+            })            
+        };
         //Await the call for Promises
         await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
-        }
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
@@ -219,15 +229,20 @@ export class GetCustomTokenForCustomSignInRobot {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
         const req = { body: { code: this._code } };
-        const res = {};
-        try {
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body-fields');
+                    })
+                }
+            })            
+        };
         //Await the call for Promises
         await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
-        }
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
@@ -237,44 +252,45 @@ export class GetCustomTokenForCustomSignInRobot {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
         const req = { body: { email: this._email } };
-        const res = {};
-        try {
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(400);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('invalid-body-fields');
+                    })
+                }
+            })            
+        };
         //Await the call for Promises
         await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('invalid-body-fields');
-        }
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(0);
     }
 
-    public async expectToFaileWhenCodeDocumentDoesNotExist() {
+    public async expectToFailWhenCodeDocumentDoesNotExist() {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({
             codeExists: false,
         });
         const req = { body: { email: this._email, code: this._code } };
         const res = {
-            status: (code: any): any => {
-                expect(code).toStrictEqual(200);
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(412);
                 return {
-                    send: (body: any) => {
-                        expect(body).toStrictEqual({ customToken: this._customToken, code: 0, })
-                    }
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('document-not-found');
+                    })
                 }
-            }
+            })            
         };
-        try {
-            //Await the call for Promises
-            await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('document-not-found');
-        }
+        //Await the call for Promises
+        await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(1);
@@ -287,16 +303,21 @@ export class GetCustomTokenForCustomSignInRobot {
             codeData: data,
         });
         const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            //Await the call for Promises
-            await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            expect((e as AppException).code).toBe('failed-precondition');
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('unknown');
-        }
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(500);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        expect((body as AppException).code).toBe('failed-precondition');
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('unknown');
+                    })
+                }
+            })            
+        };
+        //Await the call for Promises
+        await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(1);
@@ -306,15 +327,20 @@ export class GetCustomTokenForCustomSignInRobot {
         this._mockFirebaseAuth({});
         this._mockFirebaseFirestore({});
         const req = { body: { email: this._email, code: '654321' } };
-        const res = {};
-        try {
-            //Await the call for Promises
-            await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('incorrect-verification-code');
-        }
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(409);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('incorrect-verification-code');
+                    })
+                }
+            })            
+        };
+        //Await the call for Promises
+        await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(1);
@@ -349,15 +375,20 @@ export class GetCustomTokenForCustomSignInRobot {
             userQueryIsEmpty: true,
         });
         const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            //Await the call for Promises
-            await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('query-is-empty');
-        }
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(412);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('query-is-empty');
+                    })
+                }
+            })            
+        };
+        //Await the call for Promises
+        await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(2);
@@ -369,15 +400,20 @@ export class GetCustomTokenForCustomSignInRobot {
             userExists: false,
         });
         const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            //Await the call for Promises
-            await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('document-not-found');
-        }
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(500);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('document-not-found');
+                    })
+                }
+            })            
+        };
+        //Await the call for Promises
+        await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(2);
@@ -390,16 +426,21 @@ export class GetCustomTokenForCustomSignInRobot {
             userData: data,
         });
         const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            //Await the call for Promises
-            await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            expect((e as AppException).code).toBe('failed-precondition');
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('unknown');
-        }
+        const res = {
+            status: jest.fn((code: number): any => {
+                expect(code).toBe(500);
+                return {
+                    send: jest.fn((body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        expect((body as AppException).code).toBe('failed-precondition');
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('unknown');
+                    })
+                }
+            })            
+        };
+        //Await the call for Promises
+        await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(0);
         expect(admin.firestore).toHaveBeenCalledTimes(2);
@@ -411,15 +452,20 @@ export class GetCustomTokenForCustomSignInRobot {
         });
         this._mockFirebaseFirestore({});
         const req = { body: { email: this._email, code: this._code } };
-        const res = {};
-        try {
-            //Await the call for Promises
-            await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
-        } catch (e) {
-            expect(e).toBeInstanceOf(AppException);
-            const subModule = (e as AppException).details as SubModule;
-            expect(subModule.errorCode).toBe('custom-token-failed');
-        }
+        const res = {
+            status: (code: any): any => {
+                expect(code).toStrictEqual(500);
+                return {
+                    send: (body: any) => {
+                        expect(body).toBeInstanceOf(AppException);
+                        const subModule = (body as AppException).details as SubModule;
+                        expect(subModule.errorCode).toBe('custom-token-failed');
+                    }
+                }
+            }
+        };
+        //Await the call for Promises
+        await myFunctions.getCustomTokenForCustomSignInRequest(req as Request, (res as unknown) as express.Response);
         expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(1);
         expect(admin.firestore).toHaveBeenCalledTimes(2);

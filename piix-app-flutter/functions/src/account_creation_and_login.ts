@@ -102,7 +102,7 @@ export async function createAccountAndCustomTokenWithEmail(request: Request, res
                 message: 'Could not store the user.',
                 prefix: 'store',
                 statusCode: 412,
-            });// O
+            });
         }
     }
 
@@ -125,7 +125,6 @@ export async function createAccountAndCustomTokenWithEmail(request: Request, res
             logger.error(`The welcome email cannot be stored inside emails -> ${error}`);
         }
     }
-
 }
 
 /**
