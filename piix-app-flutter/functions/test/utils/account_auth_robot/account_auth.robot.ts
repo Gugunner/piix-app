@@ -1,13 +1,14 @@
 
 import { CreateAccountWithEmailRobot as CreateAccountAndCustomTokenWithEmailRobot } from './create_account_with_email.robot';
 import { GetCustomTokenForCustomSignInRobot } from './get_custom_token_for_custom_sign_in.robot';
+import { RevokeRefreshTokenRobot } from './revoke_refresh_token.robot';
 import { SendVerificationCodeRobot } from './send_verification_code.robot'
 
 /**
  * This robot is a wrapper for the robots that are used to create an account and login
  * when testing the firebase functions.
  */
-export class AccountCreationAndLoginRobot {
+export class AccountAuthRobot {
 
     //The robot to create an account with email and custom token
     createWithEmail: CreateAccountAndCustomTokenWithEmailRobot;
@@ -15,6 +16,7 @@ export class AccountCreationAndLoginRobot {
     customSignIn: GetCustomTokenForCustomSignInRobot;
     //The robot to send a verification code
     sendVerificationCode: SendVerificationCodeRobot;
+    revokeToken: RevokeRefreshTokenRobot;
 
     //The constructor initializes the robots
     constructor() {
@@ -42,6 +44,9 @@ export class AccountCreationAndLoginRobot {
             code: code,
             languageCode: languageCode,
         });
+        this.revokeToken = new RevokeRefreshTokenRobot({
+            uid: uid,
+        })
     }
     
 }

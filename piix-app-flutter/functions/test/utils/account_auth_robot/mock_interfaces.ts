@@ -16,6 +16,7 @@ export interface MockFirestore {
     rejectDeleteCode?: boolean,
     rejectSetCode?: boolean,
     rejectAddEmail?: boolean,
+    rejectSetMetadata?: boolean,
 };
 
 /**
@@ -28,4 +29,9 @@ export interface MockFirestore {
 export interface MockFirebaseAuth {
     rejectCreateUser?: boolean,
     rejectCreateCustomToken?: boolean,
+    rejectTokenExpired?: boolean,
+    rejectTokenRevoked?: boolean,
+    rejectInvalidToken?: boolean,
+    rejectRevokeRefreshTokens?: boolean,
+    rejectGetUser?: boolean,
 };

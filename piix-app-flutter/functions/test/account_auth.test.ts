@@ -169,3 +169,61 @@ describe('Get Custom Token for Custom Sign In Request', () => {
         await robot.auth.customSignIn.expectToFailWhenCustomTokenCannotBeCreated();
     });
 });
+
+describe('Revoke Refresh Tokens Request', () => {
+    const robot = new Robot();
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    AND the id token is verified
+    AND the users refresh tokens are revoked
+    AND the uid is obtained from the decoded id token
+    AND the user is obtained from the uid
+    AND the user tokensValidAfterTime is read from user
+    THEN the metadata of revokeTime is stored
+    AND the response returns a 200 with a { code: 0} body`, async () => {
+        await robot.auth.revokeToken.expectToSucceed();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    THEN throw an AppException with 'no-id-token-present' errorCode and 'permission-denied' code`, async () => {
+        await robot.auth.revokeToken.expectToFailWhenThereIsNoAuthorizationHeader();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    THEN the id token is expired 
+    AND throw an AppException with 'id-token-expired' errorCode and 'failed-precondition' code`, async () => {
+        await robot.auth.revokeToken.expectToFailWhenIdTokenIsExpired();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    THEN the id token is revoked
+    AND throw an AppException with 'id-token-expired' errorCode and 'failed-precondition' code`, async () => {
+        await robot.auth.revokeToken.expectToFailWhenIdTokenIsRevoked();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    THEN the id token is invalid
+    AND throw an AppException with 'invalid-id-token' errorCode and 'permission-denied' code`, async () => {
+        await robot.auth.revokeToken.expectToFailWhenIdTokenIsInvalid();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    AND the id token is verified
+    THEN the users refresh tokens cannot be revoked 
+    AND throw an unhandle Error`, async () => {
+        await robot.auth.revokeToken.expectToFailWhenRefreshIdTokensCannotBeRevoked();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    AND the users refresh tokens are revoked
+    AND the uid is obtained from the decoded id token
+    THEN user cannot be obtained from the uid 
+    AND throw an unhandle Error`, async () => {
+        await robot.auth.revokeToken.expectToFailWhenUserCannotBeObtained();
+    });
+    it(`WHEN a valid id token is included in the headers authorization
+    AND the users refresh tokens are revoked
+    AND the uid is obtained from the decoded id token
+    AND the user is obtained from the uid
+    AND the user tokensValidAfterTime is read from user
+    THEN the revokeTime cannot be stored in metadata 
+    AND the response returns a 200 with a { code: 0} body`, async () => {
+        await robot.auth.revokeToken.expectToSucceedButFailToStoreRevokeTime();
+    });
+});

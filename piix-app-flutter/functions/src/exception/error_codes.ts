@@ -1,7 +1,7 @@
 /**
  * All codes defined for the 'auth' errorCodes that can be thrown
  */
-type FirebaseAdminAuthErrorCodes = 'unknown' | 'email-already-exists' | 'id-token-expired'
+type FirebaseAdminAuthErrorCodes = 'unknown' | 'id-token-expired'
 | 'id-token-revoked' | 'invalid-email' | 'invalid-id-token' | 'invalid-uid' | 'too-many-requests'
 | 'uid-already-exists' | 'user-not-found' | 'user-not-created';
 
@@ -15,7 +15,7 @@ type FirebaseAdminFirestoreErrorCodes = 'unknown' | 'document-not-added' | 'docu
  * All codes defined for the piix-auth errorCodes that can be thrown
  */
 type PiixAuthErrorCodes = 'unknown' | 'email-already-exists' | 'email-not-found' | 'incorrect-verification-code'
-| 'custom-token-failed';
+| 'custom-token-failed' | 'no-id-token-present';
 
 /** 
  * All codes defined for the piix-functions errorCodes that can be thrown 
