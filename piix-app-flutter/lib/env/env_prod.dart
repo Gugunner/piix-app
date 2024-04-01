@@ -22,4 +22,7 @@ class ProdEnv implements Env {
   @EnviedField(varName: 'PROJECT_ID')
   @override
   final String storageBucket = _ProdEnv.storageBucket;
+  @EnviedField(varName: 'BASE_URL', obfuscate: true)
+  @override
+  final String baseUrl = _ProdEnv.baseUrl;
 }

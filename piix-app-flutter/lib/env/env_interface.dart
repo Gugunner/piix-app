@@ -12,4 +12,6 @@ interface class Env {
   final String projectId = '';
   ///The storage bucket of the Firebase project
   final String storageBucket = '';
+  //The url of the backend server
+  final String baseUrl = '';
 }
