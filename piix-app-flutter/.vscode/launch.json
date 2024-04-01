@@ -18,6 +18,21 @@
         },
         //Use this configuration for both Firebase local Emulator Suite and Firebase piix-dev-env
         {
+            "name": "piix emulator env",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-entrypoint-args",
+                "--FIRDebugEnabled",
+                "--flavor",
+                "dev",
+                "-t",
+                "lib/main.dart",
+                "--dart-define=ENV=local"
+            ]
+        },
+        //Use this configuration for both Firebase local Emulator Suite and Firebase piix-dev-env
+        {
             "name": "piix dev env",
             "request": "launch",
             "type": "dart",
