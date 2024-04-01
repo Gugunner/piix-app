@@ -69,3 +69,6 @@ pubspec.lock
 
 #Firebase emulator
 .emulator/
+
+#Coverage files Fluttter
+coverage/
