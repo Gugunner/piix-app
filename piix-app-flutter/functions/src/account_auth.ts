@@ -9,7 +9,7 @@ import { UserRecord } from 'firebase-admin/auth';
 import { DocumentData } from 'firebase-admin/firestore';
 import { IMPLEMENT_FIREBASE } from './util/parametrized_states';
 import { defineInt } from 'firebase-functions/params';
-import { getIdToken, getDecodedIdToken } from './util/request_header_checks';
+import { getIdTokenFromHeaders, getDecodedIdToken } from './util/id_token_checks';
 
 export const sendEmail = defineInt('SEND_EMAIL', { default: IMPLEMENT_FIREBASE.block, description: 'Enables or disables real mail sending' });
 
@@ -318,7 +318,7 @@ async function verifyCodeWithEmail(email: string, code: string): Promise<void> {
 export async function revokeRefreshTokens(request: Request, response: express.Response): Promise<void> {
     request.headers.authorization
     //Get the id token from the request headers
-    const idToken = getIdToken(request);
+    const idToken = getIdTokenFromHeaders(request);
     //Returns a decoded id token
     const decodedIdToken = await getDecodedIdToken(idToken);
     //The uid is obtained from the decoded id token
