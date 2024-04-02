@@ -27,6 +27,8 @@ dependencies:
   cached_network_image: ^3.3.1
   #Allows access to camera 
   camera: ^0.10.5+4
+  #Connects to firebase firestore
+  cloud_firestore: ^4.15.10
   #Contains a library of utilities to handle a collection structure
   collection: ^1.16.0
   #Allows to detect wifi or cellular connection ios and android
@@ -117,6 +119,7 @@ dependencies:
   #Controls screen awake time
   wakelock: ^0.4.0
 
+
   
   
 
@@ -139,6 +142,7 @@ dev_dependencies:
   riverpod_generator: ^2.3.3
   #Executes cleaning of riverpod classes 
   riverpod_lint: ^2.1.1
+
 
 
 # For information on the generic Dart part of this file, see the

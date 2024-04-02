@@ -11,7 +11,7 @@
     "logs": "firebase functions:log",
     "test": "jest --testPathPattern=functions/test",
     "test:watch": "jest --watchAll --testPathPattern=functions/test",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage --testPathPattern=functions/test",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test:coverage"
   },
   "engines": {
