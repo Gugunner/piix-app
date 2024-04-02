@@ -9,6 +9,7 @@ import { UserRecord } from 'firebase-admin/auth';
 import { DocumentData } from 'firebase-admin/firestore';
 import { IMPLEMENT_FIREBASE } from './util/parametrized_states';
 import { defineInt } from 'firebase-functions/params';
+import { getIdTokenFromHeaders, getDecodedIdToken } from './util/id_token_checks';
 
 export const sendEmail = defineInt('SEND_EMAIL', { default: IMPLEMENT_FIREBASE.block, description: 'Enables or disables real mail sending' });
 
@@ -240,7 +241,7 @@ export async function createCustomToken(uid: string, claims?: object | undefined
  * @param code The code to verify
  * @throws {AppException} If the code could not be retrieved, or the code do not match the code found in the system
  */
-export async function verifyCodeWithEmail(email: string, code: string): Promise<void> {
+async function verifyCodeWithEmail(email: string, code: string): Promise<void> {
     //Retrieve the code from the collection 'codes' using the email as the document id
     const docRef = admin.firestore().collection('codes').doc(email);
     //Retrieve the code from the document
@@ -304,3 +305,52 @@ export async function verifyCodeWithEmail(email: string, code: string): Promise<
     }
 }
 
+
+/**
+ * Revokes the refresh tokens of the user using the idToken provided in the headers authorization.
+ * The idToken is verified and decoded and the uid is retrieved from the decoded id token.
+ * The refresh tokens are revoked and metadata users document revokeTime is updated.
+ * 
+ * @param {Request} request
+ * @param {express.Response} response
+ * @throws {AppException} If the body is undefined, or the idToken is not included or the idToken could not be verified or the revokeTime could not be stored
+ */
+export async function revokeRefreshTokens(request: Request, response: express.Response): Promise<void> {
+    request.headers.authorization
+    //Get the id token from the request headers
+    const idToken = getIdTokenFromHeaders(request);
+    //Returns a decoded id token
+    const decodedIdToken = await getDecodedIdToken(idToken);
+    //The uid is obtained from the decoded id token
+    const uid = decodedIdToken.uid;
+    //Revokes the refresh tokens of the user using the uid
+    await admin.auth().revokeRefreshTokens(uid);
+    //The user is retrieved using the uid
+    const user = await admin.auth().getUser(uid);
+    //The revoke time is set to the time when refresh tokens were revoked
+    const utcRevokeTimeInSecs = new Date(user.tokensValidAfterTime!).getTime() / 1000;
+    //The revoke time is stored in the metadata users document
+    await storeRevokeTime(utcRevokeTimeInSecs, uid);
+    response.status(200).send({ code: 0 });
+
+    
+
+    /**
+     * 
+     * @param utcRevokeTimeInSecs the time when the refresh tokens were revoked
+     * @param uid the uid of the user
+     * @throws {AppException} If the revokeTime could not be stored
+     */
+    async function storeRevokeTime(utcRevokeTimeInSecs: number, uid: string): Promise<void> {
+        try {
+            //The revoke time is stored in the metadata users document
+            const docRef = admin.firestore().collection('metadata').doc(uid);
+            await docRef.set({
+               revokeTime: utcRevokeTimeInSecs, 
+            }, { merge: true });
+        } catch (error) {
+            //If the revoke time could not be stored, throw an AppException
+            logger.error(`The id Token ${idToken} could not be verified when revoking refresh tokens-> ${error}`);
+        }
+    }
+}

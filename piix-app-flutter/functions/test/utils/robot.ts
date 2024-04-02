@@ -1,4 +1,4 @@
-import { AccountCreationAndLoginRobot } from './account_creation_and_login_robot/account_creation_and_login.robot';
+import { AccountAuthRobot } from './account_auth_robot/account_auth.robot';
 
 
 /**
@@ -7,11 +7,11 @@ import { AccountCreationAndLoginRobot } from './account_creation_and_login_robot
 export class Robot {
 
     //The robot to create an account and login
-    auth: AccountCreationAndLoginRobot;
+    auth: AccountAuthRobot;
 
     //The constructor initializes the robots
     constructor() {
-        this.auth = new AccountCreationAndLoginRobot();
+        this.auth = new AccountAuthRobot();
     }
 
 }
