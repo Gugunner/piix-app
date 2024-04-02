@@ -8,7 +8,8 @@ void main() async {
   const env = String.fromEnvironment('ENV', defaultValue: 'fake');
   // * Initialize the app with the environment
   const appBootstrap = AppBootstrap(env);
+  final container = await appBootstrap.createFirebaseProviderContainer();
   // * Initialize the Firebase app
   appBootstrap.initializeFirebaseApp();
-  runApp(appBootstrap.createHome());
+  runApp(appBootstrap.createHome(container: container));
 }

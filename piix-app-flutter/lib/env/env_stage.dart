@@ -22,4 +22,7 @@ class StageEnv implements Env {
   @EnviedField(varName: 'PROJECT_ID')
   @override
   final String storageBucket = _StageEnv.storageBucket;
+  @EnviedField(varName: 'BASE_URL', obfuscate: true)
+  @override
+  final String baseUrl = _StageEnv.baseUrl;
 }
