@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:piix_mobile/src/network/app_dio.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -52,8 +53,15 @@ class AuthRepository {
   }
 }
 
-@riverpod
+///The provider for the [AuthRepository]
+@Riverpod(keepAlive: true)
 AuthRepository authRepository(AuthRepositoryRef ref) {
   final appDio = ref.watch(appDioProvider);
   return AuthRepository(appDio);
+}
+
+///The provider for the [FirebaseAuth]
+@Riverpod(keepAlive: true)
+FirebaseAuth firebaseAuth(FirebaseAuthRef ref) {
+  return FirebaseAuth.instance;
 }
