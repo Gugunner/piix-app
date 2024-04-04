@@ -104,6 +104,8 @@ dependencies:
   riverpod: ^2.5.1
   #Allows to annotate certain properties as riverpod instances
   riverpod_annotation: ^2.0.2
+  #Introduces Reactive X programming
+  rxdart: ^0.27.7
   #Allows to store data in local persistency
   shared_preferences: ^2.0.16
   #Allows to create a text canvas which allows drawing
@@ -118,6 +120,7 @@ dependencies:
   whatsapp_unilink: ^2.1.0
   #Controls screen awake time
   wakelock: ^0.4.0
+
 
 
   
