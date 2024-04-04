@@ -215,8 +215,8 @@ class _AppDioInterceptor extends Interceptor {
     //Call the next handler
     super.onRequest(options, handler);
   }
-  
-  ///Handles the DioException with status code 406 and 
+
+  ///Handles the DioException with status code 406 and
   ///errorCode 'id-token-expired'
   @override
   void onError(DioException dioException, ErrorInterceptorHandler handler) {
@@ -270,9 +270,9 @@ class _AppDioInterceptor extends Interceptor {
 }
 
 @Riverpod(keepAlive: true)
-AppDio appDio(AppDioRef) {
+AppDio appDio(AppDioRef ref) {
   final appDio = AppDio(Dio());
-  final String baseUrl = AppDioRef.read(envProvider).state?.baseUrl ?? '';
+  final baseUrl = ref.read(envProvider)?.baseUrl ?? '';
   appDio.configureDio(baseUrl);
   return appDio;
 }
