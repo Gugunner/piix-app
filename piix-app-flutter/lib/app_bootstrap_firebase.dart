@@ -33,9 +33,9 @@ extension AppBootstrapFirebase on AppBootstrap {
     }
   }
 
-  /// Creates the top-level [ProviderContainer] by overriding providers with fake
-  /// repositories only. This is useful for testing purposes and for running the
-  /// app with a "fake" backend.
+  /// Creates the top-level [ProviderContainer] by overriding providers 
+  /// with fake repositories only. This is useful for testing purposes 
+  /// and for running the app with a "fake" backend.
   ///
   /// Note: all repositories needed by the app can be accessed via providers.
   /// Some of these providers throw an [UnimplementedError] by default.
@@ -62,8 +62,9 @@ extension AppBootstrapFirebase on AppBootstrap {
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
     await FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
-    // * When running on the emulator, disable persistence to avoid discrepancies
-    // * between the emulated database and local caches. More info here:
+    // * When running on the emulator, disable persistence to avoid 
+    // * discrepancies between the emulated database and local caches. 
+    // * More info here:
     // * https://firebase.google.com/docs/emulator-suite/connect_firestore#instrument_your_app_to_talk_to_the_emulators
     FirebaseFirestore.instance.settings =
         const Settings(persistenceEnabled: false);

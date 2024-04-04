@@ -48,7 +48,8 @@ abstract final class PiixColors {
   static const Color services = Color(0xFFD81B60);
   static const Color rewards = Color(0xFF512EA8);
 
-  /// Defines a linear gradient used in backgrounds or elements requiring a gradient.
+  /// Defines a linear gradient used in backgrounds or elements requiring 
+  /// a gradient.
   /// The gradient transitions from a lighter to a darker shade of blue.
   static const LinearGradient linearGradient = LinearGradient(
     colors: [Color(0xFFECF1FB), Color(0xFFF1F5FB)],
