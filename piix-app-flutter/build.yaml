@@ -9,8 +9,10 @@ targets:
         options:
           provider_familiy_name_prefix: "Pod"
         generate_for:
+          - "**bootstrap.dart"
           - "**/domain/**model.dart"
           - "**/application/**service.dart"
+          - "**/presentation/**controller.dart"
           - "**/data/**repository.dart"
           - "**/network/**.dart"
       json_serializable|json_serializable:

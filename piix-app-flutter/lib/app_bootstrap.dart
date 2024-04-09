@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/env/env_barrel.dart';
 import 'package:piix_mobile/env/env_interface.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:piix_mobile/src/my_app.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'app_bootstrap.g.dart';
 
 enum ENV { fake, local, dev, stage, prod }
 
@@ -12,6 +15,21 @@ enum ENV { fake, local, dev, stage, prod }
 final envProvider = StateProvider<Env?>((ref) {
   return null;
 });
+
+@Riverpod(keepAlive: true)
+class Platform extends _$Platform {
+  @override
+  TargetPlatform build() {
+    return TargetPlatform.android;
+  }
+
+  set platform(TargetPlatform platform) {
+    state = platform;
+  }
+
+  bool get isNotMobileOrTablet =>
+      state != TargetPlatform.android && state != TargetPlatform.iOS;
+}
 
 /// An auxiliary class to bootstrap the app with the given environment
 class AppBootstrap {
@@ -23,8 +41,7 @@ class AppBootstrap {
   ///Get the environment values from the environment variables
   Env? get environment {
     if (env == ENV.local.name) return LocalEnv();
-    if (env == ENV.dev.name) return DevEnv();
-    if (env == ENV.stage.name) return StageEnv();
+    if (env == ENV.dev.name) if (env == ENV.stage.name) return StageEnv();
     if (env == ENV.prod.name) return ProdEnv();
     return null;
   }
@@ -32,22 +49,12 @@ class AppBootstrap {
   ///Create the home widget for the app
   Widget createHome({required ProviderContainer container}) {
     container.read(envProvider.notifier).state = environment;
+    container.read(platformProvider);
     //TODO: Initialize providers here
     _registerErrorHandlers();
     return UncontrolledProviderScope(
       container: container,
-      child: MaterialApp(
-        //TODO: Add hardcoded extension to String class
-        title: 'Piix Dev'.hardcoded,
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: Scaffold(
-          body: Center(
-            child: Text('Piix $env'),
-          ),
-        ),
-      ),
+      child: const MyApp(),
     );
   }
 
