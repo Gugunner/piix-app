@@ -12,8 +12,7 @@
                 "--flavor",
                 "dev",
                 "-t",
-                "lib/main.dart",
-                "--dart-define=ENV=fake"
+                "lib/main_fake.dart",
             ]
         },
         //Use this configuration for both Firebase local Emulator Suite and Firebase piix-dev-env
