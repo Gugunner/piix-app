@@ -2,7 +2,7 @@ import 'package:piix_mobile/src/features/authentication/application/auth_service
 import 'package:piix_mobile/src/features/authentication/domain/authentication_model_barrel_file.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:piix_mobile/src/utils/delay.dart';
-import 'package:piix_mobile/util/fake_memory_store.dart';
+import 'package:piix_mobile/src/utils/fake_memory_store.dart';
 
 /// A fake implementation of [AuthService] for testing purposes.
 class FakeAuthService implements AuthService {
