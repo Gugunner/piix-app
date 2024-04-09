@@ -157,14 +157,15 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   generate: true
-  # assets:
-    # - assets/images/
-    # - assets/images/login/
-    # - assets/images/svg_image_icons/
-    # - assets/images/svg_images/
+  assets:
+    - assets/svgs/
+    - assets/svgs/app_brand/
+    - assets/images/
+    - assets/images/1x/
+    - assets/images/2x/
+    - assets/images/4x/
 
   fonts:
-
     - family: Raleway
       fonts:
         - asset: assets/fonts/Raleway/Raleway-Regular.ttf
