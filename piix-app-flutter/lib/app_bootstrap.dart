@@ -9,13 +9,24 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_bootstrap.g.dart';
 
+///All avaliable environments where the app is run
+///during app development cycle.
 enum ENV { fake, local, dev, stage, prod }
 
+///A provider that allows the environment to be read
+///inside any Consumer Widget or Riverpod provider.
+///
+///Acts as a singleton.
 @Riverpod(keepAlive: true)
 final envProvider = StateProvider<Env?>((ref) {
   return null;
 });
 
+///A provider that stores and retrieves the platform
+///where the app is currently running.
+///
+///It also has specific values to check for specific
+///conditions such as [isNotMobileOrTablet].
 @Riverpod(keepAlive: true)
 class Platform extends _$Platform {
   @override
@@ -27,6 +38,8 @@ class Platform extends _$Platform {
     state = platform;
   }
 
+  ///Checks if the platform is not Android or iOS which'
+  ///ensures that the app is not run in mobile or tablet.
   bool get isNotMobileOrTablet =>
       state != TargetPlatform.android && state != TargetPlatform.iOS;
 }
@@ -48,7 +61,9 @@ class AppBootstrap {
 
   ///Create the home widget for the app
   Widget createHome({required ProviderContainer container}) {
+    //Sets the environment value for the provider.
     container.read(envProvider.notifier).state = environment;
+    //Initializes the platform provider before being used.
     container.read(platformProvider);
     //TODO: Initialize providers here
     _registerErrorHandlers();
