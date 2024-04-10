@@ -4,14 +4,45 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/env/env_barrel.dart';
 import 'package:piix_mobile/env/env_interface.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:piix_mobile/src/my_app.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'app_bootstrap.g.dart';
+
+///All avaliable environments where the app is run
+///during app development cycle.
 enum ENV { fake, local, dev, stage, prod }
 
+///A provider that allows the environment to be read
+///inside any Consumer Widget or Riverpod provider.
+///
+///Acts as a singleton.
 @Riverpod(keepAlive: true)
 final envProvider = StateProvider<Env?>((ref) {
   return null;
 });
+
+///A provider that stores and retrieves the platform
+///where the app is currently running.
+///
+///It also has specific values to check for specific
+///conditions such as [isNotMobileOrTablet].
+@Riverpod(keepAlive: true)
+class Platform extends _$Platform {
+  @override
+  TargetPlatform build() {
+    return TargetPlatform.android;
+  }
+
+  set platform(TargetPlatform platform) {
+    state = platform;
+  }
+
+  ///Checks if the platform is not Android or iOS which'
+  ///ensures that the app is not run in mobile or tablet.
+  bool get isNotMobileOrTablet =>
+      state != TargetPlatform.android && state != TargetPlatform.iOS;
+}
 
 /// An auxiliary class to bootstrap the app with the given environment
 class AppBootstrap {
@@ -23,31 +54,22 @@ class AppBootstrap {
   ///Get the environment values from the environment variables
   Env? get environment {
     if (env == ENV.local.name) return LocalEnv();
-    if (env == ENV.dev.name) return DevEnv();
-    if (env == ENV.stage.name) return StageEnv();
+    if (env == ENV.dev.name) if (env == ENV.stage.name) return StageEnv();
     if (env == ENV.prod.name) return ProdEnv();
     return null;
   }
 
   ///Create the home widget for the app
   Widget createHome({required ProviderContainer container}) {
+    //Sets the environment value for the provider.
     container.read(envProvider.notifier).state = environment;
+    //Initializes the platform provider before being used.
+    container.read(platformProvider);
     //TODO: Initialize providers here
     _registerErrorHandlers();
     return UncontrolledProviderScope(
       container: container,
-      child: MaterialApp(
-        //TODO: Add hardcoded extension to String class
-        title: 'Piix Dev'.hardcoded,
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: Scaffold(
-          body: Center(
-            child: Text('Piix $env'),
-          ),
-        ),
-      ),
+      child: const MyApp(),
     );
   }
 
