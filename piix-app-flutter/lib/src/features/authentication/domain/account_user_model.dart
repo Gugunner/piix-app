@@ -167,7 +167,7 @@ class _Documentation {
   bool operator ==(covariant _Documentation other) {
     if (identical(this, other)) return true;
 
-    return other.officialIdImagePath == officialIdImagePath &&
+  return other.officialIdImagePath == officialIdImagePath &&
         other.selfieImagePath == selfieImagePath;
   }
 
