@@ -35,3 +35,7 @@ class MockAuthRepository extends Mock implements FakeAuthRepository {}
 class MockAuthService extends Mock implements AuthService {}
 
 class MockFakeAuthService extends Mock implements FakeAuthService {}
+
+class Listener<T> extends Mock {
+  void call(T? previous, T next);
+}
