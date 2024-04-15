@@ -66,7 +66,12 @@ class AppBootstrap {
     //Initializes the platform provider before being used.
     container.read(platformProvider);
     //TODO: Initialize providers here
-    _registerErrorHandlers();
+    //* Set Android orientations
+    if (environment != null) {
+      //* This cannot be tested in any unit, widget, or integration test
+      //* since it is a last resort as explained by the Flutter team in https://github.com/flutter/flutter/issues/110301 //
+      _registerErrorHandlers();
+    }
     return UncontrolledProviderScope(
       container: container,
       child: const MyApp(),
