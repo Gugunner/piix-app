@@ -1,6 +1,7 @@
-
-
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:piix_mobile/src/theme/piix_colors.dart';
+import 'package:piix_mobile/src/theme/theme_context.dart';
+import 'package:piix_mobile/src/utils/size_context.dart';
 
 /// A page that is shown when the user navigates to a non-existent route.
 class LostPage extends StatelessWidget {
@@ -8,7 +9,19 @@ class LostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Implement the LostPage
-    return const Placeholder();
+    return Scaffold(
+      body: SizedBox(
+        width: context.screenWidth,
+        height: context.screenHeight,
+        child: Center(
+          child: Text(
+            'Seems you are lost',
+            style: context.theme.textTheme.displayMedium?.copyWith(
+              color: PiixColors.space,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
