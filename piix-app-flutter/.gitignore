@@ -72,3 +72,6 @@ pubspec.lock
 
 #Coverage files Fluttter
 coverage/
+
+#Golden failures in any test
+test/**/failures/
