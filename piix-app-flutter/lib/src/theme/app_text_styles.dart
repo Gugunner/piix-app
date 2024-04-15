@@ -1,4 +1,3 @@
-
 import 'package:flutter/rendering.dart';
 
 const fontFamily = 'Raleway';
@@ -8,11 +7,12 @@ const textBaseHeight = 1.17;
 /// Used in the TextTheme property of the app ThemeData class.
 class TextBaseStyle {
   static TextStyle get displayLarge => const TextStyle(
-      fontSize: 26,
-      height: textBaseHeight,
-      letterSpacing: 0.2,
-      fontWeight: FontWeight.w600,
-      fontFamily: fontFamily);
+        fontSize: 26,
+        height: textBaseHeight,
+        letterSpacing: 0.2,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
 
   static TextStyle get displayMedium => const TextStyle(
       fontSize: 24,
@@ -111,6 +111,125 @@ class TextBaseStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+
+  //Not defined yet
+  static TextStyle get bodySmall => const TextStyle(
+        fontSize: 8,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+}
+
+class TextPrimaryStyle {
+  //Not defined yet
+  static TextStyle get displayLarge => const TextStyle(
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get displayMedium => const TextStyle(
+        fontSize: 16,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily,
+      );
+  //Not defined yet
+  static TextStyle get displaySmall => const TextStyle(
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontFamily: fontFamily,
+      );
+
+  //Not defined yet
+  static TextStyle get headlineLarge => const TextStyle(
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get headlineMedium => const TextStyle(
+        fontSize: 16,
+        height: textBaseHeight,
+        letterSpacing: 0.17,
+        fontWeight: FontWeight.w500,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get headlineSmall => const TextStyle(
+        fontSize: 14,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily,
+      );
+
+  //Not defined yet
+  static TextStyle get titleLarge => const TextStyle(
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get titleMedium => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get titleSmall => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.4,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get labelLarge => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.4,
+        fontWeight: FontWeight.normal,
+        fontStyle: FontStyle.italic,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get labelMedium => const TextStyle(
+        fontSize: 10,
+        height: textBaseHeight,
+        letterSpacing: 0.4,
+        fontWeight: FontWeight.normal,
+        fontStyle: FontStyle.italic,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get labelSmall => const TextStyle(
+        fontSize: 10,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  //Not defined yet
+  static TextStyle get bodyLarge => const TextStyle(
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get bodyMedium => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w300,
         fontFamily: fontFamily,
       );
 

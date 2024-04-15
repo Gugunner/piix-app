@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 /// An extension that provides a getter for the size of the current context.
