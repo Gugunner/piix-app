@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/welcome_to_piix_one_time_code_login.dart';
+import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 
 /// A layout that displays two columns when the user is running the app
@@ -29,9 +31,9 @@ class TwoColumnSignIn extends StatelessWidget {
                 color: PiixColors.space,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+                padding: EdgeInsets.symmetric(horizontal: Sizes.p16.w),
                 child: WelcomeToPiixOneTimeCodeLogin(
-                  width: MediaQuery.of(context).size.width * 0.25,
+                  width: MediaQuery.of(context).size.width,
                   parentPadding: padding,
                 ),
               ),
@@ -40,9 +42,9 @@ class TwoColumnSignIn extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/4x/family_image_x4.jpeg'),
+                image: AssetImage('assets/images/family_image.png'.hardcoded),
                 fit: BoxFit.cover,
               ),
             )),
@@ -52,4 +54,3 @@ class TwoColumnSignIn extends StatelessWidget {
     );
   }
 }
-
