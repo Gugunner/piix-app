@@ -17,7 +17,7 @@ class OneColumnSignIn extends StatelessWidget {
         // * Get the maximum width of the screen
         final maxWidth = constraints.maxWidth;
         // * Get the padding based on the screen size
-        final padding = maxWidth >= ScreenBreakPoint.md ? Sizes.p64 : Sizes.p32;
+        final padding = maxWidth >= ScreenBreakPoint.md ? Sizes.p32 : Sizes.p16;
         // * Get the width of the container based on the screen size
         final width = maxWidth >= ScreenBreakPoint.xl
             ? context.screenWidth
@@ -29,7 +29,7 @@ class OneColumnSignIn extends StatelessWidget {
         return Container(
           height: context.screenHeight,
           width: context.screenWidth,
-        padding: EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: padding,
             vertical: padding,
           ),
