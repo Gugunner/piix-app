@@ -7,7 +7,7 @@ describe('Send Verification Code Request', () => {
    afterEach(() => {
     jest.clearAllMocks();
    });
-    it(`WHEN a valid email and languageCode is received
+    it(`WHEN a valid email, languageCode and verificationType is received
     AND a code is created
     AND the code is stored in an email document
     AND the code is stored in a code document
@@ -27,20 +27,33 @@ describe('Send Verification Code Request', () => {
     THEN throw an AppException with 'invalid-body-fields' errorCode `, async () => {
         await robot.auth.sendVerificationCode.expectToFailWhenBodyHasNoEmail();
     });
-
     it(`WHEN the request body does not have a languageCode
     THEN throw an AppException with 'invalid-body-fields' errorCode `, async () => {
         await robot.auth.sendVerificationCode.expectToFailWhenBodyHasNoLanguageCode();
     });
-
-    it(`WHEN a valid email and languageCode is received
+    it(`WHEN the request body does not have a verificationType
+    THEN throw an AppException with 'invalid-body-fields' errorCode `, async () => {
+        await robot.auth.sendVerificationCode.expectToFailWhenBodyHasNoVerificationType();
+    });
+    it(`WHEN a valid email, languageCode and verificationType is received
+    AND the verificationt type is register
+    AND the email already exists in the users collection
+    THEN throw an AppException with 'email-already-exists' errorCode`, async () => {
+        await robot.auth.sendVerificationCode.expectToFailWhenEmailExistButVerificationTypeIsRegister();
+    });
+    it(`WHEN a valid email, languageCode and verificationType is received
+    AND the verificationt type is login
+    AND the email does not exists in the users collection
+    THEN throw an AppException with 'email-not-found' errorCode`, async () => {
+        await robot.auth.sendVerificationCode.expectToFailWhenEmailDoesNotExistButVerificationTypeIsLogin();
+    });
+    it(`WHEN a valid email, languageCode and verificationType is received
     AND a code can be created
     THEN the code cannot be stored in an email document
     AND throw an AppException with 'email-not-sent' errorCode`, async () => {
         await robot.auth.sendVerificationCode.expectToFailWhenEmailDocumentCannotBeStored();
     });
-
-    it(`WHEN a valid email and languageCode is received
+    it(`WHEN a valid email, languageCode and verificationType is received
     AND a code can be created
     AND the code is stored in an email document
     THEN the code cannot be stored in a code document
