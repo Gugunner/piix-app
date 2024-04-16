@@ -10,6 +10,12 @@ import { checkBodyFields, checkEmptyBody } from "./util/request_body_checks";
 /** The code found here works in the same flow, writing two Firebase functions in the same module are only used because it is highly probable that the user will use the same Firebase functions instance to execute  both functions to receive and verify the email*/
 
 export const sendEmail = defineInt('SEND_EMAIL', { default: IMPLEMENT_FIREBASE.block, description: 'Enables or disables real mail sending' });
+
+export enum VerificationType {
+    register = 'register',
+    login = 'login',
+}
+
 /**
 Send a verification code to the email provided in the request body
 The code is stored in the collection 'codes' with the email as the document id
@@ -23,8 +29,12 @@ export async function sendVerificationCode(request: Request, response: express.R
     //Check if the body is undefined
     checkEmptyBody(request.body);
     //Check if the email and language code are included
-    checkBodyFields(request.body, ['email', 'languageCode']);
-    const { languageCode, email } = request.body;
+    checkBodyFields(request.body, ['email', 'languageCode', 'verificationType']);
+    const { languageCode, email, verificationType } = request.body;
+    //Check that it has a valid verification type
+    checkVerificationType(verificationType);
+    //Check user verification can be completed given the verification type
+    await checkUserCanReceiveVerificationCode(email, verificationType);
     const code = createNewCode();
     const sendEmailValue = sendEmail.value();
     if (sendEmailValue === IMPLEMENT_FIREBASE.mock || sendEmailValue === IMPLEMENT_FIREBASE.send) {
@@ -32,6 +42,71 @@ export async function sendVerificationCode(request: Request, response: express.R
     }
     await storeCode(email, code);
     response.status(200).send({ code: 0 });
+
+    /**
+     * Checks if the verification type is a valid value in the VerificationType enum.
+     * @param verificationType The verification type to check
+     * @throws AppException If the verification type is not a valid value in the VerificationType enum.
+     */
+    function checkVerificationType(verificationType: string): void {
+        const check = verificationType in VerificationType;
+        if (!check) {
+            throw new AppException({
+                code: 'invalid-argument',
+                errorCode: 'invalid-body-fields',
+                message: 'Include a valid verificationt type [register, login].',
+                prefix: 'piix-functions',
+                statusCode: 400,
+            });
+        }
+    }
+
+    /**
+     * Checks if the user can receive a verification code given the verification type
+     * by checking if the email exists in the users collection or not.
+     * If the user can receive the code, the function will return without errors.
+     * @param email where the code will be sent.
+     * @param verificationType indicates if the user is registering or logging in.
+     * @throws [AppException] If the email is already and the verification type is register.
+     * @throws [AppException] If the email is not found and the verification type is login.
+     */
+    async function checkUserCanReceiveVerificationCode(email: string, verificationType: string): Promise<void> {
+        //Check if a user exists with the same email.
+        const userExists = await userExistWithEmail(email);
+        //If the verification type is register and the user exists, throw an exception.
+        if (verificationType == VerificationType.register.toString() && userExists) {
+            throw new AppException({
+                code: 'already-exists',
+                errorCode: 'email-already-exists',
+                message: 'The email is already in use.',
+                prefix: 'piix-auth',
+                statusCode: 409,
+            });
+        }
+        //If the verification type is login and the user does not exist, throw an exception.
+        if (verificationType == VerificationType.login.toString() && !userExists) {
+            throw new AppException({
+                code: 'not-found',
+                errorCode: 'email-not-found',
+                message: 'The email was not found.',
+                prefix: 'piix-auth',
+                statusCode: 409,
+            });
+        }
+        
+        /**
+         * Checks if a user exists with the same email.
+         * @param email The email to check to see if a user exists with the same email
+         * @returns {boolean} True if a user exists with the same email, false otherwise.
+         */
+        async function userExistWithEmail(email: string): Promise<boolean> {
+            //Query the users collection to see if a user exists with the same email.
+            const docQuery = await admin.firestore().collection('users').where('email', '==', email).get();
+            //If the query is empty, return false, otherwise return if the document exists.
+            if (docQuery.empty) return false;
+            return docQuery.docs[0].exists;
+        }
+    }
 }
 
 /**
