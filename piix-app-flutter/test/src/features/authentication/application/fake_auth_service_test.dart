@@ -1,11 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:piix_mobile/src/features/authentication/application/auth_service_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/application/fake_auth_service.dart';
+import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
 import 'package:piix_mobile/src/features/authentication/domain/authentication_model_barrel_file.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 
 void main() {
   const testEmail = 'email@gmail.com';
+  const testLanguageCode = 'en';
+  const testVerificationType = VerificationType.login;
   final expectedFakeAppUser = FakeAppUser(
     uid: testEmail.split('').reversed.join(),
     email: testEmail,
@@ -20,7 +23,11 @@ void main() {
   }
 
   Future<void> setAndCreateNewUser(FakeAuthService authService) async {
-    await authService.sendVerificationCodeByEmail(testEmail);
+    await authService.sendVerificationCodeByEmail(
+      testEmail,
+      testLanguageCode,
+      testVerificationType,
+    );
     await authService.createAccountWithEmailAndVerificationCode(
       testEmail,
       expectedFakeAppUser.verificationCode,
@@ -45,7 +52,11 @@ void main() {
     AND the authStateChange emits null
     AND the idTokenChanges emits null''', () {
       final authService = createFakeAuthService();
-      authService.sendVerificationCodeByEmail(expectedFakeAppUser.email!);
+      authService.sendVerificationCodeByEmail(
+        expectedFakeAppUser.email!,
+        testLanguageCode,
+        testVerificationType,
+      );
       expect(authService.readUsers(), [
         expectedFakeAppUser.copyWith(email: '', emailVerified: false),
       ]);
@@ -114,7 +125,11 @@ void main() {
     AND the authStateChange emits null
     AND the idTokenChanges emits null''', () async {
       final authService = createFakeAuthService();
-      await authService.sendVerificationCodeByEmail(expectedFakeAppUser.email!);
+      await authService.sendVerificationCodeByEmail(
+        expectedFakeAppUser.email!,
+        testLanguageCode,
+        testVerificationType,
+      );
       expect(
           () async => authService.createAccountWithEmailAndVerificationCode(
               expectedFakeAppUser.email!, 'wrong code'),

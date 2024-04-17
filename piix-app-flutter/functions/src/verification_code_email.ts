@@ -90,7 +90,7 @@ export async function sendVerificationCode(request: Request, response: express.R
                 errorCode: 'email-not-found',
                 message: 'The email was not found.',
                 prefix: 'piix-auth',
-                statusCode: 409,
+                statusCode: 404,
             });
         }
         

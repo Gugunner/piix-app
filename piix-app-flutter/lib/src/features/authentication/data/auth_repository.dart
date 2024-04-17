@@ -7,16 +7,33 @@ part 'auth_repository.g.dart';
 
 typedef CustomToken = String;
 
+///The possible types requires verification to access
+///the app.
+enum VerificationType {
+  register,
+  login,
+}
+
 ///The repository for authentication related operations
 class AuthRepository {
   ///Constructor
   const AuthRepository(this._appDio);
+
   ///The instance of [AppDio] to make network requests
   final AppDio _appDio;
 
-  ///Send verification code to passed email
-  Future<dynamic> sendVerificationCodeByEmail(String email) async {
-    return _appDio.post('/sendVerificationCodeRequest', data: {'email': email});
+  ///Send verification code to passed email in the language provided
+  ///either to a register or login verification type.
+  Future<dynamic> sendVerificationCodeByEmail(
+    String email,
+    String languageCode,
+    VerificationType verificationType,
+  ) async {
+    return _appDio.post('/sendVerificationCodeRequest', data: {
+      'email': email,
+      'languageCode': languageCode,
+      'verificationType': verificationType.name,
+    });
   }
 
   ///Create account with email and verification code and obtain custom token
@@ -48,8 +65,7 @@ class AuthRepository {
 
   ///Revoke refresh tokens
   Future<dynamic> revokeRefreshTokens() async {
-    return  _appDio
-        .put('/revokeRefreshTokensRequest');
+    return _appDio.put('/revokeRefreshTokensRequest');
   }
 }
 

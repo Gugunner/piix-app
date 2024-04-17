@@ -12,6 +12,8 @@ import '../../../mocks.dart';
 
 void main() {
   const testEmail = 'email@gmail.com';
+  const testLanguageCode = 'en';
+  const testVerificationType = VerificationType.login;
   const testVerificationCode = '123456';
   final expectedAppUser = AppUser(
     uid: testEmail.split('').reversed.join(),
@@ -50,13 +52,23 @@ void main() {
     THEN the authRepository.sendVerificationCodeByEmail is called
     ''', () async {
       final authService = createFakeAuthService();
-      when(() => mockAuthRepository
-              .sendVerificationCodeByEmail(expectedAppUser.email!))
+      when(() => mockAuthRepository.sendVerificationCodeByEmail(
+                expectedAppUser.email!,
+                testLanguageCode,
+                testVerificationType,
+              ))
           .thenAnswer(
               (_) async => Response(requestOptions: RequestOptions(path: '')));
-      await authService.sendVerificationCodeByEmail(expectedAppUser.email!);
-      verify(() => mockAuthRepository
-          .sendVerificationCodeByEmail(expectedAppUser.email!)).called(1);
+      await authService.sendVerificationCodeByEmail(
+        expectedAppUser.email!,
+        testLanguageCode,
+        testVerificationType,
+      );
+      verify(() => mockAuthRepository.sendVerificationCodeByEmail(
+            expectedAppUser.email!,
+            testLanguageCode,
+            testVerificationType,
+          )).called(1);
     });
     test('''WHEN calling createAccountWithEmailAndVerificationCode
     AND the authRepository.createAccountWithEmailAndVerificationCode is called

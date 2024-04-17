@@ -1,4 +1,5 @@
 import 'package:piix_mobile/src/features/authentication/application/auth_service.dart';
+import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
 import 'package:piix_mobile/src/features/authentication/domain/authentication_model_barrel_file.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:piix_mobile/src/utils/delay.dart';
@@ -9,6 +10,7 @@ class FakeAuthService implements AuthService {
   FakeAuthService({this.addDelay = false});
 
   final bool addDelay;
+
   /// A [FakeMemoryStore] to store the current user.
   final _authState = FakeMemoryStore<AppUser?>(null);
 
@@ -50,21 +52,25 @@ class FakeAuthService implements AuthService {
 
   /// Sends a verification code to the user's email.
   @override
-  Future<void> sendVerificationCodeByEmail(String email) {
+  Future<void> sendVerificationCodeByEmail(
+    String email,
+    String languageCode,
+    VerificationType verificationType,
+  ) {
     if (addDelay) {
       delay(addDelay);
     }
     //Iterates over each user to find if the email already exists.
     for (final user in _users) {
       if (user.email == email) {
-        //If the email already exists, returns an empty value an exits 
+        //If the email already exists, returns an empty value an exits
         //the function.
         return Future.value();
       }
     }
     //If the email does not exist, prepare the user for future verification.
     _prepareNewUserForVerification(email, '123456');
-    //Return an empty value and exits the function. 
+    //Return an empty value and exits the function.
     return Future.value();
   }
 
@@ -175,7 +181,7 @@ class FakeAuthService implements AuthService {
     //Set the current user to the user.
     _authState.value = _users[userIndex];
   }
-  
+
   /// Converts a uid to an email by reversing it and viceversa.
   String _toUidOrEmail(String str) => str.split('').reversed.join();
 }
