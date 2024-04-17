@@ -7,6 +7,8 @@ part 'auth_repository.g.dart';
 
 typedef CustomToken = String;
 
+///The possible types requires verification to access
+///the app.
 enum VerificationType {
   register,
   login,
@@ -20,7 +22,8 @@ class AuthRepository {
   ///The instance of [AppDio] to make network requests
   final AppDio _appDio;
 
-  ///Send verification code to passed email
+  ///Send verification code to passed email in the language provided
+  ///either to a register or login verification type.
   Future<dynamic> sendVerificationCodeByEmail(
     String email,
     String languageCode,
