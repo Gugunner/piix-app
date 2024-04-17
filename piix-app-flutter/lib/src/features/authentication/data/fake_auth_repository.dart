@@ -25,7 +25,11 @@ class FakeAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> sendVerificationCodeByEmail(String email) async {
+  Future<void> sendVerificationCodeByEmail(
+    String email,
+    String languageCode,
+    VerificationType verificationType,
+  ) async {
     await delay(addDelay);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:piix_mobile/src/features/authentication/application/auth_service_barrel_file.dart';
+import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'create_account_sign_in_page_controller.g.dart';
@@ -9,7 +10,7 @@ enum AuthenticationFormType {
   signIn,
 }
 
-///The controller used to create an account or sign in with email 
+///The controller used to create an account or sign in with email
 ///and verification code.
 @riverpod
 class CreateAccountSignInController extends _$CreateAccountSignInController {
@@ -19,10 +20,15 @@ class CreateAccountSignInController extends _$CreateAccountSignInController {
     // nothing to do
   }
 
-  Future<void> sendVerificationCodeByEmail(String email) async {
+  Future<void> sendVerificationCodeByEmail(String email, String languageCode,
+      VerificationType verificationType) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-        () => ref.read(authServiceProvider).sendVerificationCodeByEmail(email));
+        () => ref.read(authServiceProvider).sendVerificationCodeByEmail(
+              email,
+              languageCode,
+              verificationType,
+            ));
   }
 
   Future<void> authenticateWithEmailAndVerificationCode(

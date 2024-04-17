@@ -11,6 +11,8 @@ import '../../../mocks.dart';
 
 void main() {
   const testEmail = 'email@example.com';
+  const testLanguageCode = 'en';
+  const testVerificationType = VerificationType.login;
   const testVerificationCode = '123456';
   String? path;
   RequestOptions? options;
@@ -33,31 +35,135 @@ void main() {
     });
 
     test(
-      '''WHEN a valid email is sent
+      '''WHEN a valid email, languageCode and verificationType is sent
     THEN the response will have a status code 200 
     AND a { code: 0 } response body''',
       () async {
-        when(() => mockDio.post(path!, data: {'email': testEmail}))
-            .thenAnswer((_) async => Response(
-                  data: expectedResponse,
-                  statusCode: HttpStatus.ok,
-                  requestOptions: options!,
-                ));
+        when(() => mockDio.post(path!, data: {
+              'email': testEmail,
+              'languageCode': testLanguageCode,
+              'verificationType': testVerificationType.name,
+            })).thenAnswer((_) async => Response(
+              data: expectedResponse,
+              statusCode: HttpStatus.ok,
+              requestOptions: options!,
+            ));
         expect(
-            await makeAuthRepository().sendVerificationCodeByEmail(testEmail),
+            await makeAuthRepository().sendVerificationCodeByEmail(
+              testEmail,
+              testLanguageCode,
+              testVerificationType,
+            ),
             isA<Response>().having((r) => r.data, 'data', expectedResponse));
-        verify(() => mockDio.post(path!, data: {'email': testEmail})).called(1);
+        verify(() => mockDio.post(
+              path!,
+              data: {
+                'email': testEmail,
+                'languageCode': testLanguageCode,
+                'verificationType': testVerificationType.name,
+              },
+            )).called(1);
       },
     );
-
-    test('''WHEN a valid email is sent 
+    test('''WHEN a valid email, languageCode and verificationType is sent
+    AND the verificationType is register
+    AND the email is already used by an account
+    THEN the response will be an EmailAlreadyExistsException''', () async {
+      when(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).thenThrow(DioException(
+        requestOptions: options!,
+        response: Response(
+          requestOptions: options!,
+          data: {
+            'details': {
+              'name': 'EMAIL_ALREADY_EXISTS',
+              'codeNumber': '2001',
+              'prefix': 'piix-auth',
+              'errorCode': 'email-already-exists',
+            },
+            'message': 'The email is already in use.',
+            'status': 'ALREADY_EXISTS',
+          },
+          statusCode: HttpStatus.conflict,
+        ),
+      ));
+      expect(
+        () async => makeAuthRepository().sendVerificationCodeByEmail(
+          testEmail,
+          testLanguageCode,
+          testVerificationType,
+        ),
+        throwsA(
+          isA<EmailAlreadyExistsException>()
+              .having((e) => e.errorCode, 'errorCode', 'email-already-exists')
+              .having((e) => e.codeNumber, 'codeNumber', '2001')
+              .having((e) => e.statusCode, 'statusCode', HttpStatus.conflict),
+        ),
+      );
+      verify(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).called(1);
+    });
+    test('''WHEN a valid email, languageCode and verificationType is sent
+    AND the verificationType is login
+    AND the email is not used by an account
+    THEN the response will be an EmailNotFoundException''', () async {
+      when(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).thenThrow(DioException(
+        requestOptions: options!,
+        response: Response(
+          requestOptions: options!,
+          data: {
+            'details': {
+              'name': 'EMAIL_NOT_FOUND',
+              'codeNumber': '2002',
+              'prefix': 'piix-auth',
+              'errorCode': 'email-not-found'
+            },
+            'message': 'The email was not found.',
+            'status': 'NOT_FOUND'
+          },
+          statusCode: HttpStatus.notFound,
+        ),
+      ));
+      expect(
+        () async => makeAuthRepository().sendVerificationCodeByEmail(
+          testEmail,
+          testLanguageCode,
+          testVerificationType,
+        ),
+        throwsA(
+          isA<EmailNotFoundException>()
+              .having((e) => e.errorCode, 'errorCode', 'email-not-found')
+              .having((e) => e.codeNumber, 'codeNumber', '2002')
+              .having((e) => e.statusCode, 'statusCode', HttpStatus.notFound),
+        ),
+      );
+      verify(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).called(1);
+    });
+    test('''WHEN a valid email, languageCode and verificationType is sent 
     AND the email cannot be sent
     THEN the response will be an CustomAppException
     AND the CustomAppException status code will be 500
     AND the errorCode will be "email-not-sent"
     AND the codeNumber will be "3003"''', () async {
-      when(() => mockDio.post(path!, data: {'email': testEmail}))
-          .thenThrow(DioException(
+      when(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
           requestOptions: options!,
@@ -75,7 +181,11 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository().sendVerificationCodeByEmail(testEmail),
+        () async => makeAuthRepository().sendVerificationCodeByEmail(
+          testEmail,
+          testLanguageCode,
+          testVerificationType,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'email-not-sent')
@@ -84,17 +194,24 @@ void main() {
                   HttpStatus.internalServerError),
         ),
       );
-      verify(() => mockDio.post(path!, data: {'email': testEmail})).called(1);
+      verify(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).called(1);
     });
 
-    test('''WHEN a valid email is sent 
+    test('''WHEN a valid email, languageCode and verificationType is sent  
     AND the code cannot be saved
     THEN the response will be a CustomAppException
     AND the CustomAppException status code will be 500
     AND the errorCode will be "document-not-added"
     AND the codeNumber will be "0101"''', () async {
-      when(() => mockDio.post(path!, data: {'email': testEmail}))
-          .thenThrow(DioException(
+      when(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
           requestOptions: options!,
@@ -112,7 +229,11 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository().sendVerificationCodeByEmail(testEmail),
+        () async => makeAuthRepository().sendVerificationCodeByEmail(
+          testEmail,
+          testLanguageCode,
+          testVerificationType,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'document-not-added')
@@ -121,21 +242,32 @@ void main() {
                   HttpStatus.internalServerError),
         ),
       );
-      verify(() => mockDio.post(path!, data: {'email': testEmail})).called(1);
+      verify(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).called(1);
     });
 
-    test('''WHEN a valid email is sent 
+    test('''WHEN a valid email, languageCode and verificationType is sent 
     AND an unknown DioException occurs
     THEN the response will be a CustomAppException
     AND the CustomAppException status code will be 500
     AND the errorCode will be "dio-exception"
     AND the codeNumber will be "NA"''', () async {
-      when(() => mockDio.post(path!, data: {'email': testEmail}))
-          .thenThrow(DioException(
+      when(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).thenThrow(DioException(
         requestOptions: options!,
       ));
       expect(
-        () async => makeAuthRepository().sendVerificationCodeByEmail(testEmail),
+        () async => makeAuthRepository().sendVerificationCodeByEmail(
+          testEmail,
+          testLanguageCode,
+          testVerificationType,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'dio-exception')
@@ -144,19 +276,30 @@ void main() {
                   HttpStatus.internalServerError),
         ),
       );
-      verify(() => mockDio.post(path!, data: {'email': testEmail})).called(1);
+      verify(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).called(1);
     });
 
-    test('''WHEN a valid email is sent 
+    test('''WHEN a valid email, languageCode and verificationType is sent 
     AND an unknown Error occurs
     THEN the response will be a UnknownAppException
     AND the UnkownErrorException status code will be 500
     AND the errorCode will be "unknown-error"
     AND the codeNumber will be "NA"''', () async {
-      when(() => mockDio.post(path!, data: {'email': testEmail}))
-          .thenThrow(Exception('mock exception'));
+      when(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).thenThrow(Exception('mock exception'));
       expect(
-        () async => makeAuthRepository().sendVerificationCodeByEmail(testEmail),
+        () async => makeAuthRepository().sendVerificationCodeByEmail(
+          testEmail,
+          testLanguageCode,
+          testVerificationType,
+        ),
         throwsA(
           isA<UnkownErrorException>()
               .having((e) => e.errorCode, 'errorCode', 'unknown-error')
@@ -165,7 +308,11 @@ void main() {
                   HttpStatus.internalServerError),
         ),
       );
-      verify(() => mockDio.post(path!, data: {'email': testEmail})).called(1);
+      verify(() => mockDio.post(path!, data: {
+            'email': testEmail,
+            'languageCode': testLanguageCode,
+            'verificationType': testVerificationType.name,
+          })).called(1);
     });
   });
 

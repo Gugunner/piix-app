@@ -14,13 +14,22 @@ class AuthService {
 
   ///The instance of [FirebaseAuth] to handle [Firebase] authentication
   final FirebaseAuth _firebaseAuth;
-  ///The instance of [AuthRepository] to handle authentication 
+
+  ///The instance of [AuthRepository] to handle authentication
   ///related operations
   final AuthRepository _authRepository;
 
   ///Sends a verification code to the passed email
-  Future<void> sendVerificationCodeByEmail(String email) {
-    return _authRepository.sendVerificationCodeByEmail(email);
+  Future<void> sendVerificationCodeByEmail(
+    String email,
+    String languageCode,
+    VerificationType verificationType,
+  ) {
+    return _authRepository.sendVerificationCodeByEmail(
+      email,
+      languageCode,
+      verificationType,
+    );
   }
 
   ///Creates an account with email and verification code
@@ -29,6 +38,7 @@ class AuthService {
     //Obtain a custom token with email and verification code
     final customToken = await _authRepository
         .createAccountWithEmailAndVerificationCode(email, verificationCode);
+
     ///Sign in with the custom token
     await _customSignIn(customToken);
   }
@@ -39,6 +49,7 @@ class AuthService {
     //Obtain a custom token with email and verification code
     final customToken = await _authRepository
         .getCustomTokenWithEmailAndVerificationCode(email, verificationCode);
+
     ///Sign in with the custom token
     await _customSignIn(customToken);
   }
