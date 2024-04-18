@@ -19,6 +19,21 @@
             "command": "fvm flutter test"
         },
         {
+            "label": "Flutter fvm test goldens web",
+            "type": "shell",
+            "command": "fvm flutter test --tags=golden,layout,web"
+        },
+        {
+            "label": "Flutter fvm test goldens tablet",
+            "type": "shell",
+            "command": "fvm flutter test --tags=golden,layout,tablet,ios"
+        },
+        {
+            "label": "Flutter fvm test goldens mobile",
+            "type": "shell",
+            "command": "fvm flutter test --tags=golden,layout,mobile,android"
+        },
+        {
             "label": "Flutter fvm update goldens web",
             "type": "shell",
             "command": "fvm flutter test --update-goldens --tags=golden,layout,web"
