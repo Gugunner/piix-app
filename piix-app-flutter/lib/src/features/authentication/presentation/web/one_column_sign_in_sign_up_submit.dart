@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/constants/screen_breakpoints.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/web/welcome_to_piix_one_time_code_login.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/web/welcome_to_piix_one_time_code_submit.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 import 'package:piix_mobile/src/utils/size_context.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 
-/// A layout that displays one column when the user is running the app
-/// in the web in smaller screens.
-class OneColumnSignIn extends StatelessWidget {
-  const OneColumnSignIn({super.key});
+///A general layout of the email submit form for the [SignInPage]
+/// and [SignUpPage].
+class OneColumnSignInSignUpSubmit extends StatelessWidget {
+  const OneColumnSignInSignUpSubmit({
+    super.key,
+    this.verificationType = VerificationType.login,
+  });
+  
+  final VerificationType verificationType;
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +35,22 @@ class OneColumnSignIn extends StatelessWidget {
         return Container(
           height: context.screenHeight,
           width: context.screenWidth,
-          padding: EdgeInsets.symmetric(
-            horizontal: padding,
-            vertical: padding,
-          ),
+          padding: EdgeInsets.all(padding),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Sizes.p16),
               color: PiixColors.space,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
-              child: WelcomeToPiixOneTimeCodeLogin(
+              padding: EdgeInsets.symmetric(
+                horizontal: maxWidth >= ScreenBreakPoint.xl
+                    ? context.screenWidth * 0.25
+                    : Sizes.p16,
+              ),
+              child: WelcomeToPiixOneTimeCodeSubmit(
                 parentPadding: padding,
                 width: width,
+                verificationType: verificationType,
               ),
             ),
           ),
