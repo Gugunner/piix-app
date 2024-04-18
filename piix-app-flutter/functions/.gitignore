@@ -10,4 +10,11 @@ node_modules/
 
 #Test coverage files
 .nyc_output/
+<<<<<<< HEAD
 coverage/
+=======
+coverage/
+
+#Emulator files
+.emulator/
+>>>>>>> develop

@@ -15,3 +15,9 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+<<<<<<< HEAD
+=======
+
+### Downloading images assets
+Please go to [images](https://drive.google.com/drive/folders/1-3gXUCzJdvmJom1qBpKgamLbT4Ay8Xk7?usp=drive_link) folder and download the images root folder and insert it inside the assets/ directory.
+>>>>>>> develop

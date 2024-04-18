@@ -22,6 +22,7 @@ export const FirebaseAdminAuth: Module = {
 		prefix: 'auth',
 		errorCode: 'unknown',
 	},
+<<<<<<< HEAD
 	'email-already-exists': {
 		name: 'EMAIL_ALREADY_EXISTS',
 		codeNumber: '0001',
@@ -31,51 +32,93 @@ export const FirebaseAdminAuth: Module = {
 	'id-token-expired': {
 		name: 'EXPIRED',
 		codeNumber: '0002',
+=======
+	'id-token-expired': {
+		name: 'EXPIRED',
+		codeNumber: '0001',
+>>>>>>> develop
 		prefix: 'auth',
 		errorCode: 'id-token-expired'
 	},
 	'id-token-revoked': {
 		name: 'REVOKED',
+<<<<<<< HEAD
 		codeNumber: '0003',
+=======
+		codeNumber: '0002',
+>>>>>>> develop
 		prefix: 'auth',
 		errorCode: 'id-token-expired'
 	},
 	'invalid-email': {
 		name: 'INVALID_EMAIL',
+<<<<<<< HEAD
 		codeNumber: '0004',
+=======
+		codeNumber: '0003',
+>>>>>>> develop
 		prefix: 'auth',
 		errorCode: 'invalid-email',
 	},
 	'invalid-id-token': {
 		name: 'INVALID_TOKEN',
+<<<<<<< HEAD
 		codeNumber: '0005',
+=======
+		codeNumber: '0004',
+>>>>>>> develop
 		prefix: 'auth',
 		errorCode: 'invalid-id-token',
 	},
 	'invalid-uid': {
 		name: 'INVALID_UID',
+<<<<<<< HEAD
 		codeNumber: '0004',
+=======
+		codeNumber: '0005',
+>>>>>>> develop
 		prefix: 'auth',
 		errorCode: 'invalid-uid',
 	},
 	'too-many-requests': {
 		name: 'TOO_MANY_REQUESTS',
+<<<<<<< HEAD
 		codeNumber: '0007',
+=======
+		codeNumber: '0006',
+>>>>>>> develop
 		prefix: 'auth',
 		errorCode: 'too-many-requests',
 	},
 	'uid-already-exists': {
 		name: 'UID_ALREADY_EXISTS',
+<<<<<<< HEAD
 		codeNumber: '0008',
+=======
+		codeNumber: '0007',
+>>>>>>> develop
 		prefix: 'auth',
 		errorCode: 'uid-already-exists',
 	},
 	'user-not-found': {
 		name: 'NO_USER',
+<<<<<<< HEAD
 		codeNumber: '0009',
 		prefix: 'auth',
 		errorCode: 'user-not-found',
 	},
+=======
+		codeNumber: '0008',
+		prefix: 'auth',
+		errorCode: 'user-not-found',
+	},
+	'user-not-created': {
+		name: 'USER_NOT_CREATED',
+		codeNumber: '0009',
+		prefix: 'auth',
+		errorCode: 'user-not-created',
+	},
+>>>>>>> develop
 }
 
 export const FirebaseAdminFirestore: Module = {
@@ -121,6 +164,15 @@ export const FirebaseAdminFirestore: Module = {
 		prefix: 'store',
 		errorCode: 'document-not-found',
 	},
+<<<<<<< HEAD
+=======
+	'query-is-empty': {
+		name: 'QUERY_IS_EMPTY',
+		codeNumber: '0107',
+		prefix: 'store',
+		errorCode: 'query-is-empty',
+	},
+>>>>>>> develop
 }
 
 export const PiixAuth: Module = {
@@ -154,11 +206,19 @@ export const PiixAuth: Module = {
 		prefix: 'piix-auth',
 		errorCode: 'custom-token-failed',
 	},
+<<<<<<< HEAD
 	'email-not-sent': {
 		name: 'UNKNOWN',
 		codeNumber: '2005',
 		prefix: 'piix-auth',
 		errorCode: 'email-not-sent',
+=======
+	'no-id-token-present': {
+		name: 'NO_ID_TOKEN_PRESENT',
+		codeNumber: '2005',
+		prefix: 'piix-auth',
+		errorCode: 'no-id-token-present',
+>>>>>>> develop
 	},
 }
 
@@ -179,9 +239,21 @@ export const PiixFunctions: Module = {
 	'invalid-body-fields': {
 		name: 'INVALID_BODY_FIELDS',
 		codeNumber: '3002',
+<<<<<<< HEAD
 		prefix: 'piix-auth',
 		errorCode: 'invalid-body-fields',
 	},
+=======
+		prefix: 'piix-functions',
+		errorCode: 'invalid-body-fields',
+	},
+	'email-not-sent': {
+		name: 'UNKNOWN',
+		codeNumber: '3003',
+		prefix: 'piix-functions',
+		errorCode: 'email-not-sent',
+	},
+>>>>>>> develop
 }
 
 export type Module = {[key: string]: SubModule};

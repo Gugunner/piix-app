@@ -27,6 +27,11 @@ dependencies:
   cached_network_image: ^3.3.1
   #Allows access to camera 
   camera: ^0.10.5+4
+<<<<<<< HEAD
+=======
+  #Connects to firebase firestore
+  cloud_firestore: ^4.15.10
+>>>>>>> develop
   #Contains a library of utilities to handle a collection structure
   collection: ^1.16.0
   #Allows to detect wifi or cellular connection ios and android
@@ -40,7 +45,11 @@ dependencies:
   #Allows to comapre objects
   equatable: ^2.0.5
   #Allows to obscure and encrypt variables
+<<<<<<< HEAD
   envied: ^0.3.0
+=======
+  envied: ^0.3.0+3
+>>>>>>> develop
   #A firebase analytics api
   firebase_analytics: ^10.8.7
   #A firebase auth api
@@ -62,7 +71,11 @@ dependencies:
   #State management and cache handler 
   flutter_riverpod: ^2.3.2
   #Controls screen and font size
+<<<<<<< HEAD
   flutter_screenutil: ^5.6.0
+=======
+  flutter_screenutil: ^5.9.0
+>>>>>>> develop
   #Creates a speed dial button
   flutter_speed_dial: ^6.2.0
   #Draw SVG files using Flutter
@@ -98,12 +111,24 @@ dependencies:
   pdf: ^3.8.4
   #Controls iOS and Android Permission
   permission_handler: ^11.0.0
+<<<<<<< HEAD
+=======
+  #Allows to create riverpod providers
+  riverpod: ^2.5.1
+  #Allows to annotate certain properties as riverpod instances
+  riverpod_annotation: ^2.0.2
+  #Introduces Reactive X programming
+  rxdart: ^0.27.7
+>>>>>>> develop
   #Allows to store data in local persistency
   shared_preferences: ^2.0.16
   #Allows to create a text canvas which allows drawing
   signature: ^5.3.0
+<<<<<<< HEAD
   #Required to automate Riverpod provider generation
   riverpod_annotation: ^2.0.2
+=======
+>>>>>>> develop
   #Allows to persist data in local with an object storage in ios and android
   sembast: ^3.6.0
   #Allows to persist data in local with an object storage in web
@@ -114,6 +139,7 @@ dependencies:
   whatsapp_unilink: ^2.1.0
   #Controls screen awake time
   wakelock: ^0.4.0
+<<<<<<< HEAD
   
   
 
@@ -123,6 +149,13 @@ dependencies:
 dev_dependencies:
   #Used to run envied in build runner
   envied_generator: ^0.3.0
+=======
+
+
+dev_dependencies:
+  #Used to run envied in build runner
+  envied_generator: ^0.3.0+3
+>>>>>>> develop
   flutter_test:
     sdk: flutter
   #Creates special classes to handle data entities with build runner
@@ -130,7 +163,11 @@ dev_dependencies:
   #Creates a mock class to be used in testing
   mocktail: ^1.0.3
   #Runs code generator
+<<<<<<< HEAD
   build_runner: ^2.4.6
+=======
+  build_runner: ^2.4.8
+>>>>>>> develop
   custom_lint:
   #Used to tun riverpod with build runner
   riverpod_generator: ^2.3.3
@@ -138,6 +175,10 @@ dev_dependencies:
   riverpod_lint: ^2.1.1
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
@@ -147,6 +188,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   generate: true
+<<<<<<< HEAD
   # assets:
     # - assets/images/
     # - assets/images/login/
@@ -155,6 +197,17 @@ flutter:
 
   fonts:
 
+=======
+  assets:
+    - assets/images/
+    - assets/images/2.0x/
+    - assets/images/3.0x/
+    - assets/images/4.0x/
+    - assets/svgs/
+    - assets/svgs/app_brand/
+
+  fonts:
+>>>>>>> develop
     - family: Raleway
       fonts:
         - asset: assets/fonts/Raleway/Raleway-Regular.ttf

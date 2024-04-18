@@ -1,12 +1,30 @@
 targets:
   $default:
     builders:
+<<<<<<< HEAD
+=======
+      envied_generator|envied:
+        options:
+          path: .env.custom
+          override: true
+      riverpod_generator:
+        options:
+          provider_familiy_name_prefix: "Pod"
+        generate_for:
+          - "**bootstrap.dart"
+          - "**/domain/**model.dart"
+          - "**/application/**service.dart"
+          - "**/presentation/**controller.dart"
+          - "**/data/**repository.dart"
+          - "**/network/**.dart"
+>>>>>>> develop
       json_serializable|json_serializable:
         options:
           explicit_to_json: true
         # This will only generate code for files 
         # in specified folders.
         generate_for:
+<<<<<<< HEAD
           - "**/domain/model/**.dart"
           - "**/domain/provider/**.dart"
           - "**/data/repository/**.dart"
@@ -14,6 +32,9 @@ targets:
           - "api/**.dart"
           - "**/api/**.dart"
           - "env/**.dart"
+=======
+          - "**/domain/**model.dart"
+>>>>>>> develop
       freezed|freezed:
         options:
           unionKey: 'modelType'
@@ -24,9 +45,13 @@ targets:
         # This will only generate code for files 
         # in specified folders.
         generate_for:
+<<<<<<< HEAD
           - "**/domain/model/**.dart"
           - "**/domain/provider/**.dart"
           - "**/data/repository/**.dart"
           - "**/data/service/**.dart"
           - "api/**.dart"
           - "**/api/**.dart"
+=======
+          - "**/domain/**model.dart"
+>>>>>>> develop

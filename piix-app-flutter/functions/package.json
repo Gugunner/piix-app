@@ -11,16 +11,28 @@
     "logs": "firebase functions:log",
     "test": "jest --testPathPattern=functions/test",
     "test:watch": "jest --watchAll --testPathPattern=functions/test",
+<<<<<<< HEAD
     "test:coverage": "jest --watchAll --coverage",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
+=======
+    "test:coverage": "jest --coverage --testPathPattern=functions/test",
+    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test:coverage"
+>>>>>>> develop
   },
   "engines": {
     "node": "20"
   },
+<<<<<<< HEAD
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^11.8.0",
     "firebase-functions": "^4.8.0"
+=======
+  "main": "lib/src/index.js",
+  "dependencies": {
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.8.1"
+>>>>>>> develop
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",

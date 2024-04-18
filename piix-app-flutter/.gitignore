@@ -66,3 +66,15 @@ env_const.dart
 assets/images/
 
 pubspec.lock
+<<<<<<< HEAD
+=======
+
+#Firebase emulator
+.emulator/
+
+#Coverage files Fluttter
+coverage/
+
+#Golden failures in any test
+test/**/failures/
+>>>>>>> develop
