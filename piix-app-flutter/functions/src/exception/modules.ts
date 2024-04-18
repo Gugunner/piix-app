@@ -22,59 +22,59 @@ export const FirebaseAdminAuth: Module = {
 		prefix: 'auth',
 		errorCode: 'unknown',
 	},
-	'email-already-exists': {
-		name: 'EMAIL_ALREADY_EXISTS',
-		codeNumber: '0001',
-		prefix: 'auth',
-		errorCode: 'email-already-exists'
-	},
 	'id-token-expired': {
 		name: 'EXPIRED',
-		codeNumber: '0002',
+		codeNumber: '0001',
 		prefix: 'auth',
 		errorCode: 'id-token-expired'
 	},
 	'id-token-revoked': {
 		name: 'REVOKED',
-		codeNumber: '0003',
+		codeNumber: '0002',
 		prefix: 'auth',
 		errorCode: 'id-token-expired'
 	},
 	'invalid-email': {
 		name: 'INVALID_EMAIL',
-		codeNumber: '0004',
+		codeNumber: '0003',
 		prefix: 'auth',
 		errorCode: 'invalid-email',
 	},
 	'invalid-id-token': {
 		name: 'INVALID_TOKEN',
-		codeNumber: '0005',
+		codeNumber: '0004',
 		prefix: 'auth',
 		errorCode: 'invalid-id-token',
 	},
 	'invalid-uid': {
 		name: 'INVALID_UID',
-		codeNumber: '0004',
+		codeNumber: '0005',
 		prefix: 'auth',
 		errorCode: 'invalid-uid',
 	},
 	'too-many-requests': {
 		name: 'TOO_MANY_REQUESTS',
-		codeNumber: '0007',
+		codeNumber: '0006',
 		prefix: 'auth',
 		errorCode: 'too-many-requests',
 	},
 	'uid-already-exists': {
 		name: 'UID_ALREADY_EXISTS',
-		codeNumber: '0008',
+		codeNumber: '0007',
 		prefix: 'auth',
 		errorCode: 'uid-already-exists',
 	},
 	'user-not-found': {
 		name: 'NO_USER',
-		codeNumber: '0009',
+		codeNumber: '0008',
 		prefix: 'auth',
 		errorCode: 'user-not-found',
+	},
+	'user-not-created': {
+		name: 'USER_NOT_CREATED',
+		codeNumber: '0009',
+		prefix: 'auth',
+		errorCode: 'user-not-created',
 	},
 }
 
@@ -121,6 +121,12 @@ export const FirebaseAdminFirestore: Module = {
 		prefix: 'store',
 		errorCode: 'document-not-found',
 	},
+	'query-is-empty': {
+		name: 'QUERY_IS_EMPTY',
+		codeNumber: '0107',
+		prefix: 'store',
+		errorCode: 'query-is-empty',
+	},
 }
 
 export const PiixAuth: Module = {
@@ -154,11 +160,11 @@ export const PiixAuth: Module = {
 		prefix: 'piix-auth',
 		errorCode: 'custom-token-failed',
 	},
-	'email-not-sent': {
-		name: 'UNKNOWN',
+	'no-id-token-present': {
+		name: 'NO_ID_TOKEN_PRESENT',
 		codeNumber: '2005',
 		prefix: 'piix-auth',
-		errorCode: 'email-not-sent',
+		errorCode: 'no-id-token-present',
 	},
 }
 
@@ -179,8 +185,14 @@ export const PiixFunctions: Module = {
 	'invalid-body-fields': {
 		name: 'INVALID_BODY_FIELDS',
 		codeNumber: '3002',
-		prefix: 'piix-auth',
+		prefix: 'piix-functions',
 		errorCode: 'invalid-body-fields',
+	},
+	'email-not-sent': {
+		name: 'UNKNOWN',
+		codeNumber: '3003',
+		prefix: 'piix-functions',
+		errorCode: 'email-not-sent',
 	},
 }
 
