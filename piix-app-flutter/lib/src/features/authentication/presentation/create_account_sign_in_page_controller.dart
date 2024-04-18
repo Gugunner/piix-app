@@ -1,5 +1,5 @@
 import 'package:piix_mobile/src/features/authentication/application/auth_service_barrel_file.dart';
-import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'create_account_sign_in_page_controller.g.dart';

@@ -6,6 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
 import 'package:piix_mobile/src/network/app_dio.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 
 import '../../../mocks.dart';
 

@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:piix_mobile/src/features/authentication/application/auth_service_barrel_file.dart';
-import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/create_account_sign_in_page_controller.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 
 import '../../../mocks.dart';
 
