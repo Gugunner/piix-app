@@ -1,9 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:piix_mobile/src/features/authentication/application/auth_service.dart';
-import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
 import 'package:piix_mobile/src/features/authentication/domain/authentication_model_barrel_file.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:piix_mobile/src/utils/delay.dart';
 import 'package:piix_mobile/src/utils/fake_memory_store.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 
 /// A fake implementation of [AuthService] for testing purposes.
 class FakeAuthService implements AuthService {
@@ -42,9 +43,13 @@ class FakeAuthService implements AuthService {
 
   ///A list where all the users are stored.
   final List<FakeAppUser> _users = [];
+  final Map<String, String> _codes = {};
 
-  /// Returns a list of all the users.
-  List<FakeAppUser> readUsers() => _users;
+  /// Returns a list [users].
+  List<FakeAppUser> getUsersList() => _users;
+
+  /// Returns the list of [codes].
+  Map<String, String> getCodesTable() => _codes;
 
   /// Returns the current user.
   @override
@@ -60,17 +65,22 @@ class FakeAuthService implements AuthService {
     if (addDelay) {
       delay(addDelay);
     }
-    //Iterates over each user to find if the email already exists.
-    for (final user in _users) {
-      if (user.email == email) {
-        //If the email already exists, returns an empty value an exits
-        //the function.
-        return Future.value();
-      }
+    //Lookup the user by the email
+    final user = _users.firstWhereOrNull((u) => u.email == email);
+    //If there is no user but a login attempt is made then throw an 
+    //EmailNotFoundException
+    if (user == null && verificationType == VerificationType.login) {
+      throw EmailNotFoundException();
     }
-    //If the email does not exist, prepare the user for future verification.
-    _prepareNewUserForVerification(email, '123456');
-    //Return an empty value and exits the function.
+    //If there is already a user but a register attempt is made then throw an 
+    //EmailAlreadyExistsException
+    if (user != null && verificationType == VerificationType.register) {
+      throw EmailAlreadyExistsException();
+    }
+    //If the user does not exist, add the email and verification code to 
+    //[_codes]
+    _addVerificationToCodes(email, '123456');
+    //Return an empty value and exit the function.
     return Future.value();
   }
 
@@ -81,34 +91,33 @@ class FakeAuthService implements AuthService {
     if (addDelay) {
       delay(addDelay);
     }
-    //Iterates over each user to find if the email already exists or if the
-    //verification code is correct for a user already set.
-    for (final user in _users) {
-      //Obtain the uid from the email
-      final uid = _toUidOrEmail(email);
-      //Check if the email already exists.
-      if (user.email == email) {
-        //Set the current user to null.
-        _authState.value = null;
-        throw EmailAlreadyExistsException();
-      }
-      //If the user is already set
-      else if (user.uid == uid) {
-        //Check the verification code
-        if (user.verificationCode != verificationCode) {
-          //If the verification code is incorrect, set the current user to null
-          _authState.value = null;
-          throw IncorrectVerificationCodeException();
-        }
-        //If the verification code is correct, verify the new user.
-        _verifyNewUser(uid);
-        //Return an empty value and exits the function.
-        return Future.value();
-      }
+    //Lookup the user by the email
+    final user = _users.firstWhereOrNull((u) => u.email == email);
+    //If a user is already found throw a EmailAlreadyExistsException
+    //* This specific case only happens during unit tests, whe doing it through
+    //* the app a user will always need to first check by executing 
+    //* [sendVerificationCodeByEmail]
+    if (user != null) {
+      throw EmailAlreadyExistsException();
     }
-    //If the user has not been set, set the current user to null.
-    _authState.value = null;
-    throw UnkownErrorException(Exception('mock error'));
+    //Obtain the uid from the email
+    final uid = _toUidOrEmail(email);
+    //If there are no prior codes then throw an UnkownErrorException
+    if (_codes.isEmpty) {
+      _authState.value = null;
+      throw UnkownErrorException('there are no codes stored');
+    }
+    //Check the verification code to see if it matches
+    if (_codes[email] != verificationCode) {
+      //If the verification code is incorrect, set the current user to null
+      //and throw an IncorrectVerificationCodeException
+      _authState.value = null;
+      throw IncorrectVerificationCodeException();
+    }
+    //If the verification code is correct, create the new user.
+    _createNewUser(email, uid, verificationCode);
+    //Return an empty value and exit the function.
+    return Future.value();
   }
 
   /// Signs in with the email and verification code.
@@ -118,26 +127,31 @@ class FakeAuthService implements AuthService {
     if (addDelay) {
       delay(addDelay);
     }
-    //Iterates over each user to find if the email already exists or if the
-    //verification code is correct for a user already set.
-    for (final user in _users) {
-      //Check if the email already exists.
-      if (user.email == email) {
-        //Check the verification code
-        if (user.verificationCode != verificationCode) {
-          //If the verification code is incorrect, set the current user to null
-          _authState.value = null;
-          throw IncorrectVerificationCodeException();
-        }
-        //If the verification code is correct, set the current user to the user
-        //and return empty value and exits the function.
-        _authState.value = user;
-        return Future.value();
-      }
+    //Lookup the user by the email
+    final user = _users.firstWhereOrNull((u) => u.email == email);
+    //If a user is not found throw a EmailNotFoundException
+    //* This specific case only happens during unit tests, whe doing it through
+    //* the app a user will always need to first check by executing 
+    //* [sendVerificationCodeByEmail]
+    if (user == null) {
+      throw EmailNotFoundException();
     }
-    //If the user has not been created, set the current user to null.
-    _authState.value = null;
-    throw EmailNotFoundException();
+    //If there are no prior codes then throw an UnkownErrorException
+    if (_codes.isEmpty) {
+      _authState.value = null;
+      throw UnkownErrorException('there are no codes stored');
+    }
+    //Check the verification code to see if it matches
+    if (_codes[email] != verificationCode) {
+      //If the verification code is incorrect, set the current user to null
+      //and throw an IncorrectVerificationCodeException
+      _authState.value = null;
+      throw IncorrectVerificationCodeException();
+    }
+    //If the verification code is correct, log in the user.
+    _Login(email, user);
+    //Return an empty value and exit the function.
+    return Future.value();
   }
 
   /// Signs out the current user.
@@ -154,32 +168,38 @@ class FakeAuthService implements AuthService {
   /// Disposes the [FakeMemoryStore] instance.
   void dispose() => _authState.dispose();
 
-  /// Prepares a new user for verification.
-  void _prepareNewUserForVerification(String email, String verificationCode) {
-    //Create a new user with the email and verification code.
-    final user = FakeAppUser(
-      uid: _toUidOrEmail(email),
-      email: '',
-      emailVerified: false,
-      verificationCode: verificationCode,
-    );
-    //Add the user to the list of users.
-    _users.add(user);
+  /// Adds the [email] as key and [verificationCode] as value
+  /// to the [_codes] hashmap.
+  void _addVerificationToCodes(String email, String verificationCode) {
+    if (_codes.containsKey(email)) return;
+    _codes[email] = verificationCode;
   }
 
-  /// Verifies a new user.
-  void _verifyNewUser(
+  /// Create a new [FakeAppUser] and adds it
+  /// to [_users].
+  void _createNewUser(
+    String email,
     String uid,
+    String verificationCode,
   ) {
-    //Find the index of the user in the list of users.
-    final userIndex = _users.indexWhere((user) => user.uid == uid);
-    //Set the email of the user to the uid and set the email verified to true.
-    _users[userIndex] = _users[userIndex].copyWith(
-      email: _toUidOrEmail(uid),
+    final user = FakeAppUser(
+      uid: uid,
+      email: email,
       emailVerified: true,
+      verificationCode: verificationCode,
     );
+    _users.add(user);
+    //Finally log in the user.
+    _Login(email, user);
+  }
+
+  ///Logs the user in by assigning [user] to the [_authState.value].
+  ///It also removes the key value pair from [_codes].
+  void _Login(String email, FakeAppUser user) {
+    //Remove the attributed from _codes by using the email key
+    _codes.remove(email);
     //Set the current user to the user.
-    _authState.value = _users[userIndex];
+    _authState.value = user;
   }
 
   /// Converts a uid to an email by reversing it and viceversa.
