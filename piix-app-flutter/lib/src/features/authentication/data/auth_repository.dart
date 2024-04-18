@@ -1,18 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:piix_mobile/src/network/app_dio.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_repository.g.dart';
 
 typedef CustomToken = String;
-
-///The possible types requires verification to access
-///the app.
-enum VerificationType {
-  register,
-  login,
-}
 
 ///The repository for authentication related operations
 class AuthRepository {

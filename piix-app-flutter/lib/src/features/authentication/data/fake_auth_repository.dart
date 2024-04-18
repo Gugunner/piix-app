@@ -1,5 +1,6 @@
 import 'package:piix_mobile/src/features/authentication/data/auth_repository.dart';
 import 'package:piix_mobile/src/utils/delay.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository({this.addDelay = true});
