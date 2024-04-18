@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/constants/widget_keys.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/authentication_page_barrel_file.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/web/or_sign_in_sign_up_label.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/web/submit_email_input_verification_code.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/theme/piix_colors.dart';
 import 'package:piix_mobile/src/theme/theme_context.dart';
 import 'package:piix_mobile/src/utils/size_context.dart';
+import 'package:piix_mobile/src/utils/verification_type.dart';
 
-import '../../../../common_widgets/common_widgets_barrel_file.dart';
-
-/// A reusable widget that displays the welcome message and the email input
-/// text field for the user to enter their email address in the web version
-/// of the app.
-class WelcomeToPiixOneTimeCodeLogin extends StatelessWidget {
-  const WelcomeToPiixOneTimeCodeLogin({
+class WelcomeToPiixOneTimeCodeSubmit extends StatelessWidget {
+  const WelcomeToPiixOneTimeCodeSubmit({
     super.key,
     required this.parentPadding,
     required this.width,
+    this.verificationType = VerificationType.login,
   });
 
   final double width;
   final double parentPadding;
+  final VerificationType verificationType;
 
   @override
   Widget build(BuildContext context) {
+    final isLogin = verificationType.isLogin;
     return Container(
       height: context.screenHeight,
       alignment: Alignment.center,
@@ -34,7 +35,8 @@ class WelcomeToPiixOneTimeCodeLogin extends StatelessWidget {
             const AppLogo(),
             gapH16,
             Text(
-              'Welcome to Piix'.hardcoded,
+              '${isLogin ? 'Welcome to Piix' : 'Create an account with us'}'
+                  .hardcoded,
               style: context.theme.textTheme.displayMedium?.copyWith(
                 color: PiixColors.contrast,
               ),
@@ -42,7 +44,7 @@ class WelcomeToPiixOneTimeCodeLogin extends StatelessWidget {
             ),
             gapH12,
             Text(
-              '''Manage your membership and invite others to join your family protection.'''
+              '''${isLogin ? 'Manage your membership and invite others to join your family protection.' : 'Verify your email to create an account.'}'''
                   .hardcoded,
               style: context.theme.textTheme.headlineMedium?.copyWith(
                 color: PiixColors.secondary,
@@ -56,32 +58,27 @@ class WelcomeToPiixOneTimeCodeLogin extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Login with a one time code using your email.'.hardcoded,
+                    '''${isLogin ? 'Login with a one time code using your email.' : 'Enter your email for verification.'}'''
+                        .hardcoded,
                     style: context.theme.textTheme.titleMedium?.copyWith(
                       color: PiixColors.secondary,
                     ),
                     textAlign: TextAlign.center,
                   ),
                   gapH8,
-                  const EmailInputTextField(
-                    key: WidgetKeys.emailInputTextField,
-                  ),
-                  gapH16,
-                  SizedBox(
-                    width: context.screenWidth,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Send code'.hardcoded,
-                      ),
-                    ),
+                  SubmitEmailInputVerificationCodeForm(
+                    key: WidgetKeys.submitEmailInputVerificationCodeForm,
+                    verificationType: verificationType,
                   ),
                   gapH20,
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Flexible(
-                          child: OrSignUpLabel(key: WidgetKeys.signUpLabel)),
+                          child: OrSignInSigUpLabel(
+                        key: WidgetKeys.signUpLabel,
+                        verificationType: verificationType,
+                      )),
                     ],
                   ),
                 ],
@@ -93,7 +90,7 @@ class WelcomeToPiixOneTimeCodeLogin extends StatelessWidget {
               style: context.theme.textTheme.bodySmall?.copyWith(
                 color: PiixColors.secondaryLight,
               ),
-            )
+            ),
           ],
         ),
       ),

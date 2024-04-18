@@ -4,7 +4,7 @@ import 'package:piix_mobile/src/common_widgets/web_mobile_tablet_layout_builder.
 import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/mobile_tablet/mobile_welcome_page.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/mobile_tablet/tablet_welcome_page.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/web/one_column_sign_in.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/web/one_column_sign_in_sign_up_submit.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/two_column_sign_in.dart';
 
 ///A layout builder Widget that displays the appropriate welcome page based on
@@ -19,7 +19,7 @@ class WelcomePage extends ConsumerWidget {
         twoColumn: TwoColumnSignIn(
           key: WidgetKeys.twoColumnSignIn,
         ),
-        oneColumn: OneColumnSignIn(
+        oneColumn: OneColumnSignInSignUpSubmit(
           key: WidgetKeys.oneColumnWelcome,
         ),
         tablet: TabletWelcomePage(

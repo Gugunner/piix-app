@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/web/welcome_to_piix_one_time_code_login.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/web/welcome_to_piix_one_time_code_submit.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 
@@ -32,7 +32,7 @@ class TwoColumnSignIn extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: Sizes.p16.w),
-                child: WelcomeToPiixOneTimeCodeLogin(
+                child: WelcomeToPiixOneTimeCodeSubmit(
                   width: MediaQuery.of(context).size.width,
                   parentPadding: padding,
                 ),
