@@ -14,6 +14,7 @@ class AppTheme {
         hoverColor: PiixColors.primary,
         splashColor: PiixColors.primary,
         hintColor: PiixColors.infoDefault,
+        fontFamily: 'Raleway',
         scaffoldBackgroundColor: PiixColors.primary,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         inputDecorationTheme: InputDecorationTheme(
@@ -175,6 +176,63 @@ class AppTheme {
             iconColor: const MaterialStatePropertyAll<Color>(PiixColors.space),
             iconSize: const MaterialStatePropertyAll<double>(Sizes.p16),
           ),
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: PiixColors.primary,
+          circularTrackColor: PiixColors.space,
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: PiixColors.primary,
+          elevation: 0,
+          centerTitle: true,
+          titleTextStyle: TextPrimaryStyle.titleMedium,
+          iconTheme: const IconThemeData(
+            color: PiixColors.space,
+          ),
+        ),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return PiixColors.inactive;
+            }
+
+            if (states.contains(MaterialState.hovered) ||
+                states.contains(MaterialState.focused) ||
+                states.contains(MaterialState.pressed) ||
+                states.contains(MaterialState.selected) ||
+                states.contains(MaterialState.dragged)) {
+              return PiixColors.active;
+            }
+            return PiixColors.space;
+          }),
+          checkColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return PiixColors.inactive;
+            }
+            return PiixColors.space;
+          }),
+          overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return PiixColors.inactive;
+            }
+            return PiixColors.space;
+          }),
+          side: MaterialStateBorderSide.resolveWith((states) {
+            var color = PiixColors.active;
+            if (states.contains(MaterialState.disabled)) {
+              color = PiixColors.inactive;
+            }
+            if (states.contains(MaterialState.hovered) ||
+                states.contains(MaterialState.focused) ||
+                states.contains(MaterialState.pressed) ||
+                states.contains(MaterialState.selected) ||
+                states.contains(MaterialState.dragged)) {
+              color = PiixColors.primary;
+            }
+            return BorderSide(
+              color: color,
+            );
+          }),
         ),
       );
 }
