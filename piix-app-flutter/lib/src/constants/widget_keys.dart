@@ -9,4 +9,6 @@ class WidgetKeys {
   static const tabletWelcomePage = Key('tablet_welcome_page');
   static const mobileWelcomePage = Key('mobile_welcome_page');
   static const emailInputTextField = Key('email_input_text_field');
+  static const submitEmailInputVerificationCodeForm =
+      Key('submit_email_input_verification_code-form');
 }
