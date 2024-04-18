@@ -7,16 +7,20 @@ import { ErrorCode } from "./error_codes";
  */
 export class AppException extends HttpsError {
   
+  statusCode: number;
+
   constructor({
     code,
     errorCode,
     message,
     prefix,
+    statusCode,
   }: {
     code: FunctionsErrorCode;
     errorCode: ErrorCode,
     message: string;
     prefix: modules.ModulePrefix,
+    statusCode: number,
   }) {
     var submodule = undefined;
     if (errorCode !== null && (typeof errorCode) === 'string') {
@@ -26,6 +30,7 @@ export class AppException extends HttpsError {
     }
 	// Call the parent constructor
     super(code, message, submodule);
+    this.statusCode = statusCode;
   }
 
   private static _getModule(modulePrefix: modules.ModulePrefix): modules.Module {
