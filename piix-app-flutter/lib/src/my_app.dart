@@ -27,7 +27,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     super.initState();
     // * Save the platform where the app is running
     WidgetsBinding.instance
-    // * Add the this Widget to the observer so that it can listen to changes
+      // * Add the this Widget to the observer so that it can listen to changes
       ..addObserver(this)
       ..addPostFrameCallback((_) {
         _savePlatform(context);
@@ -65,19 +65,18 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   /// Save the platform where the app is running in the [PlatformProvider].
   Future<void> _savePlatform(BuildContext context) async {
-    ref.read(platformProvider.notifier).platform = context.theme.platform;
+    final platform = context.theme.platform;
+    ref.read(platformProvider.notifier).state = platform;
   }
 
   @override
   Widget build(BuildContext context) {
     //* Watches the [GoRouter] provider
     final goRouter = ref.watch(goRouterProvider);
-    final platform = ref.watch(platformProvider);
-    final isNotMobileOrTablet =
-        platform != TargetPlatform.android && platform != TargetPlatform.iOS;
+    final isWeb = ref.watch(isWebProvider);
     return ScreenUtilInit(
       // * Set the design size based on the platform for scaling purposes
-      designSize: isNotMobileOrTablet ? webDesignSize : appDesigSize,
+      designSize: isWeb ? webDesignSize : appDesigSize,
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(

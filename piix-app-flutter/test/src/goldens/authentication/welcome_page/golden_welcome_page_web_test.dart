@@ -31,7 +31,7 @@ void main() {
       //* Use any value that is not android or iOS to change the platform to web
       debugDefaultTargetPlatformOverride = currentVariant.platform;
       //* Pump the app with fakes
-      await robot.pumpMyAppWithFakes();
+      await robot.pumpMyAppWithFakes(isWeb: true);
       //* Precache all the images and svgs
       await robot.golden.precacheDecorationImages();
       await robot.golden.precacheImages();
