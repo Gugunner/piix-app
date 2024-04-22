@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
@@ -5,6 +7,7 @@ import 'package:piix_mobile/app_bootstrap_fake.dart';
 import 'package:piix_mobile/src/constants/screen_breakpoints.dart';
 import 'package:piix_mobile/src/utils/set_preferred_orientations.dart';
 
+import 'features/authentication/auth_robot.dart';
 import 'goldens/golden_robot.dart';
 
 /// A robot that helps with testing the app with fakes
@@ -13,10 +16,13 @@ import 'goldens/golden_robot.dart';
 /// It also helps with testing the app with different
 /// screen sizes.
 class Robot {
-  Robot(this.tester) : golden = GoldenRobot(tester);
+  Robot(this.tester)
+      : golden = GoldenRobot(tester),
+        auth = AuthRobot(tester);
 
   final WidgetTester tester;
   final GoldenRobot golden;
+  final AuthRobot auth;
 
   final List<MethodCall> _methods = [];
 
@@ -27,7 +33,7 @@ class Robot {
     await addWidgetBindingsMethodListener();
     //* Initialize MyApp for the test
     await tester.pumpWidget(
-      appBootstrap.createHome(container: container),
+      appBootstrap.createHome(container: container, locale: locale),
     );
     //* Makes sure the Page is rendered
     await tester.pumpAndSettle();
