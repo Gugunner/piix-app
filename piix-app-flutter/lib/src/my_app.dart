@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
+import 'package:piix_mobile/src/localization/app_localization.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
@@ -13,7 +14,12 @@ import 'package:piix_mobile/src/utils/set_preferred_orientations.dart';
 
 /// The main entry point for the app.
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    this.locale,
+  });
+
+  final Locale? locale;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
@@ -87,6 +93,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           restorationScopeId: 'app',
           onGenerateTitle: (context) => 'Piix'.hardcoded,
           theme: AppTheme.themeData,
+          locale: widget.locale,
+          supportedLocales: AppLocalization.supportedLocales,
+          localizationsDelegates: AppLocalization.localizationsDelegates,
         );
       },
     );
