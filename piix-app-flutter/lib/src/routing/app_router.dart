@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
 import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
+import 'package:piix_mobile/src/features/agreements/presentation/agreements_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/application/auth_service_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/authentication_page_barrel_file.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/sign_in_page.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/sign_up_page.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/verification_code_page.dart';
 import 'package:piix_mobile/src/routing/go_router_refresh_stream.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,6 +14,8 @@ enum AppRoute {
   home('/home'),
   signIn('/sign_in'),
   signUp('/sign_up'),
+  termsOfService('terms_of_service'),
+  privacyPolicy('privacy_policy'),
   verification('verification'),
   signInVerification('sign_in_verification'),
   signUpVerification('sign_up_verification');
@@ -82,6 +82,24 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               );
             },
           ),
+          GoRoute(
+            path: AppRoute.termsOfService.path,
+            name: AppRoute.termsOfService.name,
+            pageBuilder: (context, state) {
+              return const MaterialPage(
+                child: TermsOfServicePage(),
+              );
+            },
+          ),
+          GoRoute(
+            path: AppRoute.privacyPolicy.path,
+            name: AppRoute.privacyPolicy.name,
+            pageBuilder: (context, state) {
+              return const MaterialPage(
+                child: PrivacyPolicyPage(),
+              );
+            },
+          ),
         ],
       ),
       GoRoute(
@@ -118,7 +136,11 @@ FutureOr<String?> _redirectMobileAndTablet(
 FutureOr<String?> _redirectWeb(
     BuildContext context, GoRouterState state, bool isLoggedIn) async {
   final path = state.uri.path;
-  if (!isLoggedIn) return AppRoute.welcome.path;
+  //TODO: Check if this condition can replace _navigateToVerificationCodePage 
+  if (path == AppRoute.signInVerification.path &&
+      state.matchedLocation == AppRoute.welcome.path) {
+    return AppRoute.verification.path;
+  }
   if (isLoggedIn && path == '/') return AppRoute.home.path;
   return null;
 }
