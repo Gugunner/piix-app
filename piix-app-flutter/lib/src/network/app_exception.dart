@@ -19,18 +19,25 @@ sealed class AppException implements Exception {
 
   ///A unique identifier for the exception.
   final String errorCode;
+
   ///A unique 6 digit number for the exception.
   final String codeNumber;
+
   ///A human-readable message for the exception.
   final String message;
+
   ///A unique identifier of the module throwing the exception.
   final String prefix;
+
   ///The [HttpStatus] for the exception.
   final int statusCode;
+
   ///The name of the exception.
   final String name;
+
   ///The status of the exception based on the grpc status codes [https://github.com/grpc/grpc/blob/master/doc/statuscodes.md].
   final String? status;
+
   ///The stack trace of the exception.
   final StackTrace? stackTrace;
 
@@ -107,8 +114,8 @@ class CustomTokenFailedException extends AppException {
 }
 
 ///An exception thrown when an unknown error occurs.
-class UnkownErrorException extends AppException {
-  UnkownErrorException(Object error)
+class UnknownErrorException extends AppException {
+  UnknownErrorException(Object error)
       : super(
           errorCode: 'unknown-error',
           codeNumber: 'NA',
@@ -192,6 +199,10 @@ class CustomAppException extends AppException {
   ///Builds a custom exception from an error code.
   static AppException? fromErrorCode(String errorCode) {
     switch (errorCode) {
+      case 'email-already-exists':
+        return EmailAlreadyExistsException();
+      case 'email-not-found':
+        return EmailNotFoundException();
       case 'incorrect-verification-code':
         return IncorrectVerificationCodeException();
       case 'custom-token-failed':

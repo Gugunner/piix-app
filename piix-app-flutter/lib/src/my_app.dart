@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
+import 'package:piix_mobile/src/localization/app_localization.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
@@ -13,7 +14,12 @@ import 'package:piix_mobile/src/utils/set_preferred_orientations.dart';
 
 /// The main entry point for the app.
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    this.locale,
+  });
+
+  final Locale? locale;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
@@ -27,7 +33,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     super.initState();
     // * Save the platform where the app is running
     WidgetsBinding.instance
-    // * Add the this Widget to the observer so that it can listen to changes
+      // * Add the this Widget to the observer so that it can listen to changes
       ..addObserver(this)
       ..addPostFrameCallback((_) {
         _savePlatform(context);
@@ -65,19 +71,18 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   /// Save the platform where the app is running in the [PlatformProvider].
   Future<void> _savePlatform(BuildContext context) async {
-    ref.read(platformProvider.notifier).platform = context.theme.platform;
+    final platform = context.theme.platform;
+    ref.read(platformProvider.notifier).state = platform;
   }
 
   @override
   Widget build(BuildContext context) {
     //* Watches the [GoRouter] provider
     final goRouter = ref.watch(goRouterProvider);
-    final platform = ref.watch(platformProvider);
-    final isNotMobileOrTablet =
-        platform != TargetPlatform.android && platform != TargetPlatform.iOS;
+    final isWeb = ref.watch(isWebProvider);
     return ScreenUtilInit(
       // * Set the design size based on the platform for scaling purposes
-      designSize: isNotMobileOrTablet ? webDesignSize : appDesigSize,
+      designSize: isWeb ? webDesignSize : appDesigSize,
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(
@@ -87,6 +92,9 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           restorationScopeId: 'app',
           onGenerateTitle: (context) => 'Piix'.hardcoded,
           theme: AppTheme.themeData,
+          locale: widget.locale,
+          supportedLocales: AppLocalization.supportedLocales,
+          localizationsDelegates: AppLocalization.localizationsDelegates,
         );
       },
     );

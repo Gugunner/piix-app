@@ -302,7 +302,7 @@ void main() {
           testVerificationType,
         ),
         throwsA(
-          isA<UnkownErrorException>()
+          isA<UnknownErrorException>()
               .having((e) => e.errorCode, 'errorCode', 'unknown-error')
               .having((e) => e.codeNumber, 'codeNumber', 'NA')
               .having((e) => e.statusCode, 'statusCode',
@@ -668,7 +668,7 @@ void main() {
             .createAccountWithEmailAndVerificationCode(
                 testEmail, testVerificationCode),
         throwsA(
-          isA<UnkownErrorException>()
+          isA<UnknownErrorException>()
               .having((e) => e.errorCode, 'errorCode', 'unknown-error')
               .having((e) => e.codeNumber, 'codeNumber', 'NA')
               .having((e) => e.statusCode, 'statusCode',
@@ -1031,7 +1031,7 @@ void main() {
             .getCustomTokenWithEmailAndVerificationCode(
                 testEmail, testVerificationCode),
         throwsA(
-          isA<UnkownErrorException>()
+          isA<UnknownErrorException>()
               .having((e) => e.errorCode, 'errorCode', 'unknown-error')
               .having((e) => e.codeNumber, 'codeNumber', 'NA')
               .having((e) => e.statusCode, 'statusCode',
@@ -1226,7 +1226,7 @@ void main() {
       expect(
         () async => makeAuthRepository().revokeRefreshTokens(),
         throwsA(
-          isA<UnkownErrorException>()
+          isA<UnknownErrorException>()
               .having((e) => e.errorCode, 'errorCode', 'unknown-error')
               .having((e) => e.codeNumber, 'codeNumber', 'NA')
               .having((e) => e.statusCode, 'statusCode',

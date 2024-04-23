@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/src/common_widgets/web_mobile_tablet_layout_builder.dart';
-import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/mobile_tablet/mobile_welcome_page.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/mobile_tablet/tablet_welcome_page.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/one_column_sign_in_sign_up_submit.dart';
@@ -17,16 +16,12 @@ class WelcomePage extends ConsumerWidget {
     return const Scaffold(
       body: WebMobileTabletLayoutBuilder(
         twoColumn: TwoColumnSignIn(
-          key: WidgetKeys.twoColumnSignIn,
         ),
         oneColumn: OneColumnSignInSignUpSubmit(
-          key: WidgetKeys.oneColumnWelcome,
         ),
         tablet: TabletWelcomePage(
-          key: WidgetKeys.tabletWelcomePage,
         ),
         mobile: MobileWelcomePage(
-          key: WidgetKeys.mobileWelcomePage,
         ),
       ),
     );

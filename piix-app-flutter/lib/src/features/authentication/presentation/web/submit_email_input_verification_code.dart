@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
+import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/create_account_sign_in_page_controller.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
@@ -12,8 +13,7 @@ import 'package:piix_mobile/src/utils/size_context.dart';
 import 'package:piix_mobile/src/utils/string_validators.dart';
 import 'package:piix_mobile/src/utils/verification_type.dart';
 
-
-///A general layout of the email submit form for the [SignInPage] or 
+///A general layout of the email submit form for the [SignInPage] or
 ///[SignUpPage].
 class SubmitEmailInputVerificationCodeForm extends ConsumerStatefulWidget {
   const SubmitEmailInputVerificationCodeForm({
@@ -76,23 +76,32 @@ class _SubmitEmailInputVerificationCodeState
       if (current.error is EmailNotFoundException) {
         return 'The email could not be found.'.hardcoded;
       }
-      return 'Oops an unknow error has occured.'.hardcoded;
+      return 'We are sorry, an unknow error has occured.'.hardcoded;
     }
     return null;
   }
 
+  void _navigateToVerificationCodePage() {
+    //TODO: CHeck if AppRouter redirect can be used for welcome page
+    final approuteName = widget.verificationType == VerificationType.login
+        ? AppRoute.signInVerification.name
+        : AppRoute.signUpVerification.name;
+    ref.read(goRouterProvider).goNamed(approuteName);
+  }
+
+  void _listenSubmit(AsyncValue<void>? prev, AsyncValue<void> current) {
+    if (current is AsyncData) {
+      setState(() {
+        ///Clean the text when successful
+        _emailController.text = '';
+      });
+      return _navigateToVerificationCodePage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    ref.listen(createAccountSignInControllerProvider,
-        (AsyncValue<void>? prev, AsyncValue<void> current) {
-      if (current is AsyncData) {
-        final approuteName = widget.verificationType == VerificationType.login
-            ? AppRoute.signInVerification.name
-            : AppRoute.signUpVerification.name;
-        ref.read(goRouterProvider).goNamed(approuteName);
-        return;
-      }
-    });
+    ref.listen(createAccountSignInControllerProvider, _listenSubmit);
     final state = ref.watch(createAccountSignInControllerProvider);
     return Form(
       key: _formKey,
@@ -127,6 +136,7 @@ class _SubmitEmailInputVerificationCodeState
           SizedBox(
             width: context.screenWidth,
             child: ElevatedButton(
+              key: WidgetKeys.submitEmailButton,
               onPressed: state.isLoading ||
                       (!widget.verificationType.isLogin && !_termsAgreed)
                   ? null

@@ -190,7 +190,7 @@ void main() {
                 expectedFakeAppUser.email!,
                 expectedFakeAppUser.verificationCode,
               ),
-          throwsA(isA<UnkownErrorException>()));
+          throwsA(isA<UnknownErrorException>()));
       expect(authService.getUsersList(), isEmpty);
       expect(authService.currentUser, isNull);
       expect(authService.authStateChange(), emits(null));
@@ -284,7 +284,7 @@ void main() {
                 expectedFakeAppUser.email!,
                 expectedFakeAppUser.verificationCode,
               ),
-          throwsA(isA<UnkownErrorException>()));
+          throwsA(isA<UnknownErrorException>()));
       expect(authService.getUsersList(), [expectedFakeAppUser]);
       expect(authService.currentUser, isNull);
       expect(authService.authStateChange(), emits(null));

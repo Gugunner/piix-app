@@ -67,17 +67,17 @@ class FakeAuthService implements AuthService {
     }
     //Lookup the user by the email
     final user = _users.firstWhereOrNull((u) => u.email == email);
-    //If there is no user but a login attempt is made then throw an 
+    //If there is no user but a login attempt is made then throw an
     //EmailNotFoundException
     if (user == null && verificationType == VerificationType.login) {
       throw EmailNotFoundException();
     }
-    //If there is already a user but a register attempt is made then throw an 
+    //If there is already a user but a register attempt is made then throw an
     //EmailAlreadyExistsException
     if (user != null && verificationType == VerificationType.register) {
       throw EmailAlreadyExistsException();
     }
-    //If the user does not exist, add the email and verification code to 
+    //If the user does not exist, add the email and verification code to
     //[_codes]
     _addVerificationToCodes(email, '123456');
     //Return an empty value and exit the function.
@@ -95,7 +95,7 @@ class FakeAuthService implements AuthService {
     final user = _users.firstWhereOrNull((u) => u.email == email);
     //If a user is already found throw a EmailAlreadyExistsException
     //* This specific case only happens during unit tests, whe doing it through
-    //* the app a user will always need to first check by executing 
+    //* the app a user will always need to first check by executing
     //* [sendVerificationCodeByEmail]
     if (user != null) {
       throw EmailAlreadyExistsException();
@@ -105,7 +105,7 @@ class FakeAuthService implements AuthService {
     //If there are no prior codes then throw an UnkownErrorException
     if (_codes.isEmpty) {
       _authState.value = null;
-      throw UnkownErrorException('there are no codes stored');
+      throw UnknownErrorException('there are no codes stored');
     }
     //Check the verification code to see if it matches
     if (_codes[email] != verificationCode) {
@@ -131,7 +131,7 @@ class FakeAuthService implements AuthService {
     final user = _users.firstWhereOrNull((u) => u.email == email);
     //If a user is not found throw a EmailNotFoundException
     //* This specific case only happens during unit tests, whe doing it through
-    //* the app a user will always need to first check by executing 
+    //* the app a user will always need to first check by executing
     //* [sendVerificationCodeByEmail]
     if (user == null) {
       throw EmailNotFoundException();
@@ -139,7 +139,7 @@ class FakeAuthService implements AuthService {
     //If there are no prior codes then throw an UnkownErrorException
     if (_codes.isEmpty) {
       _authState.value = null;
-      throw UnkownErrorException('there are no codes stored');
+      throw UnknownErrorException('there are no codes stored');
     }
     //Check the verification code to see if it matches
     if (_codes[email] != verificationCode) {
