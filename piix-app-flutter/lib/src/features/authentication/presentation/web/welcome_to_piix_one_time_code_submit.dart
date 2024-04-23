@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
-import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/or_sign_in_sign_up_label.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/submit_email_input_verification_code.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
@@ -67,7 +66,6 @@ class WelcomeToPiixOneTimeCodeSubmit extends StatelessWidget {
                   ),
                   gapH8,
                   SubmitEmailInputVerificationCodeForm(
-                    key: WidgetKeys.submitEmailInputVerificationCodeForm,
                     verificationType: verificationType,
                   ),
                   gapH20,
@@ -76,7 +74,6 @@ class WelcomeToPiixOneTimeCodeSubmit extends StatelessWidget {
                     children: [
                       Flexible(
                           child: OrSignInSigUpLabel(
-                        key: WidgetKeys.signUpLabel,
                         verificationType: verificationType,
                       )),
                     ],

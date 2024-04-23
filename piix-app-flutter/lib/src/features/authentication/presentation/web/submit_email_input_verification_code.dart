@@ -127,6 +127,7 @@ class _SubmitEmailInputVerificationCodeState
           SizedBox(
             width: context.screenWidth,
             child: ElevatedButton(
+              key: WidgetKeys.submitEmailButton,
               onPressed: state.isLoading ||
                       (!widget.verificationType.isLogin && !_termsAgreed)
                   ? null
