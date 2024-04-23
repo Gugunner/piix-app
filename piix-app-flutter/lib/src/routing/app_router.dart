@@ -30,8 +30,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   // * Get the [AuthService] instance
   final authService = ref.watch(authServiceProvider);
   // * Get if the app is running on a mobile or tablet device
-  final isNotMobileOrTablet =
-      ref.watch(platformProvider.notifier).isNotMobileOrTablet;
+  final isWeb = ref.watch(isWebProvider);
   return GoRouter(
     initialLocation: AppRoute.welcome.path,
     debugLogDiagnostics: false,
@@ -39,7 +38,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final user = authService.currentUser;
       final isLoggedIn = user != null;
       // * Redirect the user to the appropriate page based on the platform
-      if (isNotMobileOrTablet) return _redirectWeb(context, state, isLoggedIn);
+      if (isWeb) return _redirectWeb(context, state, isLoggedIn);
       return _redirectMobileAndTablet(context, state, isLoggedIn);
     },
     refreshListenable: GoRouterRefreshStream(authService.authStateChange()),

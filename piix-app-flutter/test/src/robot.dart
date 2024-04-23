@@ -20,9 +20,11 @@ class Robot {
 
   final List<MethodCall> _methods = [];
 
-  Future<void> pumpMyAppWithFakes() async {
+  /// Pumps the app with fakes and sets the locale
+  /// to the given [locale].
+  Future<void> pumpMyAppWithFakes({Locale? locale, bool isWeb = false}) async {
     const appBootstrap = AppBootstrap('fake');
-    final container = await appBootstrap.createFakeProviderContainer();
+    final container = await appBootstrap.createFakeProviderContainer(isWeb);
     //TODO: Initialize providers here
     await addWidgetBindingsMethodListener();
     //* Initialize MyApp for the test
