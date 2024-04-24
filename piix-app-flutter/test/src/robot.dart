@@ -16,11 +16,12 @@ import 'goldens/golden_robot.dart';
 /// It also helps with testing the app with different
 /// screen sizes.
 class Robot {
-  Robot(this.tester)
+  Robot(this.tester, {this.locale = const Locale('en')})
       : golden = GoldenRobot(tester),
-        auth = AuthRobot(tester);
+        auth = AuthRobot(tester, locale);
 
   final WidgetTester tester;
+  final Locale locale;
   final GoldenRobot golden;
   final AuthRobot auth;
 
@@ -28,7 +29,7 @@ class Robot {
 
   /// Pumps the app with fakes and sets the locale
   /// to the given [locale].
-  Future<void> pumpMyAppWithFakes({Locale? locale, bool isWeb = false}) async {
+  Future<void> pumpMyAppWithFakes({bool isWeb = false}) async {
     const appBootstrap = AppBootstrap('fake');
     final container = await appBootstrap.createFakeProviderContainer(isWeb);
     //TODO: Initialize providers here

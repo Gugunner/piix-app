@@ -91,7 +91,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenThrow(EmailNotFoundException());
       await robot.auth.pumpAuthPage(
@@ -107,7 +107,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenThrow(UnknownErrorException(Exception('mock error')));
       await robot.auth.pumpAuthPage(
@@ -124,7 +124,7 @@ void main() {
         final robot = Robot(tester);
         when(() => authService.sendVerificationCodeByEmail(
               robot.auth.testEmail,
-              robot.auth.testLanguageCode,
+              robot.auth.locale.languageCode,
               VerificationType.login,
               //* Add a delay to allow time for the loading to work
             )).thenAnswer((_) async => Future.delayed(
@@ -148,7 +148,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenAnswer((_) => Future.value());
       when(() => authService.authStateChange())

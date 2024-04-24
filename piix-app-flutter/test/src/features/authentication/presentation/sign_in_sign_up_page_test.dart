@@ -6,7 +6,6 @@ import 'package:piix_mobile/src/features/authentication/domain/authentication_mo
 import 'package:piix_mobile/src/features/authentication/presentation/authentication_page_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/one_column_sign_in_sign_up_submit.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:piix_mobile/src/utils/verification_type.dart';
 
@@ -59,14 +58,14 @@ void main() {
         page: const SignInPage(),
       );
       final textFinderOne =
-          find.text('Login with a one time code using your email.'.hardcoded);
+          find.text(robot.auth.appIntl.loginWithAOneTimeCodeWithEmail);
       expect(textFinderOne, findsOneWidget);
       final submitEmailButtonFinder = find.byKey(WidgetKeys.submitEmailButton);
       expect(submitEmailButtonFinder, findsOneWidget);
       final submitButton =
           submitEmailButtonFinder.evaluate().first.widget as ElevatedButton;
       final textField = submitButton.child! as Text;
-      expect(textField.data, 'Send code'.hardcoded);
+      expect(textField.data, robot.auth.appIntl.sendCode);
     });
     testWidgets('''WHEN submitting an empty email
     IT will show an error text explaining that the email field cannot be empty
@@ -97,7 +96,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenThrow(EmailNotFoundException());
       await robot.auth.pumpAuthPage(
@@ -114,7 +113,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenThrow(UnknownErrorException(Exception('mock error')));
       await robot.auth.pumpAuthPage(
@@ -132,7 +131,7 @@ void main() {
         final robot = Robot(tester);
         when(() => authService.sendVerificationCodeByEmail(
               robot.auth.testEmail,
-              robot.auth.testLanguageCode,
+              robot.auth.locale.languageCode,
               VerificationType.login,
               //* Add a delay to allow time for the loading to work
             )).thenAnswer((_) async => Future.delayed(
@@ -157,7 +156,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenAnswer((_) => Future.value());
       when(() => authService.authStateChange())
@@ -211,7 +210,7 @@ void main() {
         page: const SignUpPage(),
       );
       final textFinderOne =
-          find.text('Enter your email for verification.'.hardcoded);
+          find.text(robot.auth.appIntl.enterYourEmailForVerfication);
       expect(textFinderOne, findsOneWidget);
       final submitEmailButtonFinder = find.byKey(WidgetKeys.submitEmailButton);
       expect(submitEmailButtonFinder, findsOneWidget);
@@ -220,7 +219,7 @@ void main() {
       final submitButton =
           submitEmailButtonFinder.evaluate().first.widget as ElevatedButton;
       final textField = submitButton.child! as Text;
-      expect(textField.data, 'Verify email'.hardcoded);
+      expect(textField.data, robot.auth.appIntl.verifyEmail);
     });
     testWidgets(
         '''WHEN the user has not accepted the terms of service and privacy policy
@@ -282,7 +281,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.register,
           )).thenThrow(EmailAlreadyExistsException());
       await robot.auth.pumpAuthPage(
@@ -300,7 +299,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenThrow(UnknownErrorException(Exception('mock error')));
       await robot.auth.pumpAuthPage(
@@ -319,7 +318,7 @@ void main() {
         final robot = Robot(tester);
         when(() => authService.sendVerificationCodeByEmail(
               robot.auth.testEmail,
-              robot.auth.testLanguageCode,
+              robot.auth.locale.languageCode,
               VerificationType.login,
               //* Add a delay to allow time for the loading to work
             )).thenAnswer((_) async => Future.delayed(
@@ -345,7 +344,7 @@ void main() {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
             robot.auth.testEmail,
-            robot.auth.testLanguageCode,
+            robot.auth.locale.languageCode,
             VerificationType.register,
           )).thenAnswer((_) => Future.value());
       when(() => authService.authStateChange())
