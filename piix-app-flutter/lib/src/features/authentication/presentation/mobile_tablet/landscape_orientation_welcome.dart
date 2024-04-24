@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/mobile_tablet/welcome_actions.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/theme/piix_colors.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
+import 'package:piix_mobile/src/utils/app_assets.dart';
 import 'package:piix_mobile/src/utils/size_context.dart';
 
 
@@ -31,7 +31,7 @@ class LandscapeOrientationWelcome extends StatelessWidget {
               width: context.screenWidth,
               decoration:  BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/family_image.png'.hardcoded),
+                  image: AssetImage(AppAssets.familyImagePath),
                   fit: BoxFit.fill,
                 ),
               ),
