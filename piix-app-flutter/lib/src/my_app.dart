@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
-import 'package:piix_mobile/src/localization/app_localization.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:flutter_gen/gen_l10n/app_intl.dart';
+import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 import 'package:piix_mobile/src/theme/theme_context.dart';
@@ -90,11 +90,11 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           routerConfig: goRouter,
           debugShowCheckedModeBanner: false,
           restorationScopeId: 'app',
-          onGenerateTitle: (context) => 'Piix'.hardcoded,
+          onGenerateTitle: (context) => context.appIntl.appTitle,
           theme: AppTheme.themeData,
           locale: widget.locale,
-          supportedLocales: AppLocalization.supportedLocales,
-          localizationsDelegates: AppLocalization.localizationsDelegates,
+          supportedLocales: AppIntl.supportedLocales,
+          localizationsDelegates: AppIntl.localizationsDelegates,
         );
       },
     );

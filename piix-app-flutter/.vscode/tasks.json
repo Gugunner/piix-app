@@ -49,6 +49,11 @@
             "command": "fvm flutter test --update-goldens --tags=golden,layout,mobile,android"
         },
         {
+            "label": "Flutter fvm generate localization files",
+            "type": "shell",
+            "command": "fvm flutter gen-l10n"
+        },
+        {
             "label": "Functions tsc build:watch",
             "type": "shell",
             "command": "cd functions && npm run build:watch"
