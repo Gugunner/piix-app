@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 
@@ -30,7 +30,6 @@ class TermsAndPrivacyCheck extends ConsumerStatefulWidget {
 }
 
 class __TermsAndPrivacyCheckState extends ConsumerState<TermsAndPrivacyCheck> {
-
   final _termsGesture = TapGestureRecognizer();
   final _privacyGesture = TapGestureRecognizer();
 
@@ -52,6 +51,19 @@ class __TermsAndPrivacyCheckState extends ConsumerState<TermsAndPrivacyCheck> {
 
   @override
   Widget build(BuildContext context) {
+    final appIntl = context.appIntl;
+    //* Splits the text in two halves where "Terms of Service" works as the splitter. //
+    final splitReadAndAcceptTermsAndPrivacy =
+        appIntl.readAndAcceptTermsAndPrivacy.split(
+      appIntl.termsOfService,
+    );
+    final readAndAcceptText = splitReadAndAcceptTermsAndPrivacy[0];
+    //* Gets the "and" connector found after splitting the second halve in two havles where "Privacy Policy" works as the splitter//
+    final connectorText =
+        splitReadAndAcceptTermsAndPrivacy[1].split(appIntl.privacyPolicy)[0];
+    //*Gets the last pint "." found after splitting the text in two halves where "Privacy Policy" works as the splitter. //
+    final endMark =
+        appIntl.readAndAcceptTermsAndPrivacy.split(appIntl.privacyPolicy)[1];
     return SizedBox(
       child: Row(
         children: [
@@ -63,27 +75,27 @@ class __TermsAndPrivacyCheckState extends ConsumerState<TermsAndPrivacyCheck> {
           Expanded(
             child: Text.rich(
               TextSpan(
-                text: 'I have read and accept the '.hardcoded,
+                text: readAndAcceptText,
                 children: [
                   TextSpan(
-                    text: 'Terms of Service '.hardcoded,
+                    text: appIntl.termsOfService,
                     style: const TextStyle(
                       color: PiixColors.active,
                     ),
                     recognizer: _termsGesture,
                   ),
                   TextSpan(
-                    text: 'and '.hardcoded,
+                    text: connectorText,
                   ),
                   TextSpan(
-                    text: 'Privacy Policy'.hardcoded,
+                    text: appIntl.privacyPolicy,
                     style: const TextStyle(
                       color: PiixColors.active,
                     ),
                     recognizer: _privacyGesture,
                   ),
                   TextSpan(
-                    text: '.'.hardcoded,
+                    text: endMark,
                   )
                 ],
               ),

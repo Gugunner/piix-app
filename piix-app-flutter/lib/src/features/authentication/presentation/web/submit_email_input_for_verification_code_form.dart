@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/create_account_sign_in_page_controller.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/piix_colors.dart';
@@ -15,8 +16,8 @@ import 'package:piix_mobile/src/utils/verification_type.dart';
 
 ///A general layout of the email submit form for the [SignInPage] or
 ///[SignUpPage].
-class SubmitEmailInputVerificationCodeForm extends ConsumerStatefulWidget {
-  const SubmitEmailInputVerificationCodeForm({
+class SubmitEmailInputForVerificationCodeForm extends ConsumerStatefulWidget {
+  const SubmitEmailInputForVerificationCodeForm({
     super.key,
     this.verificationType = VerificationType.login,
   });
@@ -29,7 +30,7 @@ class SubmitEmailInputVerificationCodeForm extends ConsumerStatefulWidget {
 }
 
 class _SubmitEmailInputVerificationCodeState
-    extends ConsumerState<SubmitEmailInputVerificationCodeForm> {
+    extends ConsumerState<SubmitEmailInputForVerificationCodeForm> {
   final _formKey = GlobalKey<FormState>();
 
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
@@ -37,6 +38,8 @@ class _SubmitEmailInputVerificationCodeState
   final _emailController = TextEditingController();
 
   bool _termsAgreed = false;
+
+  AppIntl get appIntl => context.appIntl;
 
   void _onSubmitForm() {
     if (_autovalidateMode != AutovalidateMode.onUserInteraction) {
@@ -60,10 +63,10 @@ class _SubmitEmailInputVerificationCodeState
   String? _emailValidator(String? value) {
     if (value == null) return null;
     if (!EmptyStringValidator().isValid(value)) {
-      return 'The email field cannot be empty.'.hardcoded;
+      return appIntl.emptyEmailField;
     }
     if (!EmailStringValidator().isValid(value)) {
-      return 'The email is invalid.'.hardcoded;
+      return appIntl.invalidEmail;
     }
     return null;
   }
@@ -71,12 +74,12 @@ class _SubmitEmailInputVerificationCodeState
   String? _getErrorText(AsyncValue<void> current) {
     if (current is AsyncError) {
       if (current.error is EmailAlreadyExistsException) {
-        return 'That email is already in use.'.hardcoded;
+        return appIntl.emailAlreadyExists;
       }
       if (current.error is EmailNotFoundException) {
-        return 'The email could not be found.'.hardcoded;
+        return appIntl.emailNotFound;
       }
-      return 'We are sorry, an unknow error has occured.'.hardcoded;
+      return appIntl.unknownError;
     }
     return null;
   }
@@ -118,7 +121,7 @@ class _SubmitEmailInputVerificationCodeState
               color: PiixColors.infoDefault,
             ),
             decoration: InputDecoration(
-              hintText: 'Enter your email'.hardcoded,
+              hintText: appIntl.enterYourEmail,
               errorText: _getErrorText(state),
             ),
           ),
@@ -144,8 +147,7 @@ class _SubmitEmailInputVerificationCodeState
               child: state.isLoading
                   ? const CircularProgressIndicator()
                   : Text(
-                      '''${widget.verificationType == VerificationType.login ? 'Send code' : 'Verify email'}'''
-                          .hardcoded,
+                      '''${widget.verificationType.isLogin ? appIntl.sendCode : appIntl.verifyEmail}''',
                     ),
             ),
           ),

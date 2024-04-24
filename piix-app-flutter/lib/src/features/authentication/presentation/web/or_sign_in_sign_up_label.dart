@@ -1,11 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 import 'package:piix_mobile/src/theme/theme_context.dart';
 import 'package:piix_mobile/src/utils/verification_type.dart';
+import 'package:flutter_gen/gen_l10n/app_intl.dart';
 
 /// A label that allows the user to navigate to the sign up page or
 /// navigate to the sign in page.
@@ -41,20 +42,21 @@ class __OrSignInSigUpLabelState extends ConsumerState<OrSignInSigUpLabel> {
     };
   }
 
+  AppIntl get appIntl => context.appIntl;
+
   @override
   Widget build(BuildContext context) {
     final isLogin = widget.verificationType.isLogin;
     return Text.rich(
       TextSpan(
         text:
-            '''${isLogin ? 'Don\'t have an account? ' : 'Already have an account? '}'''
-                .hardcoded,
+            '''${isLogin ? appIntl.dontHaveAnAccount : appIntl.alreadyHaveAnAccount} ''',
         style: context.theme.textTheme.labelLarge?.copyWith(
           color: PiixColors.secondary,
         ),
         children: [
           TextSpan(
-            text: '${isLogin ? 'Sign up' : 'Login'}'.hardcoded,
+            text: '${isLogin ? appIntl.signUp : appIntl.signIn}',
             style: context.theme.textTheme.labelLarge?.copyWith(
               color: PiixColors.primary,
             ),
