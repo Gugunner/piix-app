@@ -8,16 +8,18 @@ import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/application/auth_service_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/authentication_page_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:flutter_gen/gen_l10n/app_intl.dart';
 
 ///Helper class for testing Widgets in the authentication feature.
 class AuthRobot {
-  AuthRobot(this.tester);
+  AuthRobot(this.tester, this.locale);
 
   final WidgetTester tester;
+  final Locale locale;
 
   final testEmail = 'email@gmail.com';
-  final testLanguageCode = 'en';
+
+  AppIntl get appIntl => lookupAppIntl(locale);
 
   ///Pumps the [WelcomePage] and overrides
   ///the [authServiceProvider] with the passed
@@ -40,6 +42,9 @@ class AuthRobot {
           minTextAdapt: true,
           child: MaterialApp(
             home: page,
+            locale: locale,
+            supportedLocales: AppIntl.supportedLocales,
+            localizationsDelegates: AppIntl.localizationsDelegates,
           ),
         ),
       ),
@@ -98,48 +103,42 @@ class AuthRobot {
     final textFieldFinder = find.byType(TextField);
     expect(textFieldFinder, findsOneWidget);
     final textField = textFieldFinder.evaluate().first.widget as TextField;
-    expect(textField.decoration!.hintText, 'Enter your email'.hardcoded);
+    expect(textField.decoration!.hintText, appIntl.enterYourEmail);
     return textField;
   }
 
   Future<void> expectEmailCannotBeEmpty() async {
     await tapSubmitEmailButton();
     final textField = expectToReturnEmailFormField();
-    expect(textField.decoration!.errorText,
-        'The email field cannot be empty.'.hardcoded);
+    expect(textField.decoration!.errorText, appIntl.emptyEmailField);
   }
 
   Future<void> expectEmailIsInvalid() async {
     await enterEmail(testEmail.substring(0, 3));
     await tapSubmitEmailButton();
     final textField = expectToReturnEmailFormField();
-    expect(textField.decoration!.errorText, 'The email is invalid.'.hardcoded);
+    expect(textField.decoration!.errorText, appIntl.invalidEmail);
   }
 
   Future<void> expectEmailNotFound() async {
     await enterEmail(testEmail);
     await tapSubmitEmailButton();
     final textField = expectToReturnEmailFormField();
-    expect(textField.decoration!.errorText,
-        'The email could not be found.'.hardcoded);
+    expect(textField.decoration!.errorText, appIntl.emailNotFound);
   }
 
   Future<void> expectEmailAlreadyExists() async {
     await enterEmail(testEmail);
     await tapSubmitEmailButton();
     final textField = expectToReturnEmailFormField();
-    expect(textField.decoration!.errorText,
-        'That email is already in use.'.hardcoded);
+    expect(textField.decoration!.errorText, appIntl.emailAlreadyExists);
   }
 
   Future<void> expectEmailSubmitUnknowError() async {
     await enterEmail(testEmail);
     await tapSubmitEmailButton();
     final textField = expectToReturnEmailFormField();
-    expect(
-      textField.decoration!.errorText,
-      'We are sorry, an unknow error has occured.'.hardcoded,
-    );
+    expect(textField.decoration!.errorText, appIntl.unknownError);
   }
 
   Future<void> expectSubmitEmailLoadingIndicator() async {
