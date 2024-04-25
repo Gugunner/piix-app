@@ -60,6 +60,8 @@ class AuthRobot {
   Future<void> tapTermsAndPrivacyCheckBox() async {
     final checkBoxFinder = find.byType(Checkbox);
     expect(checkBoxFinder, findsOneWidget);
+    //** Ensure the checkbox is visible by scrolling before tapping */
+    await tester.ensureVisible(checkBoxFinder);
     await tester.tap(checkBoxFinder);
     await tester.pumpAndSettle();
   }
@@ -67,6 +69,8 @@ class AuthRobot {
   Future<void> tapSubmitEmailButton({bool pupmAndSettle = true}) async {
     final submitButtonFinder = find.byKey(WidgetKeys.submitEmailButton);
     expect(submitButtonFinder, findsOneWidget);
+    //** Ensure the checkbox is visible by scrolling before tapping */
+    await tester.ensureVisible(submitButtonFinder);
     //** Use direct call instead of tester tap to prevent errors when using tap sequentially such as tap checkbox then tap button*/
     final submitButton =
         submitButtonFinder.evaluate().first.widget as ElevatedButton;
