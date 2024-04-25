@@ -1,5 +1,6 @@
 ///The interface used by the string validators.
 abstract class StringValidator {
+  ///Checks if a [value] is valid based on the [source] pattern.
   bool isValid(String value);
 }
 
@@ -10,6 +11,7 @@ class RegexValidator implements StringValidator {
   const RegexValidator(this.source);
   final String source;
 
+  ///Checks if a [value] is valid based on the [source] pattern.
   @override
   bool isValid(String value) {
     try {
