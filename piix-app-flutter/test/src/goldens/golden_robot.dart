@@ -10,6 +10,13 @@ class GoldenRobot {
   GoldenRobot(this.tester);
   final WidgetTester tester;
 
+  Future<void> loadAllFonts() async {
+    await loadMaterialIconFont();
+    //TODO: Uncomment this line when the PiixIcons font is added to the project
+    // await loadAppIconFont();
+    await loadRalewayFont();
+  }
+
   /// Loads the cached material icon font.
   /// Only necessary for golden tests. Relies on the tool updating cached assets
   /// before running tests. More info here:
