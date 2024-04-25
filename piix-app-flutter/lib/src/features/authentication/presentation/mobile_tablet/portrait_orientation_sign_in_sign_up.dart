@@ -26,6 +26,7 @@ class PortraitOrientationSignInSignUp extends StatelessWidget {
     final isLogin = verificationType.isLogin;
     return SizedBox(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           AppBar(
             backgroundColor: PiixColors.space,
