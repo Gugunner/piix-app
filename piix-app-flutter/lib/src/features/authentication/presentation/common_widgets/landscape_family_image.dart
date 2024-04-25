@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/utils/app_assets.dart';
 import 'package:piix_mobile/src/utils/size_context.dart';
 
 /// A landscape image of a family inside a [Container]
-/// with border radius. 
-/// 
+/// with border radius.
+///
 /// It fits the context width and height.
 class LandscapeFamilyImage extends StatelessWidget {
   const LandscapeFamilyImage({
@@ -21,7 +20,7 @@ class LandscapeFamilyImage extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppAssets.familyImagePath),
-          fit: BoxFit.fill,
+          fit: BoxFit.fitWidth,
         ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(Sizes.p16),

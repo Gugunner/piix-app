@@ -5,9 +5,8 @@ import 'package:piix_mobile/src/features/authentication/presentation/common_widg
 import 'package:piix_mobile/src/theme/piix_colors.dart';
 import 'package:piix_mobile/src/utils/size_context.dart';
 
-
 /// A container for the landscape orientation of the authentication page.
-/// 
+///
 /// It contains a [Row] where the first child is a [LandscapeFamilyImage] and
 /// the second child is the [child] widget.
 class LandscapeOrientationAuthenticationContainer extends StatelessWidget {
@@ -49,7 +48,7 @@ class LandscapeOrientationAuthenticationContainer extends StatelessWidget {
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: Sizes.p16.w,
-                        vertical: Sizes.p64.h,
+                        vertical: Sizes.p16.h,
                       ),
                       alignment: Alignment.center,
                       child: SingleChildScrollView(

@@ -18,6 +18,7 @@ class MobileSignInSignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: PiixColors.space,
+      alignment: Alignment.center,
       padding: EdgeInsets.symmetric(
         horizontal: Sizes.p16.w,
       ),
