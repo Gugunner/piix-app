@@ -109,9 +109,9 @@ class AppTheme {
             foregroundColor:
                 const MaterialStatePropertyAll<Color>(PiixColors.space),
             minimumSize:
-                MaterialStatePropertyAll<Size>(Size(Sizes.p16, Sizes.p40.h)),
+                MaterialStatePropertyAll<Size>(Size(Sizes.p40.w, Sizes.p40.h)),
             maximumSize:
-                MaterialStatePropertyAll<Size>(Size(Sizes.p16, Sizes.p64.h)),
+                MaterialStatePropertyAll<Size>(Size(Sizes.p40.w, Sizes.p40.h)),
             shape:
                 MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Sizes.p8),
@@ -234,5 +234,11 @@ class AppTheme {
             );
           }),
         ),
+        cardTheme: const CardTheme(
+          color: PiixColors.sky,
+          surfaceTintColor: PiixColors.space,
+          elevation: 2,
+        ),
+        
       );
 }

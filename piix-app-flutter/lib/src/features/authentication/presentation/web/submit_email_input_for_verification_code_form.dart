@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
@@ -106,52 +107,55 @@ class _SubmitEmailInputVerificationCodeState
   Widget build(BuildContext context) {
     ref.listen(createAccountSignInControllerProvider, _listenSubmit);
     final state = ref.watch(createAccountSignInControllerProvider);
-    return Form(
-      key: _formKey,
-      autovalidateMode: _autovalidateMode,
-      child: Column(
-        children: [
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.done,
-            controller: _emailController,
-            validator: state.isLoading ? null : _emailValidator,
-            onEditingComplete: _onSubmitForm,
-            style: context.theme.textTheme.titleMedium?.copyWith(
-              color: PiixColors.infoDefault,
+    return TextScaledWrapper(
+      child: Form(
+        key: _formKey,
+        autovalidateMode: _autovalidateMode,
+        child: Column(
+          children: [
+            TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.done,
+              controller: _emailController,
+              validator: state.isLoading ? null : _emailValidator,
+              onEditingComplete: _onSubmitForm,
+              style: context.theme.textTheme.titleMedium?.copyWith(
+                color: PiixColors.infoDefault,
+              ),
+              decoration: InputDecoration(
+                hintText: appIntl.enterYourEmail,
+                errorText: _getErrorText(state),
+              ),
             ),
-            decoration: InputDecoration(
-              hintText: appIntl.enterYourEmail,
-              errorText: _getErrorText(state),
+            gapH16,
+            if (!widget.verificationType.isLogin)
+              TermsAndPrivacyCheck(
+                check: _termsAgreed,
+                onChanged: (value) {
+                  setState(() {
+                    _termsAgreed = !_termsAgreed;
+                  });
+                },
+              ),
+            gapH16,
+            SizedBox(
+              width: context.screenWidth,
+              child: ElevatedButton(
+                key: WidgetKeys.submitEmailButton,
+                onPressed: state.isLoading ||
+                        (!widget.verificationType.isLogin && !_termsAgreed)
+                    ? null
+                    : _onSubmitForm,
+                child: state.isLoading
+                    ? const CircularProgressIndicator()
+                    : TextScaled(
+                        text:
+                            '''${widget.verificationType.isLogin ? appIntl.sendCode : appIntl.verifyEmail}''',
+                      ),
+              ),
             ),
-          ),
-          gapH16,
-          if (!widget.verificationType.isLogin)
-            TermsAndPrivacyCheck(
-              check: _termsAgreed,
-              onChanged: (value) {
-                setState(() {
-                  _termsAgreed = !_termsAgreed;
-                });
-              },
-            ),
-          gapH16,
-          SizedBox(
-            width: context.screenWidth,
-            child: ElevatedButton(
-              key: WidgetKeys.submitEmailButton,
-              onPressed: state.isLoading ||
-                      (!widget.verificationType.isLogin && !_termsAgreed)
-                  ? null
-                  : _onSubmitForm,
-              child: state.isLoading
-                  ? const CircularProgressIndicator()
-                  : Text(
-                      '''${widget.verificationType.isLogin ? appIntl.sendCode : appIntl.verifyEmail}''',
-                    ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

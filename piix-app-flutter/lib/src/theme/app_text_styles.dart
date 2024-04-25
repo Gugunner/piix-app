@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:piix_mobile/src/theme/piix_colors.dart';
 
 const fontFamily = 'Raleway';
 const textBaseHeight = 1.17;
@@ -12,14 +13,17 @@ class TextBaseStyle {
         letterSpacing: 0.2,
         fontWeight: FontWeight.w600,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get displayMedium => const TextStyle(
-      fontSize: 24,
-      height: textBaseHeight,
-      letterSpacing: 0.1,
-      fontWeight: FontWeight.bold,
-      fontFamily: fontFamily);
+        fontSize: 24,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
+      );
 
   static TextStyle get displaySmall => const TextStyle(
         fontSize: 20,
@@ -27,6 +31,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.w600,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get headlineLarge => const TextStyle(
@@ -35,6 +40,7 @@ class TextBaseStyle {
         letterSpacing: 0.4,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get headlineMedium => const TextStyle(
@@ -43,6 +49,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.w600,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get headlineSmall => const TextStyle(
@@ -51,6 +58,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.w600,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get titleLarge => const TextStyle(
@@ -59,6 +67,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get titleMedium => const TextStyle(
@@ -67,6 +76,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -74,6 +84,7 @@ class TextBaseStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get labelLarge => const TextStyle(
@@ -82,6 +93,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.bold,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get labelMedium => const TextStyle(
@@ -90,6 +102,7 @@ class TextBaseStyle {
         letterSpacing: 0.4,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -97,6 +110,7 @@ class TextBaseStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -104,6 +118,7 @@ class TextBaseStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get bodyMedium => const TextStyle(
@@ -112,6 +127,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -121,6 +137,7 @@ class TextBaseStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 }
 
@@ -130,6 +147,7 @@ class TextPrimaryStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get displayMedium => const TextStyle(
@@ -138,12 +156,14 @@ class TextPrimaryStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.bold,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
   //Not defined yet
   static TextStyle get displaySmall => const TextStyle(
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -151,6 +171,7 @@ class TextPrimaryStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get headlineMedium => const TextStyle(
@@ -159,6 +180,7 @@ class TextPrimaryStyle {
         letterSpacing: 0.17,
         fontWeight: FontWeight.w500,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get headlineSmall => const TextStyle(
@@ -167,6 +189,7 @@ class TextPrimaryStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.bold,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -174,6 +197,7 @@ class TextPrimaryStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get titleMedium => const TextStyle(
@@ -182,6 +206,7 @@ class TextPrimaryStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.bold,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get titleSmall => const TextStyle(
@@ -190,6 +215,7 @@ class TextPrimaryStyle {
         letterSpacing: 0.4,
         fontWeight: FontWeight.w600,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get labelLarge => const TextStyle(
@@ -199,6 +225,7 @@ class TextPrimaryStyle {
         fontWeight: FontWeight.normal,
         fontStyle: FontStyle.italic,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get labelMedium => const TextStyle(
@@ -208,6 +235,7 @@ class TextPrimaryStyle {
         fontWeight: FontWeight.normal,
         fontStyle: FontStyle.italic,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get labelSmall => const TextStyle(
@@ -216,6 +244,7 @@ class TextPrimaryStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.w600,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -223,6 +252,7 @@ class TextPrimaryStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   static TextStyle get bodyMedium => const TextStyle(
@@ -231,6 +261,7 @@ class TextPrimaryStyle {
         letterSpacing: 0.1,
         fontWeight: FontWeight.w300,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 
   //Not defined yet
@@ -238,5 +269,6 @@ class TextPrimaryStyle {
         height: textBaseHeight,
         letterSpacing: 0.1,
         fontFamily: fontFamily,
+        color: PiixColors.infoDefault,
       );
 }

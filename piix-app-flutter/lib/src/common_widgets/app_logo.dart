@@ -14,7 +14,7 @@ class AppLogo extends StatelessWidget {
     return SvgPicture.asset(
       AppAssets.appLogoPath,
       color: Theme.of(context).primaryColor,
-      width: 288.w,
+      width: 288.h,
       height: 80.h,
     );
   }
