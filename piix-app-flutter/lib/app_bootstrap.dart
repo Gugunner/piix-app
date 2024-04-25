@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/env/env_barrel.dart';
 import 'package:piix_mobile/env/env_interface.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
+import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/my_app.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -24,24 +24,18 @@ final envProvider = StateProvider<Env?>((ref) {
 
 ///A provider that stores and retrieves the platform
 ///where the app is currently running.
-///
-///It also has specific values to check for specific
-///conditions such as [isNotMobileOrTablet].
+
 @Riverpod(keepAlive: true)
-class Platform extends _$Platform {
-  @override
-  TargetPlatform build() {
-    return TargetPlatform.android;
-  }
+final platformProvider =
+    StateProvider<TargetPlatform>((ref) => TargetPlatform.android);
 
-  set platform(TargetPlatform platform) {
-    state = platform;
-  }
-
-  ///Checks if the platform is not Android or iOS which'
-  ///ensures that the app is not run in mobile or tablet.
-  bool get isNotMobileOrTablet =>
-      state != TargetPlatform.android && state != TargetPlatform.iOS;
+///A provider that reads if the app is running a web version
+///regardless of the platform where it is running by reading [kIsWeb].
+///
+///Oveeride the value for testing purposes on web.
+@Riverpod(keepAlive: true)
+bool isWeb(IsWebRef ref) {
+  return kIsWeb;
 }
 
 /// An auxiliary class to bootstrap the app with the given environment
@@ -59,12 +53,15 @@ class AppBootstrap {
     return null;
   }
 
-  ///Create the home widget for the app
-  Widget createHome({required ProviderContainer container}) {
+  ///Create the home widget for the app.
+  ///
+  ///Pass a [locale] to set the language of the app for testing purposes.
+  Widget createHome({required ProviderContainer container, Locale? locale}) {
     //Sets the environment value for the provider.
     container.read(envProvider.notifier).state = environment;
     //Initializes the platform provider before being used.
     container.read(platformProvider);
+    container.read(isWebProvider);
     //TODO: Initialize providers here
     //* Set Android orientations
     if (environment != null) {
@@ -91,16 +88,17 @@ class AppBootstrap {
     };
     // * Show some error UI when any widget in the app fails to build
     ErrorWidget.builder = (FlutterErrorDetails details) {
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.red,
-          //TODO: Add hardcoded extension to String class
-          title: Text('An error occurred'.hardcoded),
-        ),
-        body: Center(
-          child: Text(details.toString()),
-        ),
-      );
+      return Builder(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.red,
+            title: Text(context.appIntl.unknownError),
+          ),
+          body: Center(
+            child: Text(details.toString()),
+          ),
+        );
+      });
     };
   }
 }

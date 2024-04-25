@@ -23,11 +23,12 @@ extension AppBootstrapFake on AppBootstrap {
   /// As a result, this method does two things:
   /// - create and configure the repositories as desired
   /// - override the default implementations with a list of "overrides"
-  Future<ProviderContainer> createFakeProviderContainer() async {
+  Future<ProviderContainer> createFakeProviderContainer(bool isWeb) async {
     final container = ProviderContainer(overrides: [
       authServiceProvider.overrideWithValue(
         FakeAuthService(),
       ),
+      isWebProvider.overrideWithValue(isWeb),
     ], observers: [
       AsyncErrorLogger()
     ]);

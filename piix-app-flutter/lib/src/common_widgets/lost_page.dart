@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piix_mobile/src/common_widgets/text_scaled.dart';
 import 'package:piix_mobile/src/theme/piix_colors.dart';
 import 'package:piix_mobile/src/theme/theme_context.dart';
 import 'package:piix_mobile/src/utils/size_context.dart';
@@ -14,8 +15,8 @@ class LostPage extends StatelessWidget {
         width: context.screenWidth,
         height: context.screenHeight,
         child: Center(
-          child: Text(
-            'Seems you are lost',
+          child: TextScaled(
+            text: 'Seems you are lost',
             style: context.theme.textTheme.displayMedium?.copyWith(
               color: PiixColors.space,
             ),

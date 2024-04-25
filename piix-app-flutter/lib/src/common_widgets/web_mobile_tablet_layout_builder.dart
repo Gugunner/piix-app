@@ -45,15 +45,15 @@ class WebMobileTabletLayoutBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // * Check if the app is running on a mobile or tablet device
-    final isNotMobileOrTablet =
-        ref.watch(platformProvider.notifier).isNotMobileOrTablet;
+    final isWeb =
+        ref.watch(isWebProvider);
     return LayoutBuilder(builder: (context, constraints) {
       // * Get the maximum width of the context
       final maxWidth = constraints.maxWidth;
       // * Get the maximum height of the context
       final maxHeight = constraints.maxHeight;
       // * Display the appropriate web welcome page based on the screen size
-      if (isNotMobileOrTablet) {
+      if (isWeb) {
         if (twoColumn != null && maxWidth >= ScreenBreakPoint.xl) {
           return twoColumn!;
         } else {

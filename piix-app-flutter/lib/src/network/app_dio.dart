@@ -62,7 +62,7 @@ class AppDio {
     } catch (error) {
       //Catch any other error and throw an UnkownErrorException
       //TODO: Log the error to a logging service
-      throw UnkownErrorException(error);
+      throw UnknownErrorException(error);
     }
   }
 
@@ -95,7 +95,7 @@ class AppDio {
     } catch (error) {
       //Catch any other error and throw an UnkownErrorException
       //TODO: Log the error to a logging service
-      throw UnkownErrorException(error);
+      throw UnknownErrorException(error);
     }
   }
 
@@ -126,7 +126,7 @@ class AppDio {
     } catch (error) {
       //Catch any other error and throw an UnkownErrorException
       //TODO: Log the error to a logging service
-      throw UnkownErrorException(error);
+      throw UnknownErrorException(error);
     }
   }
 
@@ -155,7 +155,7 @@ class AppDio {
     } catch (error) {
       //Catch any other error and throw an UnkownErrorException
       //TODO: Log the error to a logging service
-      throw UnkownErrorException(error);
+      throw UnknownErrorException(error);
     }
   }
 
@@ -186,7 +186,7 @@ class AppDio {
     } catch (error) {
       //Catch any other error and throw an UnkownErrorException
       //TODO: Log the error to a logging service
-      throw UnkownErrorException(error);
+      throw UnknownErrorException(error);
     }
   }
 }

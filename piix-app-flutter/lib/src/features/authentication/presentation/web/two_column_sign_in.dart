@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/welcome_to_piix_one_time_code_submit.dart';
-import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
+import 'package:piix_mobile/src/utils/app_assets.dart';
 
 /// A layout that displays two columns when the user is running the app
 /// in the web in biggher screens.
@@ -44,7 +44,7 @@ class TwoColumnSignIn extends StatelessWidget {
             child: Container(
                 decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/family_image.png'.hardcoded),
+                image: AssetImage(AppAssets.familyImagePath),
                 fit: BoxFit.cover,
               ),
             )),

@@ -32,7 +32,7 @@ class MockAppDio extends Mock implements AppDio {}
 /// Sets up the mocks for Authentication
 class MockAuthRepository extends Mock implements FakeAuthRepository {}
 
-class MockAuthService extends Mock implements AuthService {}
+class MockAuthService extends Mock implements FakeAuthService {}
 
 class MockFakeAuthService extends Mock implements FakeAuthService {}
 
