@@ -3,22 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:piix_mobile/src/my_app.dart';
 
 import '../../../robot.dart';
-import '../../device_sizes.dart';
 import '../../golden_variant.dart';
 
 ///Golden test for the welcome page on iOS tablet devices.
 void main() {
-  final tabletVariants = ValueVariant({
-    const GoldenVariant(
-        TargetPlatform.iOS, DeviceSizes.tabletMPortrait, Device.tablet),
-    const GoldenVariant(
-        TargetPlatform.iOS, DeviceSizes.tabletMLandscape, Device.tablet),
-    const GoldenVariant(
-        TargetPlatform.iOS, DeviceSizes.tabletXLPortrait, Device.tablet),
-    const GoldenVariant(
-        TargetPlatform.iOS, DeviceSizes.tabletXLLandscape, Device.tablet),
-  });
-
   testWidgets(
     'Golden Welcome Page Tablet',
     (tester) async {

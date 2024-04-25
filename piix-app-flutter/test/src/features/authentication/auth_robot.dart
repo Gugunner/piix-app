@@ -9,6 +9,7 @@ import 'package:piix_mobile/src/features/authentication/application/auth_service
 import 'package:piix_mobile/src/features/authentication/presentation/authentication_page_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
 import 'package:flutter_gen/gen_l10n/app_intl.dart';
+import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 
 ///Helper class for testing Widgets in the authentication feature.
 class AuthRobot {
@@ -38,17 +39,20 @@ class AuthRobot {
           isWebProvider.overrideWithValue(isWeb)
         ],
         child: ScreenUtilInit(
-          designSize: isWeb ? webDesignSize : appDesigSize,
+          designSize: isWeb ? webDesignSize : appDesignSize,
           minTextAdapt: true,
-          child: MaterialApp(
-            home: page,
-            locale: locale,
-            supportedLocales: AppIntl.supportedLocales,
-            localizationsDelegates: AppIntl.localizationsDelegates,
-          ),
+          builder: ((context, child) {
+            return MaterialApp(
+              home: page,
+              theme: AppTheme.themeData,
+              locale: locale,
+              supportedLocales: AppIntl.supportedLocales,
+              localizationsDelegates: AppIntl.localizationsDelegates,
+            );
+          }),
         ),
       ),
-      Durations.long4,
+      // Durations.long4,
     );
     await tester.pumpAndSettle();
   }

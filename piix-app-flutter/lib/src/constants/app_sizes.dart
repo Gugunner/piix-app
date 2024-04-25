@@ -42,7 +42,7 @@ final gapH40 = SizedBox(height: Sizes.p40.h);
 final gapH48 = SizedBox(height: Sizes.p48.h);
 final gapH64 = SizedBox(height: Sizes.p64.h);
 
-const appDesigSize = ScreenUtil.defaultSize;
+const appDesignSize = ScreenUtil.defaultSize;
 const webDesignSize = Size(840, 833);
 
 const mobileTextScaleFactor = 1.2;

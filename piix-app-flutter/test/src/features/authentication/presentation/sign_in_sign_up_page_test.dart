@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/domain/authentication_model_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/authentication_page_barrel_file.dart';
@@ -64,8 +65,8 @@ void main() {
       expect(submitEmailButtonFinder, findsOneWidget);
       final submitButton =
           submitEmailButtonFinder.evaluate().first.widget as ElevatedButton;
-      final textField = submitButton.child! as Text;
-      expect(textField.data, robot.auth.appIntl.sendCode);
+      final textScaled = submitButton.child! as TextScaled;
+      expect(textScaled.text, robot.auth.appIntl.sendCode);
     });
     testWidgets('''WHEN submitting an empty email
     IT will show an error text explaining that the email field cannot be empty
@@ -218,8 +219,8 @@ void main() {
       expect(termsAndPrivacyCheckFinder, findsOneWidget);
       final submitButton =
           submitEmailButtonFinder.evaluate().first.widget as ElevatedButton;
-      final textField = submitButton.child! as Text;
-      expect(textField.data, robot.auth.appIntl.verifyEmail);
+      final textScaled = submitButton.child! as TextScaled;
+      expect(textScaled.text, robot.auth.appIntl.verifyEmail);
     });
     testWidgets(
         '''WHEN the user has not accepted the terms of service and privacy policy

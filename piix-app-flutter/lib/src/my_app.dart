@@ -82,7 +82,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     final isWeb = ref.watch(isWebProvider);
     return ScreenUtilInit(
       // * Set the design size based on the platform for scaling purposes
-      designSize: isWeb ? webDesignSize : appDesigSize,
+      designSize: isWeb ? webDesignSize : appDesignSize,
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(
