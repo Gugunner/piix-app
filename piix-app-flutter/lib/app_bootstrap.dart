@@ -61,6 +61,7 @@ class AppBootstrap {
     container.read(envProvider.notifier).state = environment;
     //Initializes the platform provider before being used.
     container.read(platformProvider);
+    container.read(isWebProvider);
     //TODO: Initialize providers here
     //* Set Android orientations
     if (environment != null) {
@@ -87,19 +88,17 @@ class AppBootstrap {
     };
     // * Show some error UI when any widget in the app fails to build
     ErrorWidget.builder = (FlutterErrorDetails details) {
-      return Builder(
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.red,
-              title: Text(context.appIntl.unknownError),
-            ),
-            body: Center(
-              child: Text(details.toString()),
-            ),
-          );
-        }
-      );
+      return Builder(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.red,
+            title: Text(context.appIntl.unknownError),
+          ),
+          body: Center(
+            child: Text(details.toString()),
+          ),
+        );
+      });
     };
   }
 }

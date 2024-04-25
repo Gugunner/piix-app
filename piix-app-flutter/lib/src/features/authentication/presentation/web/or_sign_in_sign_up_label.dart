@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
@@ -47,8 +48,8 @@ class __OrSignInSigUpLabelState extends ConsumerState<OrSignInSigUpLabel> {
   @override
   Widget build(BuildContext context) {
     final isLogin = widget.verificationType.isLogin;
-    return Text.rich(
-      TextSpan(
+    return TextScaled(
+      textSpan: TextSpan(
         text:
             '''${isLogin ? appIntl.dontHaveAnAccount : appIntl.alreadyHaveAnAccount} ''',
         style: context.theme.textTheme.labelLarge?.copyWith(

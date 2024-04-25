@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
@@ -73,8 +74,8 @@ class __TermsAndPrivacyCheckState extends ConsumerState<TermsAndPrivacyCheck> {
           ),
           gapW4,
           Expanded(
-            child: Text.rich(
-              TextSpan(
+            child: TextScaled(
+              textSpan: TextSpan(
                 text: readAndAcceptText,
                 children: [
                   TextSpan(
