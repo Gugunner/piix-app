@@ -151,5 +151,35 @@
         "type": "text",
         "context": "Authentication:Web:OrSignInSigUpLabel",
         "description": "Used in actions to make the user login."
+    },
+    "login": "Login",
+    "@login": {
+        "type": "text",
+        "context": "Authentication:MobileTablet:PortraitOrientationSignInSignUp",
+        "description": "Used to indicate to the user that the current flow is a login flow."
+    },
+    "createAccount": "Create account",
+    "@createAccount": {
+        "type": "text",
+        "context": "Authentication:MobileTablet:PortraitOrientationSignInSignUp",
+        "description": "Used to indicate to the user that the current flow is a register flow."
+    },
+    "enterTheEmailYouUsed": "Enter the email you used when creating the account to receive a verification code.",
+    "@enterTheEmailYouUsed": {
+        "type": "text",
+        "context": "Authentication:MobileTablet:PortraitOrientationSignInSignUp",
+        "description": "Used to explain to the user how to login."
+    },
+    "verifyYourEmailByEntering": "Verify your email by entering a code to create an account.",
+    "@verifyYourEmailByEntering": {
+        "type": "text",
+        "context": "Authentication:MobileTablet:PortraitOrientationSignInSignUp",
+        "description": "Used to explain to the user how to register."
+    },
+    "protectTheOnesYouLove": "Protect the ones you love",
+    "@protectTheOnesYouLove": {
+        "type": "text",
+        "context": "Authentication:MobileTablet:WelcomeActions",
+        "description": "A sales promise to show the user what the app can do. "
     }
 }
