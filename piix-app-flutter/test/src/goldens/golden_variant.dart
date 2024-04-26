@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'device_sizes.dart';
 
 ///The device types that the app can run on when testing.
 enum Device {
@@ -12,7 +15,6 @@ enum FileType {
   png,
   jpg,
   jpeg,
-
 }
 
 ///A class that stores the platform, size, and device type
@@ -26,9 +28,11 @@ class GoldenVariant {
 
   ///The platform where the test is will be run.
   final TargetPlatform? platform;
+
   ///The size of the device where the test will be run.
   final Size size;
-  ///The device type where the test will be run 
+
+  ///The device type where the test will be run
   ///if null is web and has no device.
   final Device? device;
 
@@ -58,3 +62,31 @@ class GoldenVariant {
     return fileName;
   }
 }
+
+final webVariants = ValueVariant({
+  const GoldenVariant(TargetPlatform.macOS, DeviceSizes.webMobile),
+  const GoldenVariant(TargetPlatform.macOS, DeviceSizes.webTablet),
+  const GoldenVariant(TargetPlatform.macOS, DeviceSizes.webDesktop),
+});
+
+final mobileVariants = ValueVariant({
+  const GoldenVariant(
+      TargetPlatform.android, DeviceSizes.phoneXSPortrait, Device.mobile),
+  const GoldenVariant(
+      TargetPlatform.android, DeviceSizes.phoneSMPortrait, Device.mobile),
+  const GoldenVariant(
+      TargetPlatform.android, DeviceSizes.phoneLGPortrait, Device.mobile),
+  const GoldenVariant(
+      TargetPlatform.android, DeviceSizes.phoneXLPortrait, Device.mobile),
+});
+
+final tabletVariants = ValueVariant({
+  const GoldenVariant(
+      TargetPlatform.iOS, DeviceSizes.tabletMPortrait, Device.tablet),
+  const GoldenVariant(
+      TargetPlatform.iOS, DeviceSizes.tabletXLPortrait, Device.tablet),
+  const GoldenVariant(
+      TargetPlatform.iOS, DeviceSizes.tabletMLandscape, Device.tablet),
+  const GoldenVariant(
+      TargetPlatform.iOS, DeviceSizes.tabletXLLandscape, Device.tablet),
+});

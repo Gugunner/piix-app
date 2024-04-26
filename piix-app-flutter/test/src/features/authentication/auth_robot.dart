@@ -9,6 +9,7 @@ import 'package:piix_mobile/src/features/authentication/application/auth_service
 import 'package:piix_mobile/src/features/authentication/presentation/authentication_page_barrel_file.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
 import 'package:flutter_gen/gen_l10n/app_intl.dart';
+import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 
 ///Helper class for testing Widgets in the authentication feature.
 class AuthRobot {
@@ -38,17 +39,20 @@ class AuthRobot {
           isWebProvider.overrideWithValue(isWeb)
         ],
         child: ScreenUtilInit(
-          designSize: isWeb ? webDesignSize : appDesigSize,
+          designSize: isWeb ? webDesignSize : appDesignSize,
           minTextAdapt: true,
-          child: MaterialApp(
-            home: page,
-            locale: locale,
-            supportedLocales: AppIntl.supportedLocales,
-            localizationsDelegates: AppIntl.localizationsDelegates,
-          ),
+          builder: ((context, child) {
+            return MaterialApp(
+              home: page,
+              theme: AppTheme.themeData,
+              locale: locale,
+              supportedLocales: AppIntl.supportedLocales,
+              localizationsDelegates: AppIntl.localizationsDelegates,
+            );
+          }),
         ),
       ),
-      Durations.long4,
+      // Durations.long4,
     );
     await tester.pumpAndSettle();
   }
@@ -56,6 +60,8 @@ class AuthRobot {
   Future<void> tapTermsAndPrivacyCheckBox() async {
     final checkBoxFinder = find.byType(Checkbox);
     expect(checkBoxFinder, findsOneWidget);
+    //** Ensure the checkbox is visible by scrolling before tapping */
+    await tester.ensureVisible(checkBoxFinder);
     await tester.tap(checkBoxFinder);
     await tester.pumpAndSettle();
   }
@@ -63,6 +69,8 @@ class AuthRobot {
   Future<void> tapSubmitEmailButton({bool pupmAndSettle = true}) async {
     final submitButtonFinder = find.byKey(WidgetKeys.submitEmailButton);
     expect(submitButtonFinder, findsOneWidget);
+    //** Ensure the checkbox is visible by scrolling before tapping */
+    await tester.ensureVisible(submitButtonFinder);
     //** Use direct call instead of tester tap to prevent errors when using tap sequentially such as tap checkbox then tap button*/
     final submitButton =
         submitButtonFinder.evaluate().first.widget as ElevatedButton;

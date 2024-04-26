@@ -1,11 +1,15 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
 import 'package:piix_mobile/app_bootstrap_fake.dart';
+import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/constants/screen_breakpoints.dart';
+import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
 import 'package:piix_mobile/src/utils/set_preferred_orientations.dart';
+import 'package:flutter_gen/gen_l10n/app_intl.dart';
 
 import 'features/authentication/auth_robot.dart';
 import 'goldens/golden_robot.dart';
@@ -42,6 +46,30 @@ class Robot {
     await tester.pumpAndSettle();
   }
 
+  /// Pump the app with the given [page] and sets the locale
+  /// to the given [locale].
+  Future<void> pumpWidget(Widget page, {bool isWeb = false}) async {
+    const appBootsrap = AppBootstrap('fake');
+    final container = await appBootsrap.createFakeProviderContainer(isWeb);
+    await tester.pumpWidget(
+       UncontrolledProviderScope(
+        container: container,
+         child: ScreenUtilInit(
+          designSize: isWeb ? webDesignSize : appDesignSize,
+          minTextAdapt: true,
+          builder: ((context, child) {
+            return MaterialApp(
+              home: page,
+              theme: AppTheme.themeData,
+              locale: locale,
+              supportedLocales: AppIntl.supportedLocales,
+              localizationsDelegates: AppIntl.localizationsDelegates,
+            );
+          }),
+               ),
+       )
+    );
+  }
   /// Adds a listener to the SystemChannels.platform channel
   Future<void> addWidgetBindingsMethodListener() async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger

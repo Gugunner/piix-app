@@ -3,24 +3,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:piix_mobile/src/my_app.dart';
 
 import '../../../robot.dart';
-import '../../device_sizes.dart';
 import '../../golden_variant.dart';
 
 ///Golden test for the welcome page on web layout.
 void main() {
-  final webVariant = ValueVariant({
-    const GoldenVariant(TargetPlatform.macOS, DeviceSizes.webMobile),
-    const GoldenVariant(TargetPlatform.macOS, DeviceSizes.webTablet),
-    const GoldenVariant(TargetPlatform.macOS, DeviceSizes.webDesktop),
-  });
-
   testWidgets(
     'Golden Welcome Page Web',
     (tester) async {
       //* This is the robot that will help us interact with the widgets
       final robot = Robot(tester);
       //* Get the current variant
-      final currentVariant = webVariant.currentValue!;
+      final currentVariant = webVariants.currentValue!;
       //* Get the current size from the current variant
       final currentSize = currentVariant.size;
       //* Setup the golden test surface size and load all the necessary fonts
@@ -47,7 +40,7 @@ void main() {
       //* Always return platform to null to avoid an assert exception
       debugDefaultTargetPlatformOverride = null;
     },
-    variant: webVariant,
+    variant: webVariants,
     tags: ['golden', 'layout', 'web'],
     skip: false,
   );

@@ -27,10 +27,10 @@ class SubmitEmailInputForVerificationCodeForm extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SubmitEmailInputVerificationCodeState();
+      _SubmitEmailInputForVerificationCodeFormState();
 }
 
-class _SubmitEmailInputVerificationCodeState
+class _SubmitEmailInputForVerificationCodeFormState
     extends ConsumerState<SubmitEmailInputForVerificationCodeForm> {
   final _formKey = GlobalKey<FormState>();
 

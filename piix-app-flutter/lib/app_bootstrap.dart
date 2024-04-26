@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/env/env_barrel.dart';
 import 'package:piix_mobile/env/env_interface.dart';
+import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/my_app.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -92,10 +93,10 @@ class AppBootstrap {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.red,
-            title: Text(context.appIntl.unknownError),
+            title: TextScaled(text: context.appIntl.unknownError),
           ),
           body: Center(
-            child: Text(details.toString()),
+            child: TextScaled(text: details.toString()),
           ),
         );
       });
