@@ -13,49 +13,49 @@ class OneColumnSignInSignUpSubmit extends StatelessWidget {
     super.key,
     this.verificationType = VerificationType.login,
   });
-  
+
   final VerificationType verificationType;
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // * Get the maximum width of the screen
-        final maxWidth = constraints.maxWidth;
-        // * Get the padding based on the screen size
-        final padding = maxWidth >= ScreenBreakPoint.md ? Sizes.p32 : Sizes.p16;
-        // * Get the width of the container based on the screen size
-        final width = maxWidth >= ScreenBreakPoint.xl
-            ? context.screenWidth
-            : maxWidth >= ScreenBreakPoint.lg
-                ? context.screenWidth * 0.5
-                : maxWidth >= ScreenBreakPoint.md
-                    ? context.screenWidth * 0.6
-                    : context.screenWidth * 0.75;
-        return Container(
-          height: context.screenHeight,
-          width: context.screenWidth,
-          padding: EdgeInsets.all(padding),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Sizes.p16),
-              color: PiixColors.space,
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: maxWidth >= ScreenBreakPoint.xl
-                    ? context.screenWidth * 0.25
-                    : Sizes.p16,
-              ),
-              child: WelcomeToPiixOneTimeCodeSubmit(
-                parentPadding: padding,
-                width: width,
-                verificationType: verificationType,
-              ),
-            ),
+    // * Get the maximum width of the screen
+    final maxWidth = MediaQuery.of(context).size.width;
+    // * Get the padding based on the screen size
+    final padding = maxWidth >= ScreenBreakPoint.lg
+        ? Sizes.p32
+        : maxWidth >= ScreenBreakPoint.md
+            ? Sizes.p16
+            : Sizes.p8;
+    // * Get the width of the container based on the screen size
+    final width = maxWidth >= ScreenBreakPoint.xl
+        ? context.screenWidth
+        : maxWidth >= ScreenBreakPoint.lg
+            ? context.screenWidth * 0.5
+            : maxWidth >= ScreenBreakPoint.md
+                ? context.screenWidth * 0.6
+                : context.screenWidth * 0.75;
+    return Container(
+      height: context.screenHeight,
+      width: context.screenWidth,
+      padding: EdgeInsets.all(padding),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Sizes.p16),
+          color: PiixColors.space,
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: maxWidth >= ScreenBreakPoint.xl
+                ? context.screenWidth * 0.25
+                : Sizes.p16,
           ),
-        );
-      },
+          child: WelcomeToPiixOneTimeCodeSubmit(
+            parentPadding: padding,
+            width: width,
+            verificationType: verificationType,
+          ),
+        ),
+      ),
     );
   }
 }

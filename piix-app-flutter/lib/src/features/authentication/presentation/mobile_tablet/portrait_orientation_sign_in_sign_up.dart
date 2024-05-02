@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/or_sign_in_sign_up_label.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/web/submit_email_input_for_verification_code_form.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/submit_email_input_for_verification_code_form.dart';
 import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/theme/piix_colors.dart';
 import 'package:piix_mobile/src/theme/theme_context.dart';
@@ -37,7 +37,6 @@ class PortraitOrientationSignInSignUp extends StatelessWidget {
                 width: 46.w,
                 height: 26.w,
               ),
-              // gapW16,
             ],
           ),
           gapH24,
