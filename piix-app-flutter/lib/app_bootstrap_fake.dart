@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
 import 'package:piix_mobile/src/features/authentication/application/auth_service_barrel_file.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/verification_code_input/countdown_timer_controller.dart';
 import 'package:piix_mobile/src/logger/async_error_logger.dart';
 
 /// Extension methods specific for the "fakes" project configuration
 extension AppBootstrapFake on AppBootstrap {
-  /// Creates the top-level [ProviderContainer] by overriding providers with 
-  /// fake repositories only. This is useful for testing purposes and for 
+  /// Creates the top-level [ProviderContainer] by overriding providers with
+  /// fake repositories only. This is useful for testing purposes and for
   /// running the app with a "fake" backend.
   ///
   /// Note: all repositories needed by the app can be accessed via providers.
@@ -29,6 +30,11 @@ extension AppBootstrapFake on AppBootstrap {
         FakeAuthService(),
       ),
       isWebProvider.overrideWithValue(isWeb),
+      resendCodeTimerProvider.overrideWith(
+        (ref) => CountDownNotifier(
+          const Duration(seconds: 5),
+        ),
+      ),
     ], observers: [
       AsyncErrorLogger()
     ]);
