@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/web/or_sign_in_sign_up_label.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/web/submit_email_input_for_verification_code_form.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/submit_email_input_for_verification_code_form.dart';
 import 'package:piix_mobile/src/theme/piix_colors.dart';
 import 'package:piix_mobile/src/theme/theme_context.dart';
 import 'package:piix_mobile/src/localization/app_intl.dart';
@@ -36,9 +36,7 @@ class WelcomeToPiixOneTimeCodeSubmit extends StatelessWidget {
             gapH16,
             Text(
               '''${isLogin ? appIntl.welcomeToPiix : context.appIntl.createAnAccountWithUs}''',
-              style: context.theme.textTheme.displayMedium?.copyWith(
-                color: PiixColors.contrast,
-              ),
+              style: context.theme.textTheme.displayMedium,
               textAlign: TextAlign.center,
             ),
             gapH12,
@@ -80,15 +78,11 @@ class WelcomeToPiixOneTimeCodeSubmit extends StatelessWidget {
               ),
             ),
             gapH64,
-            Text(
-              appIntl.copyright(DateTime.now().year),
-              style: context.theme.textTheme.bodySmall?.copyWith(
-                color: PiixColors.secondaryLight,
-              ),
-            ),
+            const CopyRightText(),
           ],
         ),
       ),
     );
   }
 }
+
