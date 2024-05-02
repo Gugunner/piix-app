@@ -48,28 +48,31 @@ class Robot {
 
   /// Pump the app with the given [page] and sets the locale
   /// to the given [locale].
-  Future<void> pumpWidget(Widget page, {bool isWeb = false}) async {
+  Future<void> pumpWidget(Widget page,
+      {bool isWeb = false, Duration? duration}) async {
     const appBootsrap = AppBootstrap('fake');
     final container = await appBootsrap.createFakeProviderContainer(isWeb);
     await tester.pumpWidget(
-       UncontrolledProviderScope(
-        container: container,
-         child: ScreenUtilInit(
-          designSize: isWeb ? webDesignSize : appDesignSize,
-          minTextAdapt: true,
-          builder: ((context, child) {
-            return MaterialApp(
-              home: page,
-              theme: AppTheme.themeData,
-              locale: locale,
-              supportedLocales: AppIntl.supportedLocales,
-              localizationsDelegates: AppIntl.localizationsDelegates,
-            );
-          }),
-               ),
-       )
-    );
+        UncontrolledProviderScope(
+          container: container,
+          child: ScreenUtilInit(
+            designSize: isWeb ? webDesignSize : appDesignSize,
+            minTextAdapt: true,
+            builder: ((context, child) {
+              return MaterialApp(
+                home: page,
+                theme: AppTheme.themeData,
+                locale: locale,
+                supportedLocales: AppIntl.supportedLocales,
+                localizationsDelegates: AppIntl.localizationsDelegates,
+              );
+            }),
+          ),
+        ),
+        duration);
+    await tester.pumpAndSettle();
   }
+
   /// Adds a listener to the SystemChannels.platform channel
   Future<void> addWidgetBindingsMethodListener() async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
