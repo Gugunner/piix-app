@@ -177,6 +177,31 @@ class AppTheme {
             iconSize: const MaterialStatePropertyAll<double>(Sizes.p16),
           ),
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+              if (states.contains(MaterialState.disabled)) {
+                return PiixColors.inactive;
+              }
+              if (states.contains(MaterialState.hovered) ||
+                  states.contains(MaterialState.focused) ||
+                  states.contains(MaterialState.pressed) ||
+                  states.contains(MaterialState.selected) ||
+                  states.contains(MaterialState.dragged)) {
+                return PiixColors.primary;
+              }
+              return PiixColors.active;
+            }),
+            side: const MaterialStatePropertyAll(
+              BorderSide(
+                color: PiixColors.space,
+              ),
+            ),
+            overlayColor: MaterialStatePropertyAll(
+              PiixColors.secondaryLight.withOpacity(0.2),
+            ),
+          ),
+        ),
         progressIndicatorTheme: const ProgressIndicatorThemeData(
           color: PiixColors.primary,
           circularTrackColor: PiixColors.space,
@@ -239,6 +264,5 @@ class AppTheme {
           surfaceTintColor: PiixColors.space,
           elevation: 2,
         ),
-        
       );
 }
