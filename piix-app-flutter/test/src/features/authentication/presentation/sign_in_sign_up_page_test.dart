@@ -236,7 +236,10 @@ void main() {
         page: const SignUpPage(),
       );
       await robot.auth.expectAcceptanceOfTermsAndPrivacyToBe(false);
-      await robot.auth.expectSubmitEmailButtonEnabledToBe(false);
+      await robot.auth.expectButtonByKeyToBeEnabled(
+        false,
+        widgetKey: WidgetKeys.submitEmailButton,
+      );
     });
     testWidgets(
         '''WHEN the user has accepted the terms of service and privacy policy
@@ -250,7 +253,10 @@ void main() {
       );
       await robot.auth.tapTermsAndPrivacyCheckBox();
       await robot.auth.expectAcceptanceOfTermsAndPrivacyToBe(true);
-      await robot.auth.expectSubmitEmailButtonEnabledToBe(true);
+      await robot.auth.expectButtonByKeyToBeEnabled(
+        true,
+        widgetKey: WidgetKeys.submitEmailButton,
+      );
     });
     testWidgets('''WHEN submitting an empty email
     IT will show an error text explaining that the email field cannot be empty
@@ -590,7 +596,10 @@ void main() {
         page: const SignUpPage(),
       );
       await robot.auth.expectAcceptanceOfTermsAndPrivacyToBe(false);
-      await robot.auth.expectSubmitEmailButtonEnabledToBe(false);
+      await robot.auth.expectButtonByKeyToBeEnabled(
+        false,
+        widgetKey: WidgetKeys.submitEmailButton,
+      );
     });
     testWidgets(
         '''WHEN the user has accepted the terms of service and privacy policy
@@ -604,7 +613,10 @@ void main() {
       );
       await robot.auth.tapTermsAndPrivacyCheckBox();
       await robot.auth.expectAcceptanceOfTermsAndPrivacyToBe(true);
-      await robot.auth.expectSubmitEmailButtonEnabledToBe(true);
+      await robot.auth.expectButtonByKeyToBeEnabled(
+        true,
+        widgetKey: WidgetKeys.submitEmailButton,
+      );
     });
     testWidgets('''WHEN submitting an empty email
     IT will show an error text explaining that the email field cannot be empty
