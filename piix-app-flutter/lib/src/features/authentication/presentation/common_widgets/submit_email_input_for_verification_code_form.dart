@@ -5,7 +5,7 @@ import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/create_account_sign_in_page_controller.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/send_verification_code_controller.dart';
 import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
@@ -53,7 +53,7 @@ class _SubmitEmailInputForVerificationCodeFormState
     if (!_formKey.currentState!.validate()) return;
     final languageCode = Localizations.localeOf(context).languageCode;
     ref
-        .read(createAccountSignInControllerProvider.notifier)
+        .read(sendVerificationCodeControllerProvider.notifier)
         .sendVerificationCodeByEmail(
           _emailController.text,
           languageCode,
@@ -90,23 +90,30 @@ class _SubmitEmailInputForVerificationCodeFormState
     final approuteName = widget.verificationType == VerificationType.login
         ? AppRoute.signInVerification.name
         : AppRoute.signUpVerification.name;
-    ref.read(goRouterProvider).goNamed(approuteName);
+    ref.read(goRouterProvider).goNamed(approuteName,
+        pathParameters: {'email': _emailController.text});
   }
 
   void _listenSubmit(AsyncValue<void>? prev, AsyncValue<void> current) {
     if (current is AsyncData) {
-      setState(() {
-        ///Clean the text when successful
-        _emailController.text = '';
-      });
-      return _navigateToVerificationCodePage();
+      //* Prevents any navigation when using send verification code controller to resend a code by checking that the email is cleared//
+      if (_emailController.text.isNotEmpty) {
+        _navigateToVerificationCodePage();
+      }
+      if (mounted) {
+        setState(() {
+          ///Clean the text when successful
+          _emailController.text = '';
+        });
+      }
+      return;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(createAccountSignInControllerProvider, _listenSubmit);
-    final state = ref.watch(createAccountSignInControllerProvider);
+    ref.listen(sendVerificationCodeControllerProvider, _listenSubmit);
+    final state = ref.watch(sendVerificationCodeControllerProvider);
     return TextScaledWrapper(
       child: Form(
         key: _formKey,
