@@ -26,8 +26,19 @@ enum AppRoute {
 
   ///The actual path of the route
   final String path;
+
+  static List<String> get unauthRoutes => [
+        signIn.path,
+        signUp.path,
+        termsOfService.path,
+        privacyPolicy.path,
+        verification.path,
+        signInVerification.path,
+        signUpVerification.path,
+      ];
 }
 
+@Riverpod(keepAlive: true)
 final goRouterProvider = Provider<GoRouter>((ref) {
   // * Get the [AuthService] instance
   final authService = ref.watch(authServiceProvider);
@@ -147,12 +158,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 //TODO: Implement the _redirectMobileAndTablet method
 FutureOr<String?> _redirectMobileAndTablet(
     BuildContext context, GoRouterState state, bool isLoggedIn) async {
+  if (!isLoggedIn) return AppRoute.welcome.path;
   return null;
 }
 
 FutureOr<String?> _redirectWeb(
     BuildContext context, GoRouterState state, bool isLoggedIn) async {
   final path = state.uri.path;
+
+  if (!isLoggedIn &&
+      !AppRoute.unauthRoutes.any((route) => path.contains(route))) {
+    return AppRoute.welcome.path;
+  }
   //TODO: Check if this condition can replace _navigateToVerificationCodePage
   if (path == AppRoute.signInVerification.path &&
       state.matchedLocation == AppRoute.welcome.path) {

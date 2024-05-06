@@ -47,6 +47,12 @@
         "context": "Common:Inputs",
         "description": "A command that instructs the user to enter the email in the input that uses it."
     },
+    "signOut": "Sign out",
+    "@signOut": {
+        "type": "text",
+        "context": "Common:Profile",
+        "description": "The action to end the current user session."
+    },
     "@@x-FEATURE: COMMON ERRORS": "COMMON ERRORS",
     "unknownError": "We are sorry an unknown error has occured.",
     "@unknownError": {
