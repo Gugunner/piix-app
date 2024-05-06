@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 /// This keys are used for Component/Widget testing purposes.
 class WidgetKeys {
   static const submitEmailButton = Key('submit_email_button');
+  static const switchSignInSignUpButton = Key('switch_sign_in_sign_up_method');
   static const countDownText = Key('count_down_text');
   static const requestNewCodebutton = Key('request_new_code_button');
   static const submitVerificationCodeButton =

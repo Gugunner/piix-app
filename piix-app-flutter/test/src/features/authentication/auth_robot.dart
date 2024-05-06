@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -23,7 +20,8 @@ class AuthRobot {
   final WidgetTester tester;
   final Locale locale;
 
-  final testEmail = 'email@gmail.com';
+  final testSignUpEmail = 'email@gmail.com';
+  final testSignInEmail = 'test@gmail.com';
 
   AppIntl get appIntl => lookupAppIntl(locale);
 
@@ -66,6 +64,16 @@ class AuthRobot {
       // Durations.long4,
     );
     await tester.pumpAndSettle();
+  }
+
+  void expectSignUpPage() {
+    final finder = find.byType(SignUpPage);
+    expect(finder, findsOneWidget);
+  }
+
+  void expectSignInPage() {
+    final finder = find.byType(SignInPage);
+    expect(finder, findsOneWidget);
   }
 
   Future<void> tapTermsAndPrivacyCheckBox() async {
@@ -139,46 +147,52 @@ class AuthRobot {
   }
 
   Future<void> expectEmailIsInvalid() async {
-    await enterEmail(testEmail.substring(0, 3));
+    await enterEmail(testSignInEmail.substring(0, 3));
     await tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
     final textField = expectToReturnEmailFormField();
     expect(textField.decoration!.errorText, appIntl.invalidEmail);
   }
 
   Future<void> expectEmailNotFound() async {
-    await enterEmail(testEmail);
+    await enterEmail(testSignInEmail);
     await tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
     final textField = expectToReturnEmailFormField();
     expect(textField.decoration!.errorText, appIntl.emailNotFound);
   }
 
+  //* Do not use with an integration test because navigation will move after tap //
   Future<void> expectEmailAlreadyExists() async {
-    await enterEmail(testEmail);
+    await enterEmail(testSignUpEmail);
     await tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
     final textField = expectToReturnEmailFormField();
     expect(textField.decoration!.errorText, appIntl.emailAlreadyExists);
   }
 
-  Future<void> expectEmailSubmitUnknowError() async {
-    await enterEmail(testEmail);
+  Future<void> expectEmailSubmitUnknowError(String email) async {
+    await enterEmail(email);
     await tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
     final textField = expectToReturnEmailFormField();
     expect(textField.decoration!.errorText, appIntl.unknownError);
   }
 
   Future<void> expectSubmitEmailLoadingIndicator() async {
-    await enterEmail(testEmail);
+    await enterEmail(testSignInEmail);
     await tapButtonByKey(
         pupmAndSettle: false, widgetKey: WidgetKeys.submitEmailButton);
     final progressIndicator = find.byType(CircularProgressIndicator);
     expect(progressIndicator, findsOneWidget);
   }
 
-  Future<void> expectSubmitEmailSuccess() async {
-    await enterEmail(testEmail);
+  Future<void> expectSubmitEmailSuccess(String email) async {
+    await enterEmail(email);
     await tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
     final textField = expectToReturnEmailFormField();
     expect(textField.controller!.text, isEmpty);
+  }
+
+  void expectEmailVerificationCodePage() {
+    final finder = find.byType(EmailVerificationCodePage);
+    expect(finder, findsOneWidget);
   }
 
   Future<void> expectTextInTimeToBe(Duration duration) async {
@@ -195,7 +209,13 @@ class AuthRobot {
     expect(singleCodeBoxFinder, findsExactly(n));
   }
 
-  Future<void> enterVerificationCode({bool reverseCode = false}) async {
+  ///Enters a verification code from 1 to 6.
+  ///
+  ///If [reverseCode] is true it will enter 6 to 1.
+  ///To speed up integration tests set [checkFocus] to false
+  ///to only update frame when all codes have been entered.
+  Future<void> enterVerificationCode(
+      {bool reverseCode = false, bool checkFocus = true}) async {
     final singleCodeBoxFinder = find.byType(TextField);
     final singleCodeBoxes = singleCodeBoxFinder.evaluate().toList();
     final numberOfBoxes = singleCodeBoxes.length;
@@ -207,13 +227,16 @@ class AuthRobot {
       } else {
         await tester.enterText(singleCodeBoxFinder.at(i), '${i + 1}');
       }
-      await tester.pumpAndSettle();
-      await expectSingleCodeBoxHaveFocusAt(
-        i,
-        hasFocus: false,
-        finder: singleCodeBoxFinder,
-      );
+      if (checkFocus) {
+        await tester.pumpAndSettle();
+        await expectSingleCodeBoxHaveFocusAt(
+          i,
+          hasFocus: false,
+          finder: singleCodeBoxFinder,
+        );
+      }
     }
+    await tester.pumpAndSettle();
   }
 
   Future<void> deleteSingleCodeBoxAt(int boxNumber) async {
