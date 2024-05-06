@@ -137,11 +137,16 @@ dev_dependencies:
   mocktail: ^1.0.3
   #Runs code generator
   build_runner: ^2.4.8
+  #Used to keep code linter
   custom_lint:
+  #used to run integration tests
+  integration_test:
+    sdk: flutter
   #Used to tun riverpod with build runner
   riverpod_generator: ^2.3.3
   #Executes cleaning of riverpod classes 
   riverpod_lint: ^2.1.1
+  
 
 
 

@@ -3,6 +3,21 @@
     "configurations": [
         //Use this configuration to launch Fake repositories declared in project
         {
+            "name": "Flutter integration tests",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-entrypoint-args",
+                "--FIRDebugEnabled",
+                "--flavor",
+                "dev",
+                "-t",
+                //Modify this file path to run the test desired instead of all
+                "integration_test/main.dart",
+            ]
+        },
+        //Use this configuration to launch Fake repositories declared in project
+        {
             "name": "piix fake",
             "request": "launch",
             "type": "dart",
