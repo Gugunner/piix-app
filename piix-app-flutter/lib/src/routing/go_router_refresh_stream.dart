@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// Converts a [Stream] into a [Listenable]
 ///
@@ -21,18 +20,16 @@ class GoRouterRefreshStream extends ChangeNotifier {
   /// current route.
   GoRouterRefreshStream(Stream<dynamic> stream) {
     notifyListeners();
-    _subject = BehaviorSubject<dynamic>(
-      onListen: () => notifyListeners(),
-      onCancel: () => _subject.close(), 
-    );
+    _subscription = stream.asBroadcastStream().listen(
+          (_) => notifyListeners(),
+        );
   }
 
-  late final BehaviorSubject<dynamic> _subject;
+  late final StreamSubscription<dynamic> _subscription;
 
   @override
   void dispose() {
-    _subject.close();
-    // _subscription.cancel();
+    _subscription.cancel();
     super.dispose();
   }
 }

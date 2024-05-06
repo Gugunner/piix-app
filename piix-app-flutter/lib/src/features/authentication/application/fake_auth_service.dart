@@ -17,16 +17,7 @@ class FakeAuthService implements AuthService {
 
   /// Emits the current user when it changes.
   @override
-  Stream<AppUser?> authStateChange() {
-    // If the current user is not null and the email is verified,
-    if (_authState.value != null && _authState.value!.emailVerified) {
-      // Emit the current user.
-      return _authState.stream;
-    } else {
-      // Otherwise, emit null.
-      return Stream.value(null);
-    }
-  }
+  Stream<AppUser?> authStateChange() => _authState.stream;
 
   /// Emits the current user when the id token changes.
   @override
@@ -77,7 +68,7 @@ class FakeAuthService implements AuthService {
     if (user != null && verificationType == VerificationType.register) {
       throw EmailAlreadyExistsException();
     }
-    //If the user does not exist, add the email and verification code to
+    //Add the email and verification code to
     //[_codes]
     _addVerificationToCodes(email, '123456');
     //Return an empty value and exit the function.
