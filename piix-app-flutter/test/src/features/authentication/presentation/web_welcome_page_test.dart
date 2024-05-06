@@ -49,8 +49,7 @@ void main() {
       final twoColumnWelcomePage = find.byType(TwoColumnSignIn);
       expect(twoColumnWelcomePage, findsNothing);
     });
-    testWidgets(
-        '''WHEN opening the welcome page in a desktop device screen
+    testWidgets('''WHEN opening the welcome page in a desktop device screen
     IT will show the two column welcome page.
     ''', (tester) async {
       final robot = Robot(tester);
@@ -90,7 +89,7 @@ void main() {
     ''', (tester) async {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
-            robot.auth.testEmail,
+            robot.auth.testSignInEmail,
             robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenThrow(EmailNotFoundException());
@@ -106,7 +105,7 @@ void main() {
     ''', (tester) async {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
-            robot.auth.testEmail,
+            robot.auth.testSignInEmail,
             robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenThrow(UnknownErrorException(Exception('mock error')));
@@ -114,7 +113,7 @@ void main() {
         authService,
         isWeb: true,
       );
-      robot.auth.expectEmailSubmitUnknowError();
+      robot.auth.expectEmailSubmitUnknowError(robot.auth.testSignInEmail);
     });
     testWidgets('''When submitting a valid email for login
     IT will show a circular progress indicator while loading''',
@@ -123,7 +122,7 @@ void main() {
       await tester.runAsync(() async {
         final robot = Robot(tester);
         when(() => authService.sendVerificationCodeByEmail(
-              robot.auth.testEmail,
+              robot.auth.testSignInEmail,
               robot.auth.locale.languageCode,
               VerificationType.login,
               //* Add a delay to allow time for the loading to work
@@ -147,7 +146,7 @@ void main() {
     ''', (tester) async {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
-            robot.auth.testEmail,
+            robot.auth.testSignInEmail,
             robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenAnswer((_) => Future.value());
@@ -158,7 +157,7 @@ void main() {
         authService,
         isWeb: true,
       );
-      await robot.auth.expectSubmitEmailSuccess();
+      await robot.auth.expectSubmitEmailSuccess(robot.auth.testSignInEmail);
     });
   });
 }
