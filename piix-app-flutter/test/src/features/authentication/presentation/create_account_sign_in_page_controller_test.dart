@@ -12,6 +12,7 @@ void main() {
   const testEmail = 'email@gmail.com';
   const testVerificationType = VerificationType.login;
   const testVerificationCode = '123456';
+  const testLanguageCode = 'en';
 
   //A utility function that helps create a provider container to
   //call test Riverpod providers.
@@ -32,7 +33,6 @@ void main() {
   });
 
   group('Create Account Sign In Page Controller', () {
-    
     test('''WHEN calling authenticateWithEmailAndVerificationCode
     AND using register as the AuthenticationFormType 
     THEN the call will be done to authService.createAccountWithEmailAndVerificationCode 
@@ -45,7 +45,8 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.createAccountWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenAnswer((_) async => null);
+              testEmail, testVerificationCode, testLanguageCode))
+          .thenAnswer((_) async => null);
       //Initialize the listener which is used to listen to the provider
       //state changes.
       final listener = Listener<AsyncValue<void>>();
@@ -67,6 +68,7 @@ void main() {
         VerificationType.register,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([
@@ -80,6 +82,7 @@ void main() {
       verifyNever(() => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ));
       //Verify that no more interactions are done with the listener.
       verifyNoMoreInteractions(listener);
@@ -96,7 +99,7 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.createAccountWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenThrow(Exception('mock error'));
+          testEmail, testVerificationCode, testLanguageCode,)).thenThrow(Exception('mock error'));
       //Initialize the listener which is used to listen to the provider
       final listener = Listener<AsyncValue<void>>();
       //Add the listener to the provider.
@@ -117,6 +120,7 @@ void main() {
         VerificationType.register,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([
@@ -147,7 +151,7 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.signInWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenAnswer((_) async => null);
+          testEmail, testVerificationCode,testLanguageCode,)).thenAnswer((_) async => null);
       //Initialize the listener which is used to listen to the provider
       final listener = Listener<AsyncValue<void>>();
       //Add the listener to the provider.
@@ -168,6 +172,7 @@ void main() {
         testVerificationType,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([
@@ -180,6 +185,7 @@ void main() {
       verifyNever(() => authService.createAccountWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ));
       //Verify that no more interactions are done with the listener.
       verifyNoMoreInteractions(listener);
@@ -196,7 +202,7 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.signInWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenThrow(Exception('mock error'));
+          testEmail, testVerificationCode, testLanguageCode,)).thenThrow(Exception('mock error'));
       //Initialize the listener which is used to listen to the provider
       final listener = Listener<AsyncValue<void>>();
       //Add the listener to the provider.
@@ -217,6 +223,7 @@ void main() {
         testVerificationType,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([

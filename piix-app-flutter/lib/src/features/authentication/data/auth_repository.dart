@@ -34,10 +34,14 @@ class AuthRepository {
   Future<CustomToken> createAccountWithEmailAndVerificationCode(
     String email,
     String verificationCode,
+    String languageCode,
   ) async {
-    final response = await _appDio.post(
-        '/createAccountAndCustomTokenWithEmailRequest',
-        data: {'email': email, 'verificationCode': verificationCode});
+    final response = await _appDio
+        .post('/createAccountAndCustomTokenWithEmailRequest', data: {
+      'email': email,
+      'code': verificationCode,
+      'languageCode': languageCode,
+    });
     if (response.data?['customToken'] == null) {
       throw CustomTokenFailedException();
     }
@@ -48,9 +52,14 @@ class AuthRepository {
   Future<CustomToken> getCustomTokenWithEmailAndVerificationCode(
     String email,
     String verificationCode,
+    String languageCode,
   ) async {
-    final response = await _appDio.post('/getCustomTokenForCustomSignInRequest',
-        data: {'email': email, 'verificationCode': verificationCode});
+    final response =
+        await _appDio.post('/getCustomTokenForCustomSignInRequest', data: {
+      'email': email,
+      'code': verificationCode,
+      'languageCode': languageCode,
+    });
     if (response.data?['customToken'] == null) {
       throw CustomTokenFailedException();
     }
