@@ -158,7 +158,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 //TODO: Implement the _redirectMobileAndTablet method
 FutureOr<String?> _redirectMobileAndTablet(
     BuildContext context, GoRouterState state, bool isLoggedIn) async {
-  if (!isLoggedIn) return AppRoute.welcome.path;
+  final path = state.uri.path;
+  if (!isLoggedIn &&
+      !AppRoute.unauthRoutes.any((route) => path.contains(route))) {
+    return AppRoute.welcome.path;
+  }
   return null;
 }
 

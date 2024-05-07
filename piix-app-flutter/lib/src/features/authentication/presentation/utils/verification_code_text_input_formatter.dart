@@ -6,9 +6,9 @@ import 'package:characters/characters.dart';
 class VerificationCodeLengthLimitingTextInputFormatter
     extends LengthLimitingTextInputFormatter {
   VerificationCodeLengthLimitingTextInputFormatter(super.maxLength,
-      {this.replacableChar = 'u/200B'});
+      {this.replaceableChar = 'u/200B'});
 
-  final String replacableChar;
+  final String replaceableChar;
 
   ///Returns the same value if [maxLength] is null, negative or
   ///greater than one.
@@ -32,10 +32,10 @@ class VerificationCodeLengthLimitingTextInputFormatter
     //Returns the old value if the length is not the same or the value
     //does not contain the replacable character.
     if (newValue.text.characters.length <= maxLength ||
-        !newValue.text.characters.contains(replacableChar)) {
+        !newValue.text.characters.contains(replaceableChar)) {
       return oldValue;
     }
-    final text = newValue.text.replaceAll(replacableChar, '');
+    final text = newValue.text.replaceAll(replaceableChar, '');
     //* Return a new value with the text range set to 1.
     return newValue.copyWith(
       text: text,
