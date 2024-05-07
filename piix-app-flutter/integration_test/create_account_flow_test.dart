@@ -12,7 +12,23 @@ void main() {
       isWeb: true,
     );
     robot.expectToFindWelcomePage();
-    await robot.tapSignInSignUpButton();
+    await robot.tapSignInSignUpGesture();
+    robot.auth.expectSignUpPage();
+    await robot.auth.tapTermsAndPrivacyCheckBox();
+    await robot.auth.enterEmail(robot.auth.testSignUpEmail);
+    await robot.auth.tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
+    robot.auth.expectEmailVerificationCodePage();
+    await robot.auth.enterVerificationCode(checkFocus: false);
+    await robot.auth
+        .tapButtonByKey(widgetKey: WidgetKeys.submitVerificationCodeButton);
+    robot.expectToFindHomePage();
+  });
+
+  testWidgets('Mobile/Tablet create account flow', (tester) async {
+    final robot = Robot(tester);
+    await robot.pumpMyAppWithFakes();
+    robot.expectToFindWelcomePage();
+    await robot.auth.tapButtonByKey(widgetKey: WidgetKeys.signUpButton);
     robot.auth.expectSignUpPage();
     await robot.auth.tapTermsAndPrivacyCheckBox();
     await robot.auth.enterEmail(robot.auth.testSignUpEmail);

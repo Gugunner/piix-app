@@ -13,9 +13,25 @@ void main() {
       initialUserEmail: robot.auth.testSignInEmail,
     );
     robot.expectToFindWelcomePage();
-    await robot.tapSignInSignUpButton();
+    await robot.tapSignInSignUpGesture();
     robot.auth.expectSignUpPage();
-    await robot.tapSignInSignUpButton(isSignIn: false);
+    await robot.tapSignInSignUpGesture(isSignIn: false);
+    robot.auth.expectSignInPage();
+    await robot.auth.enterEmail(robot.auth.testSignInEmail);
+    await robot.auth.tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
+    robot.auth.expectEmailVerificationCodePage();
+    await robot.auth.enterVerificationCode(checkFocus: false);
+    await robot.auth
+        .tapButtonByKey(widgetKey: WidgetKeys.submitVerificationCodeButton);
+    robot.expectToFindHomePage();
+  });
+  testWidgets('Mobile/Tablet sign in flow', (tester) async {
+    final robot = Robot(tester);
+    await robot.pumpMyAppWithFakes(
+      initialUserEmail: robot.auth.testSignInEmail,
+    );
+    robot.expectToFindWelcomePage();
+    await robot.auth.tapButtonByKey(widgetKey: WidgetKeys.signInButton);
     robot.auth.expectSignInPage();
     await robot.auth.enterEmail(robot.auth.testSignInEmail);
     await robot.auth.tapButtonByKey(widgetKey: WidgetKeys.submitEmailButton);
