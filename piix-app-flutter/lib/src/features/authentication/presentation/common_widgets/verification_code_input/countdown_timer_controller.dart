@@ -27,14 +27,21 @@ class CountDownNotifier extends StateNotifier<Duration> {
 
   ///The callback function that is called every second.
   void _countDown(Timer timer) {
-    const reduceBy = Duration(seconds: 1);
-    final remainingSeconds = state.inSeconds - reduceBy.inSeconds;
-    //Update the state with the remaining seconds.
-    if (remainingSeconds >= 0) {
-      state = Duration(seconds: remainingSeconds);
-    }
-    //Cancel the timer when the remaining seconds is zero.
-    if (remainingSeconds == 0) {
+    //* Check if the notifier is mounted before updating the state
+    if (mounted) {
+      const reduceBy = Duration(seconds: 1);
+      final remainingSeconds = state.inSeconds - reduceBy.inSeconds;
+
+      //Update the state with the remaining seconds.
+      if (remainingSeconds >= 0) {
+        state = Duration(seconds: remainingSeconds);
+      }
+      //Cancel the timer when the remaining seconds is zero.
+      if (remainingSeconds == 0) {
+        _timer?.cancel();
+      }
+    } else {
+      //* Cancel timer if the notifier is no longer mounted
       _timer?.cancel();
     }
   }
@@ -51,13 +58,18 @@ final resendCodeTimerProvider =
     StateNotifierProvider.autoDispose<CountDownNotifier, Duration>((ref) {
   final resendCodeTimerNotifier = CountDownNotifier(const Duration(minutes: 2));
   //* Cancel the timer before disposing the provider to prevent memory leak and mounted state errors//
+  final link = ref.keepAlive();
   ref.onDispose(() {
     resendCodeTimerNotifier.cancel();
+  });
+  ref.onCancel(() {
+    resendCodeTimerNotifier.cancel();
+    link.close();
   });
   return resendCodeTimerNotifier;
 });
 
-///A provider that returns a boolean value checking if the timer has 
+///A provider that returns a boolean value checking if the timer has
 ///reached zero.
 final canResendCodeProvider = Provider.autoDispose<bool>((ref) {
   final remainingTime = ref.watch(resendCodeTimerProvider);

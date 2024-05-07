@@ -9,8 +9,7 @@ import 'package:piix_mobile/src/theme/theme_context.dart';
 import 'package:piix_mobile/src/utils/size_context.dart';
 import 'package:piix_mobile/src/utils/verification_type.dart';
 
-
-///A general layout of the verification submit page for the 
+///A general layout of the verification submit page for the
 ///[EmailVerificationCodePage].
 class OneColumnEmailVerificationCodePage extends StatelessWidget {
   const OneColumnEmailVerificationCodePage({
@@ -43,6 +42,7 @@ class OneColumnEmailVerificationCodePage extends StatelessWidget {
                 ? context.screenWidth * 0.6
                 : context.screenWidth * 0.75;
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         height: context.screenHeight,
         width: context.screenWidth,

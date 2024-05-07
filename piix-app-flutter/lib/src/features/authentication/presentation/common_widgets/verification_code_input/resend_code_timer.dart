@@ -17,13 +17,14 @@ class ResendCodeTimer extends ConsumerStatefulWidget {
 
 ///Manages the timer and the text to show the user.
 class _ResendCodeTimerState extends ConsumerState<ResendCodeTimer> {
-  ///The timer notifier that manages the timer which is used to prevent calling 
+  ///The timer notifier that manages the timer which is used to prevent calling
   ///when the widget has already been disposed of.
   late CountDownNotifier _countdownNotifier;
 
   @override
   void initState() {
     super.initState();
+
     ///Starts the timer when the widget is built.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -36,7 +37,11 @@ class _ResendCodeTimerState extends ConsumerState<ResendCodeTimer> {
   @override
   void dispose() {
     ///Cancels the timer when the widget is disposed.
-    _countdownNotifier.cancel();
+    Future.microtask(() {
+      if (mounted) {
+        _countdownNotifier.cancel();
+      }
+    });
     super.dispose();
   }
 

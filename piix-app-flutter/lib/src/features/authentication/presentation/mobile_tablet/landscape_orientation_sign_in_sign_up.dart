@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/landscape_orientation_authentication_container.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/mobile_tablet/portrait_orientation_sign_in_sign_up.dart';
 import 'package:piix_mobile/src/utils/verification_type.dart';
 
@@ -15,10 +14,8 @@ class LandscapeOrientationSignInSignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LandscapeOrientationAuthenticationContainer(
-      child: PortraitOrientationSignInSignUp(
-        verificationType: verificationType,
-      ),
+    return PortraitOrientationSignInSignUp(
+      verificationType: verificationType,
     );
   }
 }

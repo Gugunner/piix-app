@@ -103,6 +103,9 @@ class _SingleCodeBoxState extends State<SingleCodeBox> {
   ///backspace "key" is pressed, cannot be seen in the UI.
   final String invisibleChar = '\u200B';
 
+  ///Keeps track of the previous text to detect changes.
+  String prevText = '';
+
   @override
   void initState() {
     super.initState();
@@ -129,23 +132,35 @@ class _SingleCodeBoxState extends State<SingleCodeBox> {
     setState(() {
       filled = !isInvisibleChar && text.isNotEmpty;
     });
+    //* If the char is invisible there is no need to update values or check focus//
     if (isInvisibleChar) return;
     //Update the value.
     widget.onChanged.call(widget.boxNumber, text);
-    if (widget.focusNode.hasPrimaryFocus || widget.focusNode.hasFocus) {
-      if (text.isEmpty) {
-        //* Unfocus if pressing the backspace "key" the value is empty and it is the first box //
+    //* When there is no focus then exit without doing anything//
+    if (!widget.focusNode.hasPrimaryFocus && !widget.focusNode.hasFocus) return;
+    //*If text is empty check if the previous text was the invisible char or not//
+    if (text.isEmpty) {
+      //* If the previous text was the invisible char then it means that clearing again the field will either move to the previous focused field or unfocus if at the begininning//
+      if (prevText == invisibleChar) {
         if (widget.boxNumber == 0) return widget.focusNode.unfocus();
         FocusManager.instance.primaryFocus?.previousFocus();
+      } else {
+        //* Unfocus if pressing the backspace "key" the value is empty and it is the first box //
         codeController.text = invisibleChar;
-        return;
+        setState(() {
+          prevText = invisibleChar;
+        });
       }
-      if (text.isNotEmpty) {
-        //* Unfocus if writing the last value in the last box //
-        if (widget.boxNumber == 5) return widget.focusNode.unfocus();
-        FocusManager.instance.primaryFocus?.nextFocus();
-        return;
-      }
+      return;
+    }
+    //* If the text is not empty and the previous text was either empty or the invisible char then the focus can move to the next focusable field or unfocus if at the end//
+    if (text.isNotEmpty && (prevText.isEmpty || prevText == invisibleChar)) {
+      setState(() {
+        prevText = text;
+      });
+      //* Unfocus if writing the last value in the last box //
+      if (widget.boxNumber == 5) return widget.focusNode.unfocus();
+      FocusManager.instance.primaryFocus?.nextFocus();
     }
   }
 
@@ -177,7 +192,7 @@ class _SingleCodeBoxState extends State<SingleCodeBox> {
           inputFormatters: [
             VerificationCodeLengthLimitingTextInputFormatter(
               1,
-              replacableChar: invisibleChar,
+              replaceableChar: invisibleChar,
             ),
             FilteringTextInputFormatter.digitsOnly,
           ],
