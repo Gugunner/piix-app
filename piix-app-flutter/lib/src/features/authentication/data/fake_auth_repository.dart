@@ -8,14 +8,20 @@ class FakeAuthRepository implements AuthRepository {
   final bool addDelay;
   @override
   Future<CustomToken> createAccountWithEmailAndVerificationCode(
-      String email, String verificationCode) async {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) async {
     await delay(addDelay);
     return 'fake_token';
   }
 
   @override
   Future<CustomToken> getCustomTokenWithEmailAndVerificationCode(
-      String email, String verificationCode) async {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) async {
     await delay(addDelay);
     return 'fake_token';
   }

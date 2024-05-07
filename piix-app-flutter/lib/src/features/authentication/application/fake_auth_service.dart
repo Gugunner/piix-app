@@ -78,7 +78,10 @@ class FakeAuthService implements AuthService {
   /// Creates an account with the email and verification code.
   @override
   Future<void> createAccountWithEmailAndVerificationCode(
-      String email, String verificationCode) {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) {
     if (addDelay) {
       delay(addDelay);
     }
@@ -114,7 +117,10 @@ class FakeAuthService implements AuthService {
   /// Signs in with the email and verification code.
   @override
   Future<void> signInWithEmailAndVerificationCode(
-      String email, String verificationCode) {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) {
     if (addDelay) {
       delay(addDelay);
     }

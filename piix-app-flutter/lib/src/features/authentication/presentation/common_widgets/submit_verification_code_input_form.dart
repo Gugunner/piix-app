@@ -70,12 +70,14 @@ class _SubmitVerificationCodeInputFormState
     if (_formKey.currentState == null) return;
     _formKey.currentState!.save();
     if (!_formKey.currentState!.validate()) return;
+    final languageCode = Localizations.localeOf(context).languageCode;
     ref
         .read(createAccountSignInControllerProvider.notifier)
         .authenticateWithEmailAndVerificationCode(
           widget.verificationType,
           email: widget.email,
           verificationCode: _code.values.join(),
+          languageCode: languageCode,
         );
   }
 

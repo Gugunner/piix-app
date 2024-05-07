@@ -114,6 +114,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode.split('').reversed.join(''),
+            testLanguageCode,
           ),
         ).thenThrow(IncorrectVerificationCodeException());
         //* Execute with runAsync to wait for timer
@@ -141,6 +142,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode.split('').reversed.join(''),
+            testLanguageCode,
           ),
         ).thenThrow(UnknownErrorException(Exception('mock error')));
         //* Execute with runAsync to wait for timer
@@ -164,6 +166,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode.split('').reversed.join(''),
+            testLanguageCode,
           ),
         ).thenThrow(UnknownErrorException(Exception('mock error')));
         //* Execute with runAsync to wait for timer
@@ -190,6 +193,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ),
         ).thenAnswer(
           (_) async => Future.delayed(
@@ -230,6 +234,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ),
         ).thenAnswer(
           (_) async => Future.value(),
@@ -498,6 +503,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode.split('').reversed.join(''),
+            testLanguageCode,
           ),
         ).thenThrow(IncorrectVerificationCodeException());
         //* Execute with runAsync to wait for timer
@@ -525,6 +531,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode.split('').reversed.join(''),
+            testLanguageCode,
           ),
         ).thenThrow(UnknownErrorException(Exception('mock error')));
         //* Execute with runAsync to wait for timer
@@ -547,6 +554,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode.split('').reversed.join(''),
+            testLanguageCode,
           ),
         ).thenThrow(UnknownErrorException(Exception('mock error')));
         //* Execute with runAsync to wait for timer
@@ -573,6 +581,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ),
         ).thenAnswer(
           (_) async => Future.delayed(
@@ -612,6 +621,7 @@ void main() {
           () => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ),
         ).thenAnswer(
           (_) async => Future.value(),

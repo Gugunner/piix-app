@@ -4,7 +4,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'create_account_sign_in_page_controller.g.dart';
 
-
 ///The controller used to create an account or sign in with email
 ///and verification code.
 @riverpod
@@ -16,9 +15,11 @@ class CreateAccountSignInController extends _$CreateAccountSignInController {
   }
 
   Future<void> authenticateWithEmailAndVerificationCode(
-      VerificationType verificationType,
-      {required String email,
-      required String verificationCode}) async {
+    VerificationType verificationType, {
+    required String email,
+    required String verificationCode,
+    required String languageCode,
+  }) async {
     state = const AsyncLoading();
     switch (verificationType) {
       case VerificationType.register:
@@ -26,16 +27,15 @@ class CreateAccountSignInController extends _$CreateAccountSignInController {
           () => ref
               .read(authServiceProvider)
               .createAccountWithEmailAndVerificationCode(
-                  email, verificationCode),
+                  email, verificationCode, languageCode),
         );
         break;
       case VerificationType.login:
         state = await AsyncValue.guard(
-          () =>
-              ref.read(authServiceProvider).signInWithEmailAndVerificationCode(
-                    email,
-                    verificationCode,
-                  ),
+          () => ref
+              .read(authServiceProvider)
+              .signInWithEmailAndVerificationCode(
+                  email, verificationCode, languageCode),
         );
         break;
     }
