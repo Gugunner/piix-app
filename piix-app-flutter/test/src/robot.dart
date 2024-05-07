@@ -97,7 +97,7 @@ class Robot {
     expect(finder, findsOneWidget);
   }
 
-  Future<void> tapSignInSignUpButton({bool isSignIn = true}) async {
+  Future<void> tapSignInSignUpGesture({bool isSignIn = true}) async {
     final finder = find.byKey(WidgetKeys.switchSignInSignUpButton);
     expect(finder, findsOneWidget);
     final textScaled = finder.evaluate().first.widget as TextScaled;

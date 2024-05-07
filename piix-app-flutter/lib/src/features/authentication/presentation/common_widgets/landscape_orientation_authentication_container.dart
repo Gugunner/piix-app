@@ -20,7 +20,11 @@ class LandscapeOrientationAuthenticationContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(Sizes.p16.w),
+      padding: EdgeInsets.only(
+        left: Sizes.p24.w,
+        right: Sizes.p24.w,
+        bottom: kToolbarHeight.h,
+      ),
       height: context.screenHeight,
       width: context.screenWidth,
       child: Card(

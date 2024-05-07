@@ -43,7 +43,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
   List<FocusNode> _boxFocusNodes = <FocusNode>[];
   bool _hasFocus = false;
 
-  ///Initializes each focus node that will manage focus traversal for the 
+  ///Initializes each focus node that will manage focus traversal for the
   ///code boxes.
   void _initFocusNodes() {
     _boxFocusNodes = List.generate(widget.numberOfBoxes, (boxNumber) {
@@ -103,7 +103,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
               return Expanded(
                   child: Container(
                 margin: EdgeInsets.only(
-                    right: boxNumber < widget.numberOfBoxes ? Sizes.p16.w : 0),
+                    right: boxNumber < widget.numberOfBoxes ? Sizes.p8.w : 0),
                 child: SingleCodeBox(
                   boxNumber,
                   onChanged: widget.onChanged,

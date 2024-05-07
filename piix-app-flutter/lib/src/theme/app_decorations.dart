@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/src/theme/theme_barrel_file.dart';
-
 
 ///Centralizes the decorations used for different [Widget].
 class AppDecorations {
@@ -16,7 +14,7 @@ class AppDecorations {
             : filled
                 ? PiixColors.primary
                 : null,
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: hasError
                 ? PiixColors.error
@@ -27,26 +25,21 @@ class AppDecorations {
                         : PiixColors.infoDefault,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(4.w),
         ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: PiixColors.inactive, width: 1),
-          borderRadius: BorderRadius.circular(4.w),
+        disabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: PiixColors.inactive, width: 1),
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: PiixColors.error, width: 1),
-          borderRadius: BorderRadius.circular(4.w),
+        errorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: PiixColors.error, width: 1),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: hasError ? PiixColors.error : PiixColors.active,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(4.w),
         ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: PiixColors.error, width: 1),
-          borderRadius: BorderRadius.circular(4.w),
+        focusedErrorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: PiixColors.error, width: 1),
         ),
       );
 }

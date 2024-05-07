@@ -42,6 +42,9 @@ class _SubmitEmailInputForVerificationCodeFormState
 
   AppIntl get appIntl => context.appIntl;
 
+  ///Focus node for the email text field.
+  final _focusNode = FocusNode();
+
   void _onSubmitForm() {
     if (_autovalidateMode != AutovalidateMode.onUserInteraction) {
       setState(() {
@@ -110,6 +113,14 @@ class _SubmitEmailInputForVerificationCodeFormState
     }
   }
 
+  ///Tapping outside the area will unfocus the box.
+  void _onTapOutside(PointerDownEvent event) {
+    //Only unfocus the TextFormField if it has focus.
+    if (_focusNode.hasPrimaryFocus || _focusNode.hasFocus) {
+      _focusNode.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen(sendVerificationCodeControllerProvider, _listenSubmit);
@@ -125,6 +136,8 @@ class _SubmitEmailInputForVerificationCodeFormState
               textInputAction: TextInputAction.done,
               controller: _emailController,
               validator: state.isLoading ? null : _emailValidator,
+              focusNode: _focusNode,
+              onTapOutside: _onTapOutside,
               onEditingComplete: _onSubmitForm,
               style: context.theme.textTheme.titleMedium?.copyWith(
                 color: PiixColors.infoDefault,
