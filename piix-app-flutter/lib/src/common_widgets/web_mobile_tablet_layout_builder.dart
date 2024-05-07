@@ -45,8 +45,7 @@ class WebMobileTabletLayoutBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // * Check if the app is running on a mobile or tablet device
-    final isWeb =
-        ref.watch(isWebProvider);
+    final isWeb = ref.watch(isWebProvider);
     return LayoutBuilder(builder: (context, constraints) {
       // * Get the maximum width of the context
       final maxWidth = constraints.maxWidth;

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piix_mobile/src/common_widgets/common_widgets_barrel_file.dart';
 import 'package:piix_mobile/src/common_widgets/text_scaled.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
+import 'package:piix_mobile/src/constants/widget_keys.dart';
 import 'package:piix_mobile/src/localization/app_intl.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
 import 'package:piix_mobile/src/theme/piix_colors.dart';
@@ -40,6 +41,7 @@ class WelcomeActions extends ConsumerWidget {
             SizedBox(
               width: context.screenWidth,
               child: ElevatedButton(
+                key: WidgetKeys.signUpButton,
                 onPressed: () {
                   ref.read(goRouterProvider).goNamed(AppRoute.signUp.name);
                 },
@@ -50,6 +52,7 @@ class WelcomeActions extends ConsumerWidget {
             SizedBox(
               width: context.screenWidth,
               child: OutlinedButton(
+                key: WidgetKeys.signInButton,
                 onPressed: () {
                   ref.read(goRouterProvider).goNamed(AppRoute.signIn.name);
                 },
