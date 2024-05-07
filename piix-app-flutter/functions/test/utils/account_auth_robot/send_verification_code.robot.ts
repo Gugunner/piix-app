@@ -312,7 +312,7 @@ export class SendVerificationCodeRobot {
         const req = { body: { email: this._email, languageCode: this._languageCode, verificationType: this._getStringVerificationType(VerificationType.login) } }
         const res = {
             status: (code: any) => {
-                expect(code).toStrictEqual(409);
+                expect(code).toStrictEqual(404);
                 //Return from inside the mock this
                 return {
                     send: (body: any) => {
