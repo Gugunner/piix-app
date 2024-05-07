@@ -254,10 +254,11 @@ class AuthRobot {
         singleCodeBoxFinder.at(boxNumber).evaluate().first.widget as TextField;
     expect(currentSingleCodeBox.controller, isNotNull);
     //* Simulates first backspace call
-    currentSingleCodeBox.controller!.text = invisibleChar;
+    await tester.enterText(singleCodeBoxFinder.at(boxNumber), '');
+    await tester.pumpAndSettle();
     expect(currentSingleCodeBox.controller!.text, invisibleChar);
     //*Simulates second backspace call
-    currentSingleCodeBox.controller!.text = '';
+    await tester.enterText(singleCodeBoxFinder.at(boxNumber), '');
     await tester.pumpAndSettle();
     await expectSingleCodeBoxHaveFocusAt(
       boxNumber,
@@ -275,7 +276,8 @@ class AuthRobot {
     final codeBoxTextField =
         singleCodeBoxFinder.at(boxNumber).evaluate().first.widget as TextField;
     expect(codeBoxTextField.focusNode, isNotNull);
-    expect(codeBoxTextField.focusNode!.hasFocus, hasFocus ? isTrue : isFalse);
+    expect(codeBoxTextField.focusNode!.hasPrimaryFocus,
+        hasFocus ? isTrue : isFalse);
   }
 
   Future<void> expectSubmitVerificationCodeUnknownException() async {
@@ -312,5 +314,6 @@ class AuthRobot {
       widgetKey: WidgetKeys.requestNewCodebutton,
     );
     await expectTextInTimeToBe(Duration.zero);
+    await tester.pumpAndSettle(longerTestDuration);
   }
 }
