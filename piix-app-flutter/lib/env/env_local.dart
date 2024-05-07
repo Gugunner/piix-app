@@ -4,25 +4,25 @@ import 'package:piix_mobile/env/env_interface.dart';
 part 'env_local.g.dart';
 
 /// Development environment variables
-@Envied(path: '.env.dev')
+@Envied(path: '.env.local')
 class LocalEnv implements Env {
   //** Firebase environment variables */
-  @EnviedField(varName: 'API_KEY', obfuscate: true)
+  @EnviedField(varName: 'API_KEY')
   @override
   final String apiKey = _LocalEnv.apiKey;
-  @EnviedField(varName: 'APP_ID', obfuscate: true)
+  @EnviedField(varName: 'APP_ID')
   @override
   final String appId = _LocalEnv.appId;
   @EnviedField(varName: 'MESSAGE_SENDER_ID')
   @override
   final String messageSenderId = _LocalEnv.messageSenderId;
-  @EnviedField(varName: 'PROJECT_ID', obfuscate: true)
+  @EnviedField(varName: 'PROJECT_ID')
   @override
   final String projectId = _LocalEnv.projectId;
-  @EnviedField(varName: 'PROJECT_ID', obfuscate: true)
+  @EnviedField(varName: 'PROJECT_ID')
   @override
   final String storageBucket = _LocalEnv.storageBucket;
-  @EnviedField(varName: 'BASE_URL', obfuscate: true)
+  @EnviedField(varName: 'BASE_URL')
   @override
   final String baseUrl = _LocalEnv.baseUrl;
 }

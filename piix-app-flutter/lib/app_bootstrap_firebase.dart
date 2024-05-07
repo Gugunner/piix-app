@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:piix_mobile/app_bootstrap.dart';
 import 'package:piix_mobile/env/env_barrel.dart';
 import 'package:piix_mobile/env/env_interface.dart';
@@ -28,7 +29,11 @@ extension AppBootstrapFirebase on AppBootstrap {
     // If the environment is null then the app will run in fake mode
     if (environment == null) return;
     final options = _getEnvOptions(environment!);
-    await Firebase.initializeApp(options: options);
+    if (kIsWeb) {
+      await Firebase.initializeApp(options: options);
+    } else {
+      await Firebase.initializeApp();
+    }
     if (environment is LocalEnv) {
       await setupEmulators();
     }
