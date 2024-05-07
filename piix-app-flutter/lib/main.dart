@@ -12,6 +12,6 @@ void main() async {
   const appBootstrap = AppBootstrap(env);
   final container = await appBootstrap.createFirebaseProviderContainer();
   // * Initialize the Firebase app
-  appBootstrap.initializeFirebaseApp();
+  await appBootstrap.initializeFirebaseApp();
   runApp(appBootstrap.createHome(container: container));
 }
