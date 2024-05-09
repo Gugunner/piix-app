@@ -334,7 +334,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: expectedResponse,
@@ -342,16 +342,17 @@ void main() {
             requestOptions: options!,
           ));
       expect(
-          await makeAuthRepository().createAccountWithEmailAndVerificationCode(
-            testEmail,
-            testVerificationCode,
-            testLanguageCode,
-          ),
-          expectedCustomToken);
+        await makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
+        expectedCustomToken,
+      );
 
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -366,7 +367,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: {'code': 0},
@@ -393,7 +394,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -407,7 +408,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -443,7 +444,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -458,7 +459,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -497,7 +498,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -512,7 +513,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -548,7 +549,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -563,7 +564,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -599,7 +600,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -614,7 +615,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -650,7 +651,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -665,7 +666,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -687,7 +688,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -701,7 +702,7 @@ void main() {
     AND the codeNumber will be "NA"''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
           })).thenThrow(Exception('mock exception'));
       expect(
         () async => makeAuthRepository()
@@ -717,7 +718,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -741,7 +742,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: expectedResponse,
@@ -755,7 +756,7 @@ void main() {
 
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -770,7 +771,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: {'code': 0},
@@ -797,7 +798,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -811,7 +812,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -844,7 +845,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -859,7 +860,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -898,7 +899,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -913,7 +914,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -949,7 +950,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -963,7 +964,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -998,7 +999,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -1012,7 +1013,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -1048,7 +1049,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -1063,7 +1064,7 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
@@ -1085,7 +1086,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
@@ -1099,7 +1100,7 @@ void main() {
     AND the codeNumber will be "NA"''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
           })).thenThrow(Exception('mock exception'));
       expect(
         () async =>
@@ -1118,7 +1119,7 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
             'languageCode': testLanguageCode,
           })).called(1);
     });
