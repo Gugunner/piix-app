@@ -279,7 +279,7 @@ export class GetCustomTokenForCustomSignInRobot {
         const req = { body: { email: this._email, code: this._code } };
         const res = {
             status: jest.fn((code: number): any => {
-                expect(code).toBe(412);
+                expect(code).toBe(404);
                 return {
                     send: jest.fn((body: any) => {
                         expect(body).toBeInstanceOf(AppException);

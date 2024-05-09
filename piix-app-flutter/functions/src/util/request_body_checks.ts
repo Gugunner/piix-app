@@ -26,6 +26,7 @@ export function checkEmptyBody(body: any): void {
  * @param message An optional message to be used in the AppException
  * @throws AppException If the body does not have the required fields
  */
+
 export function checkBodyFields(body: any, fields: Array<string>, message?: string | undefined): void {
     fields.forEach((field) => {
         //Check if the body has the required field
@@ -45,3 +46,5 @@ export function checkBodyFields(body: any, fields: Array<string>, message?: stri
         }
     });
 }
+
+//TODO: Check for excluyent body fields

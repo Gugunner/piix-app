@@ -45,7 +45,7 @@ export async function createAccountAndCustomTokenWithEmail(request: Request, res
     //Create a custom token with the user's uid and the custom claim userAccount: true
     const customToken = await createCustomToken(uid, claims);
     //Return the custom token in the response body
-    response.status(200).send({ customToken: customToken, code: 0 });
+    response.status(201).send({ customToken: customToken, code: 0 });
 
     /**
      * Create a new user in Firebase with the email provided and sets by default the emailVerified to true
@@ -92,6 +92,8 @@ export async function createAccountAndCustomTokenWithEmail(request: Request, res
                 uid: uid,
                 emailVerified: true,
                 language: languageCode,
+                //TODO: Uncomment
+                // createDate: Date(),
             });
         } catch (error) {
             //If the user could not be stored, delete the user and throw an AppException
@@ -253,7 +255,7 @@ async function verifyCodeWithEmail(email: string, code: string): Promise<void> {
             errorCode: 'document-not-found',
             message: 'The code could not be retrieved.',
             prefix: 'store',
-            statusCode: 412,
+            statusCode: 404,
         });
     }
     //Retrieve the data of the document

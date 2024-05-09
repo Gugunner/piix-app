@@ -35,10 +35,17 @@ class AuthService {
 
   ///Creates an account with email and verification code
   Future<void> createAccountWithEmailAndVerificationCode(
-      String email, String verificationCode) async {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) async {
     //Obtain a custom token with email and verification code
-    final customToken = await _authRepository
-        .createAccountWithEmailAndVerificationCode(email, verificationCode);
+    final customToken =
+        await _authRepository.createAccountWithEmailAndVerificationCode(
+      email,
+      verificationCode,
+      languageCode,
+    );
 
     ///Sign in with the custom token
     await _customSignIn(customToken);
@@ -46,10 +53,17 @@ class AuthService {
 
   ///Sign in with email and verification code
   Future<void> signInWithEmailAndVerificationCode(
-      String email, String verificationCode) async {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) async {
     //Obtain a custom token with email and verification code
-    final customToken = await _authRepository
-        .getCustomTokenWithEmailAndVerificationCode(email, verificationCode);
+    final customToken =
+        await _authRepository.getCustomTokenWithEmailAndVerificationCode(
+      email,
+      verificationCode,
+      languageCode,
+    );
 
     ///Sign in with the custom token
     await _customSignIn(customToken);

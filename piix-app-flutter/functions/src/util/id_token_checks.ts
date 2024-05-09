@@ -14,8 +14,8 @@ export function getIdTokenFromHeaders(request: Request): string {
             statusCode: 401,
         });
     }
-    const idToken = request.headers.authorization!.split(' ')[1];
-    return idToken;
+    const idToken = request.headers.authorization!.split('Bearer')[1];
+    return idToken.trim();
 }
 
 /**

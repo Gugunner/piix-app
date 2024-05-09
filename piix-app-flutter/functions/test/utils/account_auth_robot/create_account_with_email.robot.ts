@@ -200,7 +200,7 @@ export class CreateAccountWithEmailRobot {
         const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
         const res = {
             status: (code: any): any => {
-                expect(code).toStrictEqual(200);
+                expect(code).toStrictEqual(201);
                 return {
                     send: (body: any) => {
                         expect(body).toStrictEqual({ customToken: this._customToken, code: 0, })
@@ -332,7 +332,7 @@ export class CreateAccountWithEmailRobot {
         const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
         const res = {
             status: jest.fn((code: number): any => {
-                expect(code).toBe(412);
+                expect(code).toBe(404);
                 return {
                     send: jest.fn((body: any) => {
                         expect(body).toBeInstanceOf(AppException);
@@ -405,7 +405,7 @@ export class CreateAccountWithEmailRobot {
         const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
         const res = {
             status: (code: any): any => {
-                expect(code).toStrictEqual(200);
+                expect(code).toStrictEqual(201);
                 return {
                     send: (body: any) => {
                         expect(body).toStrictEqual({ customToken: this._customToken, code: 0, })
@@ -475,7 +475,7 @@ export class CreateAccountWithEmailRobot {
         const req = { body: { email: this._email, code: this._code, languageCode: this._languageCode } };
         const res = {
             status: (code: any): any => {
-                expect(code).toStrictEqual(200);
+                expect(code).toStrictEqual(201);
                 return {
                     send: (body: any) => {
                         expect(body).toStrictEqual({ customToken: this._customToken, code: 0, })

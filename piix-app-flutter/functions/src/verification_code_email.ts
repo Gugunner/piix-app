@@ -41,7 +41,7 @@ export async function sendVerificationCode(request: Request, response: express.R
         await sendCodeToEmail(email, languageCode, code);
     }
     await storeCode(email, code);
-    response.status(200).send({ code: 0 });
+    response.status(202).send({ code: 0 });
 
     /**
      * Checks if the verification type is a valid value in the VerificationType enum.

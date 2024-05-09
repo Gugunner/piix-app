@@ -47,12 +47,24 @@
         "context": "Common:Inputs",
         "description": "A command that instructs the user to enter the email in the input that uses it."
     },
+    "signOut": "Cerrar sesión",
+    "@signOut": {
+        "type": "text",
+        "context": "Common:Profile",
+        "description": "The action to end the current user session."
+    },
     "@@x-FEATURE: COMMON ERRORS": "COMMON ERRORS",
     "unknownError": "Lo sentimos ha ocurrido un error inesperado.",
     "@unknownError": {
         "type": "text",
         "context": "Common:Errors",
         "description": "A general message when the error cannot be translated."
+    },
+    "seemsYouAreLost": "Parece que te has perdido",
+    "@seemsYouAreLost": {
+        "type": "text",
+        "context": "Common:Route:LostPage",
+        "description": "The title when a user reaches a not found page"
     },
     "@@x-FEATURE: AUTHENTICATION": "AUTHENTICATION",
     "welcomeToPiix": "Bienvenido a Piix",
@@ -90,31 +102,6 @@
         "type": "text",
         "context": "Authentication:Web:WelcomeToPiixOneTimeCodeSubmit",
         "description": "An instruction on how to start email verification."
-    },
-    "@@x-FEATURE: AUTHENTICATION ERRORS": "AUTHENTICATION ERRORS",
-    "emptyEmailField": "El campo del correo no puede estar vacio.",
-    "@emptyEmailField": {
-        "type": "text",
-        "context": "Authentication:Web:SubmitEmailInputForVerificationCodeForm",
-        "description": "The error displayed when an email is empty."
-    },
-    "invalidEmail": "El correo es invalido.",
-    "@invalidEmail": {
-        "type": "text",
-        "context": "Authentication:Web:SubmitEmailInputForVerificationCodeForm",
-        "description": "The error displayed when an email is invalid."
-    },
-    "emailAlreadyExists": "El correo ya esta en uso.",
-    "@emailAlreadyExists": {
-        "type": "text",
-        "context": "Authentication:Web:SubmitEmailInputForVerificationCodeForm",
-        "description": "The error displayed when an email is already in use when creating a new account or updating the email."
-    },
-    "emailNotFound": "No se encontro el correo ingresado.",
-    "@emailNotFound": {
-        "type": "text",
-        "context": "Authentication:Web:SubmitEmailInputForVerificationCodeForm",
-        "description": "The error displayed when an email is not found when a login occurs."
     },
     "sendCode": "Enviar código",
     "@sendCode": {
@@ -181,5 +168,90 @@
         "type": "text",
         "context": "Authentication:MobileTablet:WelcomeActions",
         "description": "A sales promise to show the user what the app can do. "
+    },
+    "enterTheVerificationCode": "Ingresa el código de verificación",
+    "@enterTheVerificationCode": {
+        "type": "text",
+        "context": "Authentication:Web:OneColumnEmailVerificationCodePage",
+        "description": "Invites the user to do the action of entering a verification code."
+    },
+    "enterTheCodeSentTo": "Ingresa el código enviado a {email}",
+    "@enterTheCodeSentTo": {
+        "type": "text",
+        "context": "Authentication:Web:OneColumnEmailVerificationCodePage",
+        "description": "Shows where the verification code was sent to.",
+        "placeholders": {
+            "email": {
+                "type": "String",
+                "example": "email@gmail.com"
+            }
+        }
+    },
+    "verificationCode": "Código de verificación",
+    "@verificationCode": {
+        "type": "text",
+        "context": "Authentication:All:VerificationCodeInput",
+        "description": "The term for a code used to verify a login."
+    },
+    "didNotReceiveACode": "¿No recibiste ningún código?",
+    "@didNotReceiveACode": {
+        "type": "text",
+        "context": "Authentication:All:SubmitVerificationCodeInputForm",
+        "description": "Makes the user take notice to an action if the verification code was never received."
+    },
+    "inXMinYouCan": "En {min} min. podrás",
+    "@inXMinYouCan": {
+        "type": "text",
+        "context": "Authentication:All:ResendCodeTimer",
+        "description": "Shows the user in how many minutes an action is available.",
+        "placeholders": {
+            "min": {
+                "type": "String",
+                "example": "02:00"
+            }
+        }
+    },
+    "requestANewCode": "Solicitar otro código",
+    "@requestANewCode": {
+        "type": "text",
+        "context": "Authentication:All:SubmitVerificationCodeInputForm",
+        "description": "A CTA that resend the verification code."
+    },
+    "verifyCode": "Verificar código",
+    "@verifyCode": {
+        "type": "text",
+        "context": "Authentication:All:SubmitVerificationCodeInputForm",
+        "description": "A CTA that sends the code to be matched to a stored verification code."
+    },
+    "@@x-FEATURE: AUTHENTICATION ERRORS": "AUTHENTICATION ERRORS",
+    "emptyEmailField": "El campo del correo no puede estar vacio.",
+    "@emptyEmailField": {
+        "type": "text",
+        "context": "Authentication:All:SubmitEmailInputForVerificationCodeForm",
+        "description": "The error displayed when an email is empty."
+    },
+    "invalidEmail": "El correo es invalido.",
+    "@invalidEmail": {
+        "type": "text",
+        "context": "Authentication:All:SubmitEmailInputForVerificationCodeForm",
+        "description": "The error displayed when an email is invalid."
+    },
+    "emailAlreadyExists": "El correo ya esta en uso.",
+    "@emailAlreadyExists": {
+        "type": "text",
+        "context": "Authentication:All:SubmitEmailInputForVerificationCodeForm",
+        "description": "The error displayed when an email is already in use when creating a new account or updating the email."
+    },
+    "emailNotFound": "No se encontro el correo ingresado.",
+    "@emailNotFound": {
+        "type": "text",
+        "context": "Authentication:All:SubmitEmailInputForVerificationCodeForm",
+        "description": "The error displayed when an email is not found when a login occurs."
+    },
+    "incorrectVerificationCode": "El código es incorrecto",
+    "@incorrectVerificationCode": {
+        "type": "text",
+        "context": "Authentication:All:SubmitVerifiactionCodeInputForm",
+        "description": "The error displayed when the verification code does not match."
     }
 }

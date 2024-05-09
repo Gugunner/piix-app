@@ -43,6 +43,7 @@ dependencies:
   equatable: ^2.0.5
   #Allows to obscure and encrypt variables
   envied: ^0.3.0+3
+  
   #A firebase analytics api
   firebase_analytics: ^10.8.7
   #A firebase auth api
@@ -120,11 +121,14 @@ dependencies:
   whatsapp_unilink: ^2.1.0
   #Controls screen awake time
   wakelock: ^0.4.0
+  
 
 
 dev_dependencies:
   #Used to run envied in build runner
   envied_generator: ^0.3.0+3
+  #Allows to run fake asynchronous simualted tests
+  fake_async: ^1.3.1
   flutter_test:
     sdk: flutter
   #Creates special classes to handle data entities with build runner
@@ -133,11 +137,16 @@ dev_dependencies:
   mocktail: ^1.0.3
   #Runs code generator
   build_runner: ^2.4.8
+  #Used to keep code linter
   custom_lint:
+  #used to run integration tests
+  integration_test:
+    sdk: flutter
   #Used to tun riverpod with build runner
   riverpod_generator: ^2.3.3
   #Executes cleaning of riverpod classes 
   riverpod_lint: ^2.1.1
+  
 
 
 
