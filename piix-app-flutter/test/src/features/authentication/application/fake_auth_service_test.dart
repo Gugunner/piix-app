@@ -30,6 +30,7 @@ void main() {
     await authService.createAccountWithEmailAndVerificationCode(
       testEmail,
       expectedFakeAppUser.verificationCode,
+      testLanguageCode,
     );
   }
 
@@ -168,9 +169,9 @@ void main() {
       expect(authService.getUsersList(), [expectedFakeAppUser]);
       expect(
           () async => authService.createAccountWithEmailAndVerificationCode(
-                expectedFakeAppUser.email!,
-                expectedFakeAppUser.verificationCode,
-              ),
+              expectedFakeAppUser.email!,
+              expectedFakeAppUser.verificationCode,
+              testLanguageCode),
           throwsA(isA<EmailAlreadyExistsException>()));
       expect(authService.getUsersList(), [expectedFakeAppUser]);
       expect(authService.currentUser, isNull);
@@ -187,9 +188,9 @@ void main() {
       final authService = createFakeAuthService();
       expect(
           () async => authService.createAccountWithEmailAndVerificationCode(
-                expectedFakeAppUser.email!,
-                expectedFakeAppUser.verificationCode,
-              ),
+              expectedFakeAppUser.email!,
+              expectedFakeAppUser.verificationCode,
+              testLanguageCode),
           throwsA(isA<UnknownErrorException>()));
       expect(authService.getUsersList(), isEmpty);
       expect(authService.currentUser, isNull);
@@ -214,9 +215,7 @@ void main() {
       );
       expect(
           () async => authService.createAccountWithEmailAndVerificationCode(
-                expectedFakeAppUser.email!,
-                'wrong code',
-              ),
+              expectedFakeAppUser.email!, 'wrong code', testLanguageCode),
           throwsA(isA<IncorrectVerificationCodeException>()));
       expect(authService.getCodesTable(), {
         testEmail: expectedFakeAppUser.verificationCode,
@@ -246,6 +245,7 @@ void main() {
       await authService.signInWithEmailAndVerificationCode(
         expectedFakeAppUser.email!,
         expectedFakeAppUser.verificationCode,
+        testLanguageCode,
       );
       expect(authService.currentUser, expectedFakeAppUser);
       expect(authService.authStateChange(), emits(expectedFakeAppUser));
@@ -261,7 +261,10 @@ void main() {
       final authService = createFakeAuthService();
       expect(
           () => authService.signInWithEmailAndVerificationCode(
-              expectedFakeAppUser.email!, expectedFakeAppUser.verificationCode),
+                expectedFakeAppUser.email!,
+                expectedFakeAppUser.verificationCode,
+                testLanguageCode,
+              ),
           throwsA(isA<EmailNotFoundException>()));
       expect(authService.getUsersList(), isEmpty);
       expect(authService.currentUser, isNull);
@@ -283,6 +286,7 @@ void main() {
           () async => authService.signInWithEmailAndVerificationCode(
                 expectedFakeAppUser.email!,
                 expectedFakeAppUser.verificationCode,
+                testLanguageCode,
               ),
           throwsA(isA<UnknownErrorException>()));
       expect(authService.getUsersList(), [expectedFakeAppUser]);
@@ -312,6 +316,7 @@ void main() {
           () async => authService.signInWithEmailAndVerificationCode(
                 expectedFakeAppUser.email!,
                 'wrong code',
+                testLanguageCode,
               ),
           throwsA(isA<IncorrectVerificationCodeException>()));
       expect(authService.getCodesTable(), {

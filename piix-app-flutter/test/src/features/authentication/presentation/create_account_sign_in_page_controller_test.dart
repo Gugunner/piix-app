@@ -10,9 +10,9 @@ import '../../../mocks.dart';
 void main() {
   //Test variables
   const testEmail = 'email@gmail.com';
-  const testLanguageCode = 'en';
   const testVerificationType = VerificationType.login;
   const testVerificationCode = '123456';
+  const testLanguageCode = 'en';
 
   //A utility function that helps create a provider container to
   //call test Riverpod providers.
@@ -33,114 +33,6 @@ void main() {
   });
 
   group('Create Account Sign In Page Controller', () {
-    test('''WHEN calling sendVerificationCodeByEmail
-    THEN the authServiceProvider.sendVerificationCodeByEmail is called
-    AND the state is updated to AsyncLoading
-    AND the state is updated to AsyncData<void> when the call is successful
-    ''', () async {
-      //Create the mock object
-      final authService = MockAuthService();
-      //Create the test provider container
-      final container = makeProviderContainer(authService);
-      //Mock calls and return values or exceptions
-      when(() => authService.sendVerificationCodeByEmail(
-            testEmail,
-            testLanguageCode,
-            testVerificationType,
-          )).thenAnswer((_) async => null);
-      //Initialize the listener which is used to listen to the provider
-      //state changes.
-      final listener = Listener<AsyncValue<void>>();
-      //Add the listener to the provider
-      container.listen(
-        createAccountSignInControllerProvider,
-        listener.call,
-        fireImmediately: true,
-      );
-      //Create the initial state of the provider
-      const data = AsyncData<void>(null);
-      //Verify initial value from build method of the (async) notifier provider
-      verify(() => listener(null, data));
-      //Get the controller from the provider.
-      final controller =
-          container.read(createAccountSignInControllerProvider.notifier);
-      //Execute the method to test.
-      await controller.sendVerificationCodeByEmail(
-        testEmail,
-        testLanguageCode,
-        testVerificationType,
-      );
-      //Verify the order of the states for the provider.
-      verifyInOrder([
-        //set loading state
-        () => listener(data, any(that: isA<AsyncLoading>())),
-        //data when complete
-        () => listener(
-            any(
-              that: isA<AsyncLoading>(),
-            ),
-            data),
-      ]);
-      //Verify that no more interactions are done with the listener.
-      verifyNoMoreInteractions(listener);
-    });
-    test('''WHEN calling sendVerificationCodeByEmail
-    THEN the authServiceProvider.sendVerificationCodeByEmail is called
-    AND the state is updated to AsyncLoading
-    AND the state is updated to AsyncError when the call is unsuccessful
-    ''', () async {
-      //Create the mock object
-      final authService = MockAuthService();
-      //Create the test provider container
-      final container = makeProviderContainer(authService);
-      //Mock calls and return values or exceptions
-      when(() => authService.sendVerificationCodeByEmail(
-            testEmail,
-            testLanguageCode,
-            testVerificationType,
-          )).thenThrow(Exception('mock error'));
-      //Initialize the listener which is used to listen to the provider
-      //state changes.
-      final listener = Listener<AsyncValue<void>>();
-      //Add the listener to the provider
-      container.listen(
-        createAccountSignInControllerProvider,
-        listener.call,
-        fireImmediately: true,
-      );
-      //Create the initial state of the provider
-      const data = AsyncData<void>(null);
-      //Verify initial value from build method of the (async) notifier provider
-      verify(() => listener(null, data));
-      //Get the controller from the provider.
-      final controller =
-          container.read(createAccountSignInControllerProvider.notifier);
-      //Execute the method to test.
-      await controller.sendVerificationCodeByEmail(
-        testEmail,
-        testLanguageCode,
-        testVerificationType,
-      );
-      //Verify the order of the states for the provider.
-      verifyInOrder([
-        //set loading state
-        () => listener(data, any(that: isA<AsyncLoading>())),
-        //data when complete
-        () => listener(
-            any(
-              that: isA<AsyncLoading>(),
-            ),
-            any(
-              that: isA<AsyncError<void>>().having(
-                (e) => e.error.toString(),
-                'exception',
-                'Exception: mock error',
-              ),
-            )),
-      ]);
-      //Verify that no more interactions are done with the listener.
-      verifyNoMoreInteractions(listener);
-    });
     test('''WHEN calling authenticateWithEmailAndVerificationCode
     AND using register as the AuthenticationFormType 
     THEN the call will be done to authService.createAccountWithEmailAndVerificationCode 
@@ -153,7 +45,8 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.createAccountWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenAnswer((_) async => null);
+              testEmail, testVerificationCode, testLanguageCode))
+          .thenAnswer((_) async => null);
       //Initialize the listener which is used to listen to the provider
       //state changes.
       final listener = Listener<AsyncValue<void>>();
@@ -172,9 +65,10 @@ void main() {
           container.read(createAccountSignInControllerProvider.notifier);
       //Execute the method to test.
       await controller.authenticateWithEmailAndVerificationCode(
-        AuthenticationFormType.register,
+        VerificationType.register,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([
@@ -188,6 +82,7 @@ void main() {
       verifyNever(() => authService.signInWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ));
       //Verify that no more interactions are done with the listener.
       verifyNoMoreInteractions(listener);
@@ -204,7 +99,7 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.createAccountWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenThrow(Exception('mock error'));
+          testEmail, testVerificationCode, testLanguageCode,)).thenThrow(Exception('mock error'));
       //Initialize the listener which is used to listen to the provider
       final listener = Listener<AsyncValue<void>>();
       //Add the listener to the provider.
@@ -222,9 +117,10 @@ void main() {
           container.read(createAccountSignInControllerProvider.notifier);
       //Execute the method to test.
       await controller.authenticateWithEmailAndVerificationCode(
-        AuthenticationFormType.register,
+        VerificationType.register,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([
@@ -255,7 +151,7 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.signInWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenAnswer((_) async => null);
+          testEmail, testVerificationCode,testLanguageCode,)).thenAnswer((_) async => null);
       //Initialize the listener which is used to listen to the provider
       final listener = Listener<AsyncValue<void>>();
       //Add the listener to the provider.
@@ -273,9 +169,10 @@ void main() {
           container.read(createAccountSignInControllerProvider.notifier);
       //Execute the method to test.
       await controller.authenticateWithEmailAndVerificationCode(
-        AuthenticationFormType.signIn,
+        testVerificationType,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([
@@ -288,6 +185,7 @@ void main() {
       verifyNever(() => authService.createAccountWithEmailAndVerificationCode(
             testEmail,
             testVerificationCode,
+            testLanguageCode,
           ));
       //Verify that no more interactions are done with the listener.
       verifyNoMoreInteractions(listener);
@@ -304,7 +202,7 @@ void main() {
       final container = makeProviderContainer(authService);
       //Mock calls and return values or exceptions
       when(() => authService.signInWithEmailAndVerificationCode(
-          testEmail, testVerificationCode)).thenThrow(Exception('mock error'));
+          testEmail, testVerificationCode, testLanguageCode,)).thenThrow(Exception('mock error'));
       //Initialize the listener which is used to listen to the provider
       final listener = Listener<AsyncValue<void>>();
       //Add the listener to the provider.
@@ -322,9 +220,10 @@ void main() {
           container.read(createAccountSignInControllerProvider.notifier);
       //Execute the method to test.
       await controller.authenticateWithEmailAndVerificationCode(
-        AuthenticationFormType.signIn,
+        testVerificationType,
         email: testEmail,
         verificationCode: testVerificationCode,
+        languageCode: testLanguageCode,
       );
       //Verify the order of the states for the provider.
       verifyInOrder([

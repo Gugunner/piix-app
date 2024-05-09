@@ -11,6 +11,9 @@ void main() async {
   // * Get the environment from the environment variables
   // * Initialize the app with the environment
   const appBootstrap = AppBootstrap('fake');
-  final container = await appBootstrap.createFakeProviderContainer(kIsWeb);
+  final container = await appBootstrap.createFakeProviderContainer(
+    kIsWeb,
+    initialUserEmail: 'test@gmail.com',
+  );
   runApp(appBootstrap.createHome(container: container));
 }

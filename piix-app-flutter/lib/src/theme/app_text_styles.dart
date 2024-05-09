@@ -272,3 +272,127 @@ class TextPrimaryStyle {
         color: PiixColors.infoDefault,
       );
 }
+
+class TextAccentStyle {
+  static TextStyle get displayLarge => const TextStyle(
+        fontSize: 20,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get displayMedium => const TextStyle(
+        fontSize: 16,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get displaySmall => const TextStyle(
+        fontSize: 16,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get headlineLarge => const TextStyle(
+        fontSize: 14,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get headlineMedium => const TextStyle(
+        fontSize: 14,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get headlineSmall => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get titleLarge => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get titleMedium => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get titleSmall => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get labelLarge => const TextStyle(
+        fontSize: 10,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get labelMedium => const TextStyle(
+        fontSize: 11,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get labelSmall => const TextStyle(
+        fontSize: 10,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get bodyLarge => const TextStyle(
+        fontSize: 12,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get bodyMedium => const TextStyle(
+        fontSize: 10,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+
+  static TextStyle get bodySmall => const TextStyle(
+        fontSize: 9,
+        height: textBaseHeight,
+        letterSpacing: 0.1,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily,
+      );
+}

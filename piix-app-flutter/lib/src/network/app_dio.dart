@@ -205,9 +205,10 @@ class _AppDioInterceptor extends Interceptor {
   ///Adds the authorization header to the request
   ///using the Firebase Auth idToken.
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     //Get the idToken from the Firebase Auth instance
-    final idToken = _firebaseAuth.currentUser?.getIdToken();
+    final idToken = await _firebaseAuth.currentUser?.getIdToken();
     //Add the authorization header to the request
     if (idToken != null) {
       options.headers['authorization'] = 'Bearer $idToken';
@@ -272,7 +273,7 @@ class _AppDioInterceptor extends Interceptor {
 @Riverpod(keepAlive: true)
 AppDio appDio(AppDioRef ref) {
   final appDio = AppDio(Dio());
-  final baseUrl = ref.read(envProvider)?.baseUrl ?? '';
+  final baseUrl = ref.watch(envProvider)?.baseUrl ?? '';
   appDio.configureDio(baseUrl);
   return appDio;
 }

@@ -334,20 +334,26 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: expectedResponse,
             statusCode: HttpStatus.ok,
             requestOptions: options!,
           ));
       expect(
-          await makeAuthRepository().createAccountWithEmailAndVerificationCode(
-              testEmail, testVerificationCode),
-          expectedCustomToken);
+        await makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
+        expectedCustomToken,
+      );
 
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -361,16 +367,20 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: {'code': 0},
             statusCode: HttpStatus.ok,
             requestOptions: options!,
           ));
       expect(
-        () async => makeAuthRepository()
-            .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomTokenFailedException>()
               .having((e) => e.errorCode, 'errorCode', 'custom-token-failed')
@@ -384,7 +394,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -397,7 +408,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -416,9 +428,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'document-not-found')
@@ -429,7 +444,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -443,7 +459,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -462,9 +479,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<IncorrectVerificationCodeException>()
               .having(
@@ -478,7 +498,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -492,7 +513,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -511,9 +533,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'user-not-created')
@@ -524,7 +549,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -538,7 +564,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -557,9 +584,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'document-not-added')
@@ -570,7 +600,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -584,7 +615,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -603,9 +635,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomTokenFailedException>()
               .having((e) => e.errorCode, 'errorCode', 'custom-token-failed')
@@ -616,7 +651,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -630,14 +666,18 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
       ));
       expect(
-        () async => makeAuthRepository()
-            .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().createAccountWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'dio-exception')
@@ -648,7 +688,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -661,12 +702,12 @@ void main() {
     AND the codeNumber will be "NA"''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
           })).thenThrow(Exception('mock exception'));
       expect(
         () async => makeAuthRepository()
             .createAccountWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+                testEmail, testVerificationCode, testLanguageCode),
         throwsA(
           isA<UnknownErrorException>()
               .having((e) => e.errorCode, 'errorCode', 'unknown-error')
@@ -677,7 +718,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
   });
@@ -700,7 +742,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: expectedResponse,
             statusCode: HttpStatus.ok,
@@ -708,12 +751,13 @@ void main() {
           ));
       expect(
           await makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
-              testEmail, testVerificationCode),
+              testEmail, testVerificationCode, testLanguageCode),
           expectedCustomToken);
 
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -727,16 +771,20 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenAnswer((_) async => Response(
             data: {'code': 0},
             statusCode: HttpStatus.ok,
             requestOptions: options!,
           ));
       expect(
-        () async => makeAuthRepository()
-            .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomTokenFailedException>()
               .having((e) => e.errorCode, 'errorCode', 'custom-token-failed')
@@ -750,7 +798,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -763,7 +812,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -784,7 +834,7 @@ void main() {
       expect(
         () async => makeAuthRepository()
             .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+                testEmail, testVerificationCode, testLanguageCode),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'document-not-found')
@@ -795,7 +845,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -809,7 +860,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -828,9 +880,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<IncorrectVerificationCodeException>()
               .having(
@@ -844,7 +899,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -858,7 +914,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -877,9 +934,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'query-is-empty')
@@ -890,7 +950,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
     test('''
@@ -903,7 +964,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -922,9 +984,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'document-not-found')
@@ -934,7 +999,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
     test('''
@@ -947,7 +1013,8 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
         response: Response(
@@ -966,9 +1033,12 @@ void main() {
         ),
       ));
       expect(
-        () async => makeAuthRepository()
-            .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomTokenFailedException>()
               .having((e) => e.errorCode, 'errorCode', 'custom-token-failed')
@@ -979,7 +1049,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -993,14 +1064,18 @@ void main() {
     ''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).thenThrow(DioException(
         requestOptions: options!,
       ));
       expect(
-        () async => makeAuthRepository()
-            .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<CustomAppException>()
               .having((e) => e.errorCode, 'errorCode', 'dio-exception')
@@ -1011,7 +1086,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
 
@@ -1024,12 +1100,15 @@ void main() {
     AND the codeNumber will be "NA"''', () async {
       when(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
           })).thenThrow(Exception('mock exception'));
       expect(
-        () async => makeAuthRepository()
-            .getCustomTokenWithEmailAndVerificationCode(
-                testEmail, testVerificationCode),
+        () async =>
+            makeAuthRepository().getCustomTokenWithEmailAndVerificationCode(
+          testEmail,
+          testVerificationCode,
+          testLanguageCode,
+        ),
         throwsA(
           isA<UnknownErrorException>()
               .having((e) => e.errorCode, 'errorCode', 'unknown-error')
@@ -1040,7 +1119,8 @@ void main() {
       );
       verify(() => mockDio.post(path!, data: {
             'email': testEmail,
-            'verificationCode': testVerificationCode,
+            'code': testVerificationCode,
+            'languageCode': testLanguageCode,
           })).called(1);
     });
   });

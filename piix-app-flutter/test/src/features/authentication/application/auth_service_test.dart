@@ -79,15 +79,15 @@ void main() {
     ''', () async {
       const testCustomToken = 'fake_token';
       when(() => mockAuthRepository.createAccountWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode))
+              expectedAppUser.email!, testVerificationCode, testLanguageCode))
           .thenAnswer((_) async => testCustomToken);
       when(() => mockFirebaseAuth.signInWithCustomToken(testCustomToken))
           .thenAnswer((_) => Future.value(MockUserCredential()));
       final authService = createFakeAuthService();
       await authService.createAccountWithEmailAndVerificationCode(
-          expectedAppUser.email!, testVerificationCode);
+          expectedAppUser.email!, testVerificationCode, testLanguageCode);
       verify(() => mockAuthRepository.createAccountWithEmailAndVerificationCode(
-          expectedAppUser.email!, testVerificationCode)).called(1);
+          expectedAppUser.email!, testVerificationCode, testLanguageCode)).called(1);
       verify(() => mockFirebaseAuth.signInWithCustomToken(testCustomToken))
           .called(1);
     });
@@ -99,17 +99,17 @@ void main() {
     ''', () async {
       const testCustomToken = 'fake_token';
       when(() => mockAuthRepository.createAccountWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode))
+              expectedAppUser.email!, testVerificationCode, testLanguageCode))
           .thenAnswer((_) async => testCustomToken);
       when(() => mockFirebaseAuth.signInWithCustomToken(testCustomToken))
           .thenThrow(Exception('mock error'));
       final authService = createFakeAuthService();
       expect(
           () async => authService.createAccountWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode),
+              expectedAppUser.email!, testVerificationCode, testLanguageCode),
           throwsA(isA<CustomTokenFailedException>()));
       verify(() => mockAuthRepository.createAccountWithEmailAndVerificationCode(
-          expectedAppUser.email!, testVerificationCode)).called(1);
+          expectedAppUser.email!, testVerificationCode, testLanguageCode)).called(1);
       verifyNever(
           () => mockFirebaseAuth.signInWithCustomToken(testCustomToken));
     });
@@ -121,16 +121,16 @@ void main() {
     ''', () async {
       const testCustomToken = 'fake_token';
       when(() => mockAuthRepository.getCustomTokenWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode))
+              expectedAppUser.email!, testVerificationCode, testLanguageCode))
           .thenAnswer((_) async => testCustomToken);
       when(() => mockFirebaseAuth.signInWithCustomToken(testCustomToken))
           .thenAnswer((_) => Future.value(MockUserCredential()));
       final authService = createFakeAuthService();
       await authService.signInWithEmailAndVerificationCode(
-          expectedAppUser.email!, testVerificationCode);
+          expectedAppUser.email!, testVerificationCode, testLanguageCode);
       verify(() =>
           mockAuthRepository.getCustomTokenWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode)).called(1);
+              expectedAppUser.email!, testVerificationCode, testLanguageCode)).called(1);
       verify(() => mockFirebaseAuth.signInWithCustomToken(testCustomToken))
           .called(1);
     });
@@ -142,18 +142,18 @@ void main() {
     ''', () async {
       const testCustomToken = 'fake_token';
       when(() => mockAuthRepository.getCustomTokenWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode))
+              expectedAppUser.email!, testVerificationCode, testLanguageCode))
           .thenAnswer((_) async => testCustomToken);
       when(() => mockFirebaseAuth.signInWithCustomToken(testCustomToken))
           .thenThrow(Exception('mock error'));
       final authService = createFakeAuthService();
       expect(
           () async => authService.signInWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode),
+              expectedAppUser.email!, testVerificationCode,testLanguageCode),
           throwsA(isA<CustomTokenFailedException>()));
       verify(() =>
           mockAuthRepository.getCustomTokenWithEmailAndVerificationCode(
-              expectedAppUser.email!, testVerificationCode)).called(1);
+              expectedAppUser.email!, testVerificationCode, testLanguageCode)).called(1);
       verifyNever(
           () => mockFirebaseAuth.signInWithCustomToken(testCustomToken));
     });

@@ -17,16 +17,7 @@ class FakeAuthService implements AuthService {
 
   /// Emits the current user when it changes.
   @override
-  Stream<AppUser?> authStateChange() {
-    // If the current user is not null and the email is verified,
-    if (_authState.value != null && _authState.value!.emailVerified) {
-      // Emit the current user.
-      return _authState.stream;
-    } else {
-      // Otherwise, emit null.
-      return Stream.value(null);
-    }
-  }
+  Stream<AppUser?> authStateChange() => _authState.stream;
 
   /// Emits the current user when the id token changes.
   @override
@@ -77,7 +68,7 @@ class FakeAuthService implements AuthService {
     if (user != null && verificationType == VerificationType.register) {
       throw EmailAlreadyExistsException();
     }
-    //If the user does not exist, add the email and verification code to
+    //Add the email and verification code to
     //[_codes]
     _addVerificationToCodes(email, '123456');
     //Return an empty value and exit the function.
@@ -87,7 +78,10 @@ class FakeAuthService implements AuthService {
   /// Creates an account with the email and verification code.
   @override
   Future<void> createAccountWithEmailAndVerificationCode(
-      String email, String verificationCode) {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) {
     if (addDelay) {
       delay(addDelay);
     }
@@ -123,7 +117,10 @@ class FakeAuthService implements AuthService {
   /// Signs in with the email and verification code.
   @override
   Future<void> signInWithEmailAndVerificationCode(
-      String email, String verificationCode) {
+    String email,
+    String verificationCode,
+    String languageCode,
+  ) {
     if (addDelay) {
       delay(addDelay);
     }

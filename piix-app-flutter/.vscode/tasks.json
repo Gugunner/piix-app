@@ -71,12 +71,12 @@
         {
             "label": "Firebase import and export emulator",
             "type": "shell",
-            "command": "cd functions && firebase emulators:start --import=./.emulator --export-on-exit=./.emulator"
+            "command": "cd functions && firebase emulators:start --import=../seed_export --export-on-exit=../seed_export"
         },
         {
             "label": "Firebase import emulator",
             "type": "shell",
-            "command": "cd functions && firebase emulators:start --import=./.emulator"
+            "command": "cd functions && firebase emulators:start --import=../seed_import"
         }
     ]
 }
