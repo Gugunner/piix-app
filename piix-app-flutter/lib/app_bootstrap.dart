@@ -49,7 +49,8 @@ class AppBootstrap {
   ///Get the environment values from the environment variables
   Env? get environment {
     if (env == ENV.local.name) return LocalEnv();
-    if (env == ENV.dev.name) if (env == ENV.stage.name) return StageEnv();
+    if (env == ENV.dev.name) return DevEnv();
+    if (env == ENV.stage.name) return StageEnv();
     if (env == ENV.prod.name) return ProdEnv();
     return null;
   }
