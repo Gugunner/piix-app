@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:piix_mobile/src/constants/app_sizes.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/common_widgets/terms_and_privacy_check.dart';
 import 'package:piix_mobile/src/features/authentication/presentation/create_account_sign_in_page_controller.dart';
+import 'package:piix_mobile/src/features/authentication/presentation/send_verification_code_controller.dart';
 import 'package:piix_mobile/src/localization/string_hardcoded.dart';
 import 'package:piix_mobile/src/network/app_exception.dart';
 import 'package:piix_mobile/src/routing/app_router.dart';
@@ -49,7 +50,7 @@ class _SubmitEmailInputVerificationCodeState
     if (!_formKey.currentState!.validate()) return;
     final languageCode = Localizations.localeOf(context).languageCode;
     ref
-        .read(createAccountSignInControllerProvider.notifier)
+        .read(sendVerificationCodeControllerProvider.notifier)
         .sendVerificationCodeByEmail(
           _emailController.text,
           languageCode,

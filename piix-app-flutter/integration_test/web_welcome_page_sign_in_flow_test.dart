@@ -6,7 +6,7 @@ import '../test/src/robot.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  testWidgets('Web welcome page sign ina flow', (tester) async {
+  testWidgets('Web welcome page sign in flow', (tester) async {
     final robot = Robot(tester);
     await robot.pumpMyAppWithFakes(
       isWeb: true,
