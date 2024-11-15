@@ -51,7 +51,7 @@ export class CreateAccountWithEmailRobot {
         this._languageCode = languageCode;
     }
 
-    private get _templateName() { return `welcome_email_${this._languageCode}` };
+    private get _templateName() { return `welcome_email_${this._languageCode}` }
 
     private get _expectedEmailBody() {
         return {
@@ -65,7 +65,7 @@ export class CreateAccountWithEmailRobot {
     //The default code data that will be returned by the code document
     private get _codeData(): any {
         return  jest.fn(() => ({ code: this._code }));
-    };
+    }
 
     //The code document that will be returned by the Firestore
     private _codeDoc(exists: boolean , data: jest.Mock): any {
@@ -103,7 +103,7 @@ export class CreateAccountWithEmailRobot {
                         expect(options).toStrictEqual({ merge: true });
                     }),
                 };
-            })
+            }),
         }
     }
 
@@ -209,7 +209,7 @@ export class CreateAccountWithEmailRobot {
             }
         };
         await myFunctions.createAccountAndCustomTokenWithEmailRequest(req as Request, (res as unknown) as express.Response);
-        expect(this._spyRequest).toHaveBeenCalledTimes(1);;
+        expect(this._spyRequest).toHaveBeenCalledTimes(1);
         expect(admin.auth).toHaveBeenCalledTimes(2);
         expect(admin.firestore).toHaveBeenCalledTimes(3);
     }

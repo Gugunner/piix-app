@@ -50,7 +50,7 @@ export class SendVerificationCodeRobot {
     }
 
     //A default template name for the email
-    private get _templateName() { return `verification_code_${this._languageCode}`};
+    private get _templateName() { return `verification_code_${this._languageCode}`}
 
     //The expected email body to be sent
     private get _expectedEmailBody() {
@@ -139,8 +139,9 @@ export class SendVerificationCodeRobot {
         //The firestore object
         const firestore = jest.fn(() => ({
             collection: jest.fn((collection: string) => {
-                if (collection === 'codes')
-                return this._codeDocRef(rejectSetCode);
+                if (collection === 'codes') {
+                    return this._codeDocRef(rejectSetCode);
+                }
                 if (collection === 'emails') return this._emailCollectionRef(rejectAddEmail);
                 if (collection === 'users') return this._userCollectionsQuery(userQueryIsEmpty, userExists);
                 return {};

@@ -17,7 +17,7 @@ export interface MockFirestore {
     rejectSetCode?: boolean,
     rejectAddEmail?: boolean,
     rejectSetMetadata?: boolean,
-};
+}
 
 /**
  * Helps mock the private functions that mock Firebase Auth
@@ -34,4 +34,4 @@ export interface MockFirebaseAuth {
     rejectInvalidToken?: boolean,
     rejectRevokeRefreshTokens?: boolean,
     rejectGetUser?: boolean,
-};
+}
