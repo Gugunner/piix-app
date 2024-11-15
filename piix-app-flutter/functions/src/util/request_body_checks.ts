@@ -6,7 +6,7 @@ import { AppException } from "../exception/app_exception";
  * @param body The body of the request
  * @throws AppException If the body is undefined
  */
-export function checkEmptyBody(body: any): void {
+export function checkEmptyBody(body: object): void {
     if (body === undefined) {
         throw new AppException({
             code: 'invalid-argument',
@@ -15,7 +15,7 @@ export function checkEmptyBody(body: any): void {
             prefix: 'piix-functions',
             statusCode: 400,
         });
-    };
+    }
 }
 
 /**
@@ -30,7 +30,7 @@ export function checkEmptyBody(body: any): void {
 export function checkBodyFields(body: any, fields: Array<string>, message?: string | undefined): void {
     fields.forEach((field) => {
         //Check if the body has the required field
-        if (!(body as Object).hasOwnProperty(field)) {
+        if (!(body as object).hasOwnProperty(field)) {
             var definedMessage = message;
             //If the message is not defined, create a default message
             if (definedMessage === undefined) {

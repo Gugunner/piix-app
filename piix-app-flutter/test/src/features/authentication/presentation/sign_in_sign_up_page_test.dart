@@ -350,7 +350,7 @@ void main() {
       ''', (tester) async {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
-            robot.auth.testEmail,
+            robot.auth.testSignUpEmail,
             robot.auth.locale.languageCode,
             VerificationType.login,
           )).thenAnswer((_) => Future.value());
@@ -362,7 +362,7 @@ void main() {
         isWeb: false,
         page: const SignInPage(),
       );
-      await robot.auth.expectSubmitEmailSuccess();
+      await robot.auth.expectSubmitEmailSuccess(robot.auth.testSignUpEmail);
     });
   });
 
@@ -435,7 +435,8 @@ void main() {
         page: const SignUpPage(),
       );
       await robot.auth.expectAcceptanceOfTermsAndPrivacyToBe(false);
-      await robot.auth.expectSubmitEmailButtonEnabledToBe(false);
+      await robot.auth.expectButtonByKeyToBeEnabled(false,
+          widgetKey: WidgetKeys.submitEmailButton);
     });
     testWidgets(
         '''WHEN the user has accepted the terms of service and privacy policy
@@ -449,7 +450,8 @@ void main() {
       );
       await robot.auth.tapTermsAndPrivacyCheckBox();
       await robot.auth.expectAcceptanceOfTermsAndPrivacyToBe(true);
-      await robot.auth.expectSubmitEmailButtonEnabledToBe(true);
+      await robot.auth.expectButtonByKeyToBeEnabled(true,
+          widgetKey: WidgetKeys.submitEmailButton);
     });
     testWidgets('''WHEN submitting an empty email
     IT will show an error text explaining that the email field cannot be empty
@@ -481,7 +483,7 @@ void main() {
     ''', (tester) async {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
-            robot.auth.testEmail,
+            robot.auth.testSignUpEmail,
             robot.auth.locale.languageCode,
             VerificationType.register,
           )).thenThrow(EmailAlreadyExistsException());
@@ -499,7 +501,7 @@ void main() {
     ''', (tester) async {
       final robot = Robot(tester);
       when(() => authService.sendVerificationCodeByEmail(
-            robot.auth.testEmail,
+            robot.auth.testSignUpEmail,
             robot.auth.locale.languageCode,
             VerificationType.register,
           )).thenThrow(UnknownErrorException(Exception('mock error')));
@@ -509,7 +511,7 @@ void main() {
         page: const SignUpPage(),
       );
       await robot.auth.tapTermsAndPrivacyCheckBox();
-      await robot.auth.expectEmailSubmitUnknowError();
+      await robot.auth.expectEmailSubmitUnknowError(robot.auth.testSignUpEmail);
     });
     testWidgets('''When submitting a valid email for register
     IT will show a circular progress indicator while loading''',
@@ -518,7 +520,7 @@ void main() {
       await tester.runAsync(() async {
         final robot = Robot(tester);
         when(() => authService.sendVerificationCodeByEmail(
-              robot.auth.testEmail,
+              robot.auth.testSignUpEmail,
               robot.auth.locale.languageCode,
               VerificationType.register,
               //* Add a delay to allow time for the loading to work

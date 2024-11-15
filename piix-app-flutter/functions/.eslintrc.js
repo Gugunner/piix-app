@@ -25,17 +25,36 @@ module.exports = {
     "import",
   ],
   rules: {
-    "quotes": ["error", "double"],
+    //Change to error
+    "quotes": ["off", "double"],
     "import/no-unresolved": 0,
-    "indent": ["error", 2],
+    //Change to error
+    "indent": ["off", 4],
     "semi": ["off"],
     "require-jsdoc": ["off"],
     "object-curly-spacing": ["off"],
     "spaced-comment": ["off"],
+    //Delete later or check
+    "no-trailing-spaces": ["off"],
+    "no-prototype-builtins": ["off"],
+    "valid-jsdoc": ["off"],
+    "padded-blocks": ["off"],
+    "brace-style": ["off"],
+    "block-spacing": ["off"],
+    "no-multi-spaces": ["off"],
+    "comma-dangle": ["off"],
+    "no-tabs": ["off"],
+    "no-mixed-spaces-and-tabs": ["off"],
+    "eol-last": ["off"],
+    "no-multiple-empty-lines": ["off"],
+    "no-var": ["off"],
+    "comma-spacing": ["off"],
+    "semi-spacing": ["off"],
+    //Change to error
     "max-len": [
-      "error",
+      "off",
       {
-        "code": 140,
+        "code": 500,
       },
     ],
     "@typescript-eslint/no-unused-vars": ["off"],

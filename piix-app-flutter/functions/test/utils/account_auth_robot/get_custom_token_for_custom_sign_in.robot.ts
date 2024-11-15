@@ -49,7 +49,7 @@ export class GetCustomTokenForCustomSignInRobot {
     //The default code data that will be returned by the code document
     private get _codeData(): jest.Mock {
         return  jest.fn(() => ({ code: this._code }));
-    };
+    }
 
     //The code document that will be returned by the firestore
     private _codeDoc(exists: boolean , data: any): any {
