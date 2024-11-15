@@ -47,7 +47,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCVqY8CtoWpblAF5ixK9YqqdRSEC_UaMF4',
+    apiKey: '',
     appId: '1:22947427370:web:d81c830ae55e31ac637f53',
     messagingSenderId: '22947427370',
     projectId: 'piix-prod-env-02282024prd',
@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAYIc7JItAdZJNJYRtJaR2i7LHC6STBNmM',
+    apiKey: '',
     appId: '1:22947427370:android:b27764c64a2aa9af637f53',
     messagingSenderId: '22947427370',
     projectId: 'piix-prod-env-02282024prd',
@@ -65,7 +65,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyANwB28i7_vzE1Q6UIe74A9R582UK1dY1I',
+    apiKey: '',
     appId: '1:22947427370:ios:286a6a36fbfa9d4c637f53',
     messagingSenderId: '22947427370',
     projectId: 'piix-prod-env-02282024prd',
