@@ -48,5 +48,4 @@ export class AccountAuthRobot {
             uid: uid,
         })
     }
-    
 }
